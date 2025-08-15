@@ -1,11 +1,10 @@
 <div class="profile-page">
-
   <!-- Header perfil -->
   <section class="profile-header">
     <div class="profile-info">
-      <img class="avatar" src="assets/logo/light-theme/1.png" alt="Avatar usuario">
       <div>
-        <h2>Chicle</h2>
+        <img src="assets/logo/images/logoBonito.jpg" alt="Perfil" class="profile-avatar" />
+        <h2>Café Bonito</h2>
         <p class="type">Establecimiento</p>
         <div class="social">
           <span>Seguidores <strong>3000</strong></span>
@@ -20,57 +19,18 @@
     <div class="map">
       <iframe 
         src="https://www.google.com/maps/embed?pb=!1m18..."
-        width="200" height="150" style="border:0;" allowfullscreen="">
+        width="200" height="150" style="border:0;" allowfullscreen="" >
       </iframe>
     </div>
   </section>
-
-  <!-- Contenido digital -->
-  <section class="digital-content">
-    <h3>CONTENIDO DIGITAL</h3>
-    <div class="carousel">
-      <img src="assets/img/contenido1.jpg" alt="">
-      <img src="assets/img/contenido2.jpg" alt="">
-      <img src="assets/img/contenido3.jpg" alt="">
-    </div>
-  </section>
-
-  <!-- Eventos -->
-  <section class="events">
-    <h3>EVENTOS</h3>
-    <div class="event-cards">
-      <div class="card" *ngFor="let event of events">
-        <img [src]="event.image" alt="">
-        <div class="card-info">
-          <h4>{{ event.title }}</h4>
-          <p>{{ event.date }}</p>
-          <p>{{ event.location }}</p>
-          <button>Leer más</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Calendario -->
-  <section class="calendar">
-    <h3>Calendario</h3>
-    <!-- Aquí podrías integrar una librería de calendario como Angular Calendar -->
-    <img src="assets/img/calendar.png" alt="Calendario">
-  </section>
-
-  <!-- Comentarios -->
-  <section class="comments">
-    <h3>COMENTARIOS</h3>
-    <div class="comment-form">
-      <textarea placeholder="Escribe tu comentario..."></textarea>
-      <button>Enviar</button>
-    </div>
-    <div class="comment-list">
-      <div class="comment" *ngFor="let comment of comments">
-        <p>{{ comment.text }}</p>
-      </div>
-    </div>
-  </section>
-
+  <h3 class="titulo-carousel">Contenido Digital</h3>
+  <div class="profile-carousel">
+    <app-carousel></app-carousel>
+  </div>
+  <h3 class="titulo-carousel">Eventos</h3>
+  <div class="profile-carousel">
+    <app-carousel></app-carousel>
+  </div>
+  
 </div>
 

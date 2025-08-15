@@ -1,0 +1,12 @@
+.carousel-images-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.carousel-images-row img {
+  width: 250px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}

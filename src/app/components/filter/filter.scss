@@ -1,0 +1,35 @@
+.btn {
+  color: #483186;
+  background-color: #483186;
+  transition: background-color 0.2s;
+  border-color: #483186;
+  color: #fbeffc;
+
+  &:hover {
+    background-color: #c567ff;
+    color: #fbeffc; 
+  }
+}
+
+.dropdown-menu {
+  background-color: #483186;
+  
+  .dropdown-item {
+    color: #fbeffc;
+
+    &:hover {
+      background-color: #c567ff;
+      color: #fbeffc;
+    }
+  }
+
+.tipoUser {
+    color: #fbeffc;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 1px solid #c567ff;
+    margin-bottom: 8px;
+  }
+
+}

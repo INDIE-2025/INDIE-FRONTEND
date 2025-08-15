@@ -1,86 +1,31 @@
-.header {
-  background-color: #483186;
-  height: 110px; // altura razonable para que el logo se vea bien
-  display: flex;
-  align-items: center;
-  padding: 0 1.5rem;
-
-  .header__container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    width: 100%;
-    padding: 0.5rem 0; // padding vertical solo aquí, no en logo
-  }
-
-  .header__logo {
-    display: flex;
-    align-items: center;
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 0.5rem; // padding horizontal para separar del menú, opcional
-    padding-right: 0; 
-
-    img {
-      height: 190px; // tamaño visible del logo
-      width: auto;
-      max-width: 100%;
-      object-fit: contain;
-      /* sin padding vertical que estire el contenedor */
-    }
-  }
-
-  .header__nav ul {
-    display: flex;
-    gap: 1.5rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .header__nav a {
-    text-decoration: none;
-    color: #fbeffc;
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 1;
-    transition: color 0.3s ease;
-
-    &:hover {
-      color: #007acc;
-    }
-  }
-
-  // Responsive
-  @media (max-width: 768px) {
-    height: auto;
-    padding: 1rem;
-
-    .header__container {
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      padding: 0;
-    }
-
-    .header__logo {
-      padding: 0;
-      margin-bottom: 0.5rem;
-
-      img {
-        height: 70px;
-      }
-    }
-
-    .header__nav ul {
-      flex-direction: column;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .header__nav a {
-      font-size: 1rem;
-    }
-  }
+.navbar {
+  background-color: #1e1624;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: 'Poppins', Arial, sans-serif;
 }
+
+.btn {
+  color: #483186;
+  background-color: #483186;
+  transition: background-color 0.2s;
+  border-color: #483186;
+  color: #fbeffc;
+
+  &:hover {
+    background-color: #c567ff;
+    color: #fbeffc; 
+  }
+
+.nav-link {
+  color: #fbeffc;
+  &:hover {
+    color: #c567ff;
+  } 
+}
+}
+
+form.d-flex {
+  gap: 20px;
+}
+
