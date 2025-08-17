@@ -3,8 +3,10 @@
   <section class="profile-header">
     <div class="profile-info">
       <div>
-        <img src="assets/logo/images/logoBonito.jpg" alt="Perfil" class="profile-avatar" />
-        <h2>Café Bonito</h2>
+        <div class="profile-avatar-name">
+          <img src="assets/logo/images/logoBonito.jpg" alt="Perfil" class="profile-avatar" />
+          <h2>Café Bonito</h2>
+        </div>
         <p class="type">Establecimiento</p>
         <div class="social">
           <span>Seguidores <strong>3000</strong></span>
@@ -28,9 +30,15 @@
     <app-carousel></app-carousel>
   </div>
   <h3 class="titulo-carousel">Eventos</h3>
-  <div class="profile-carousel">
-    <app-carousel></app-carousel>
+  <div class="profile-carousel"> 
   </div>
-  
+    <h3 class="titulo-carousel">Calendario</h3>
+    <div class="profile-calendar">
+      <app-calendar></app-calendar>
+    </div>
+    <h3 class="titulo-carousel">Comentarios</h3>
+    <div class="profile-comments">
+      <app-comments></app-comments>
+    </div>
 </div>
 

@@ -3,9 +3,9 @@
     flex-direction: column;
     background-color: #1e1624;
     border-radius: 8px;
-    border-color: #fbeffc;
+    border: none;
     color: #fbeffc;
-    background: linear-gradient(140deg, #1e1624, #1e1624);
+    background: linear-gradient(80deg, #1e1624, #1e1624);
     
 }
 
@@ -22,17 +22,16 @@
 }
 
 .btn {
-    display: flex;
-    align-items: center;
     justify-content: center;
     width: 100%;
     background-color: #483186;
-    border: none;
+    transition: background-color 0.2s;
+    border-color: #483186;
     color: #fbeffc;
-
+  
     &:hover {
       background-color: #c567ff;
-      color: #fbeffc;
+      color: #fbeffc; 
     }
 }
 
@@ -44,7 +43,7 @@
 }
 
 .card-title {
-    font: 'Poppins', Arial, sans-serif, bold;
+    font-family: 'Poppins', Arial, sans-serif, bold;
     font-weight: 500;
     color: #fbeffc;
 }

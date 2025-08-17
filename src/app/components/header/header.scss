@@ -16,16 +16,18 @@
     background-color: #c567ff;
     color: #fbeffc; 
   }
-
-.nav-link {
-  color: #fbeffc;
-  &:hover {
-    color: #c567ff;
-  } 
-}
 }
 
 form.d-flex {
   gap: 20px;
 }
 
+.nav-link {
+  color: #fbeffc;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #c567ff;
+  text-decoration: underline; // Opcional
+}
