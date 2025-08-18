@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Carousel } from "../../components/carousel/carousel";
 import { Calendar } from "../../components/calendar/calendar";
-import { Comments } from "../../components/comments/comments";
+import { Galleria } from "../../components/galleria/galleria";
+
 
 @Component({
   selector: 'app-profile',
-  imports: [Carousel, Calendar, Comments],
+  imports: [Carousel, Calendar, Galleria],
   templateUrl: './profile.html',
   styleUrl: './profile.scss'
 })
