@@ -23,5 +23,9 @@
     }
   }
 
+  a.active {
+    background-color: darken(#483186, 10%);
+    color: #fbeffc;
+  }
 
 }
