@@ -1,28 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-export interface Comment {
-  id: number;
-  text: string;
-  createdAt: string;
+export interface ComentarioDTO {
+  comentario: string;
+  usuarioComentador: string;
+  usuarioComentado: string;
+  fecha: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentsService {
-  private apiUrl = 'http://localhost:8080/api/comments'; 
+  private apiUrl = 'http://localhost:8080/api/comentario'; 
 
   constructor(private http: HttpClient) {}
 
   // Obtener comentarios de un perfil específico
-  getCommentsByProfile(profileId: number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(`${this.apiUrl}/profile/${profileId}`);
-  }
+  traerComentariosDeUnUsuario(idUsuarioComentado: string): Observable<ComentarioDTO[]> {
+  const url = `${this.apiUrl}/comentarios/${idUsuarioComentado}`;
+  return this.http.get<ComentarioDTO[]>(url);
+}
 
   // Agregar un nuevo comentario
-  addComment(profileId: number, text: string): Observable<Comment> {
-    return this.http.post<Comment>(`${this.apiUrl}/profile/${profileId}`, { text });
+  realizarComentario(comentario: string, idUsuarioComentador: string, idUsuarioComentado: string): Observable<ComentarioDTO> {
+    const url = `${this.apiUrl}/realizarComentario?comentario=${encodeURIComponent(comentario)}&idUsuarioComentador=${idUsuarioComentador}&idUsuarioComentado=${idUsuarioComentado}`;
+    return this.http.post(url, {}).pipe(
+      map((response: any) => response.data)
+    );
   }
 }
