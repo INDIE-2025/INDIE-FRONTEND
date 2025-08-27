@@ -7,6 +7,7 @@ import { PopupService } from '../../services/popup.service';
 
 @Component({
   selector: 'app-publicar-evento',
+  standalone: true,
   imports: [ReactiveFormsModule, CommonModule, PopupMessageComponent],
   templateUrl: './publicar-evento.html',
   styleUrl: './publicar-evento.scss'
@@ -23,6 +24,7 @@ export class PublicarEvento {
     hora: new FormControl(''),
     fecha: new FormControl(''),
     direccion: new FormControl(''),
+    colaborador: new FormControl(''),
     descripcion: new FormControl(''),
   });
 
