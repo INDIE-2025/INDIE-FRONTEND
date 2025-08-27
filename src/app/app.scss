@@ -27,6 +27,7 @@ body, html {
 @media (max-width: 768px) {
   .app-container {
     min-height: 100vh;
+    background-color: #1e1624;
     min-height: 100dvh; // Use dynamic viewport height for mobile browsers
   }
 }
@@ -37,3 +38,5 @@ body, html {
     min-height: -webkit-fill-available;
   }
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');

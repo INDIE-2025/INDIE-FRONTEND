@@ -1,14 +1,42 @@
-<header class="header">
-  <div class="header__container">
-    <a class="header__logo" href="/">
-      <img src="assets/logo/light-theme/1.png" alt="Indie Logo" />
-    </a>
-    <nav class="header__nav">
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
+
+<nav class="navbar navbar-expand-lg" margin-top="0" style="background-color: #1e1624; color: white;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><img src="assets/logo/light-theme/1.png" width="130" alt="indie-light"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="discover">Descubrir</a>
+        </li>
       </ul>
-    </nav>
+      <form class="d-flex" role="search">
+        <app-filter></app-filter>
+        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"/>
+        <button class="btn" type="submit"><i class="bi bi-search"></i></button>
+        <button class="btn btn-primary position-relative">
+          <i class="bi bi-bell">
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill">
+            99+
+            <span class="visually-hidden">unread messages</span>
+          </span>
+          </i>
+        </button>
+        <app-dropdown></app-dropdown>
+        <button class="btn btn-primary position-relative">
+          <i class="bi bi-chat">
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill">
+            99+
+            <span class="visually-hidden">unread messages</span>
+          </span>
+          </i>
+        </button>
+      </form>
+    </div>
   </div>
-</header>
+</nav>
+

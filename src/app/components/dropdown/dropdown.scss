@@ -1,0 +1,31 @@
+.btn {
+  color: #483186;
+  background-color: #483186;
+  transition: background-color 0.2s;
+  border-color: #483186;
+  color: #fbeffc;
+
+  &:hover {
+    background-color: #c567ff;
+    color: #fbeffc; 
+  }
+}
+
+.dropdown-menu {
+  background-color: #483186;
+  
+  .dropdown-item {
+    color: #fbeffc;
+
+    &:hover {
+      background-color: #c567ff;
+      color: #fbeffc;
+    }
+  }
+
+  a.active {
+    background-color: darken(#483186, 10%);
+    color: #fbeffc;
+  }
+
+}

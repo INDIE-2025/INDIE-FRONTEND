@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 
+import { ProfileComponent } from './pages/profile/profile';
+import {Home} from './pages/home/home';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },

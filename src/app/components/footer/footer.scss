@@ -1,0 +1,30 @@
+.footer {
+    background-color: #1e1624;
+    color: #fbeffc;
+    align-items: center;
+    font-size: 14px;
+    font-family: 'Poppins', Arial, sans-serif;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    gap: 300px;
+    justify-content: center;
+}
+
+.footer a {
+    color: #fbeffc;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.logo {
+    width: 200px;
+    word-wrap: break-word;
+}
+
+.explorar {
+    padding-top: 20px;
+}
+
+.informacion {
+    padding-top: 20px;
+}
