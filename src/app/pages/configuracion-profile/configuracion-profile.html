@@ -1,0 +1,19 @@
+<div class="dashboard-container">
+  <!-- Sidebar fija -->
+  <aside class="sidebar">
+    <h2 class="logo">Configuración</h2>
+    <nav>
+      <ul>
+        <li><a routerLink="./datos-personales" routerLinkActive="active">Datos Personales</a></li>
+        <li><a routerLink="#" routerLinkActive="active">Usuarios seguidos</a></li>
+        <li><a routerLink="#" routerLinkActive="active">Notificaciones</a></li>
+        <li><a routerLink="./reportes" routerLinkActive="active">Reportes</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Área principal -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
