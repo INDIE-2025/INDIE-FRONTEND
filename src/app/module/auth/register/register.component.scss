@@ -1,0 +1,485 @@
+.register-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw; // Cambiar de 100% a 100vw para ocupar toda la ventana
+  position: fixed; // Agregar position fixed
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #6c5ce7 0%, #a855f7 50%, #8b5cf6 100%);
+}
+
+.left-panel {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.brand {
+  margin-bottom: 2rem;
+  
+  .brand-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin: 0 0 1rem 0;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .brand-subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    opacity: 0.9;
+    line-height: 1.4;
+    margin: 0;
+  }
+}
+
+.testimonial {
+  .testimonial-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  .testimonial-text {
+    p {
+      font-size: 1rem;
+      font-weight: 500;
+      margin: 0 0 0.5rem 0;
+      line-height: 1.4;
+    }
+    
+    .author {
+      font-size: 0.875rem;
+      opacity: 0.8;
+      font-weight: 400;
+    }
+  }
+}
+
+.right-panel {
+  flex: 1;
+  background: #1a1a1a;
+  padding: 2rem;
+  max-width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-form {
+  width: 100%;
+  max-width: 600px;
+  color: white;
+}
+
+.form-header {
+  margin-bottom: 2rem;
+  text-align: left;
+  
+  h2 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    color: white;
+  }
+  
+  p {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    margin: 0;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  width: 100%;
+  
+  label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #e5e7eb;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.form-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #2d2d2d;
+  border: 1px solid #404040;
+  border-radius: 8px;
+  padding: 0 12px;
+  transition: all 0.3s ease;
+  height: 48px; // Altura fija para todos los inputs
+
+  &:focus-within {
+    border-color: #a855f7;
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    color: #9ca3af;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    
+  }
+}
+
+.custom-placeholder {
+  color: #828282 !important; // Color cuando no hay texto
+
+  &:not(:placeholder-shown) {
+    color: white !important; // Color cuando hay texto ingresado
+  }
+}
+
+.form-input,
+.form-select {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 12px 0;
+  font-size: 1rem;
+  color: white;
+  outline: none;
+  height: 100%;
+
+
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.form-select {
+  cursor: pointer;
+  
+  option {
+    background: #2d2d2d;
+    color: white;
+  }
+}
+
+.toggle-password {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+
+  &:hover {
+    color: #e5e7eb;
+  }
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.checkbox-group {
+  margin: 2rem 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #d1d5db;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: #a855f7;
+}
+
+.checkmark {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #6b7280;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 48px;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.form-footer {
+  text-align: center;
+  
+  p {
+    margin: 0.5rem 0;
+    font-size: 0.875rem;
+    color: #9ca3af;
+  }
+  
+  .help-text {
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+}
+
+.link {
+  color: #a855f7;
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+    color: #8b5cf6;
+  }
+}
+
+// Estilos para Angular Material
+.full-width {
+  width: 100%;
+}
+
+::ng-deep .mat-mdc-form-field {
+  width: 100%;
+  
+  .mat-mdc-text-field-wrapper {
+    background-color: #2d2d2d;
+    border-radius: 8px;
+  }
+  
+  .mdc-text-field--outlined .mdc-notched-outline__leading,
+  .mdc-text-field--outlined .mdc-notched-outline__notch,
+  .mdc-text-field--outlined .mdc-notched-outline__trailing {
+    border-color: #404040;
+  }
+  
+  .mdc-text-field--focused .mdc-notched-outline__leading,
+  .mdc-text-field--focused .mdc-notched-outline__notch,
+  .mdc-text-field--focused .mdc-notched-outline__trailing {
+    border-color: #a855f7;
+  }
+  
+  .mat-mdc-input-element {
+    color: white;
+  }
+  
+  .mat-mdc-form-field-label {
+    color: #9ca3af;
+  }
+  
+  .mat-mdc-form-field-label.mdc-floating-label--float-above {
+    color: #a855f7;
+  }
+  
+  .mat-mdc-select-value {
+    color: white;
+  }
+  
+  .mat-mdc-select-placeholder {
+    color: #3d3d3d !important;
+  }
+}
+
+// Estilos para la flecha del select
+::ng-deep .mat-mdc-form-field {
+  .mat-mdc-select {
+    .mat-mdc-select-arrow-wrapper {
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+      flex-shrink: 0;
+      
+      .mat-mdc-select-arrow {
+        color: #9ca3af;
+      }
+    }
+  }
+  
+  .mat-mdc-text-field-wrapper .mdc-text-field__input {
+    padding-right: 40px;
+  }
+}
+
+::ng-deep .mat-mdc-form-field.mat-focused .mat-mdc-select-arrow {
+  color: #a855f7;
+}
+
+::ng-deep .mat-mdc-select-panel {
+  background-color: #2d2d2d !important; // Fondo sólido en lugar de transparente
+  border: 1px solid #404040;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8); // Sombra más pronunciada
+  backdrop-filter: none; // Quitar el blur/transparencia
+  
+  .mat-mdc-option {
+    background-color: #2d2d2d !important; // Fondo sólido para cada opción
+    color: white !important;
+    padding: 12px 16px;
+    
+    &:hover {
+      background-color: #404040 !important; // Color sólido al hacer hover
+    }
+    
+    &.mdc-list-item--selected {
+      background-color: #a855f7 !important; // Color sólido para la opción seleccionada
+      color: white !important;
+    }
+    
+    &.mat-mdc-option-active {
+      background-color: #8b5cf6 !important; // Color sólido para la opción activa
+    }
+  }
+  
+  // Asegurar que no haya transparencia en el contenedor
+  .mdc-list {
+    background-color: #2d2d2d !important;
+  }
+}
+
+// También para el overlay que aparece detrás
+::ng-deep .cdk-overlay-pane {
+  .mat-mdc-select-panel {
+    background-color: #2d2d2d !important;
+    opacity: 1 !important;
+  }
+}
+
+// Responsividad para pantallas pequeñas
+@media (max-width: 768px) {
+  .register-container {
+    flex-direction: column;
+  }
+  
+  .left-panel {
+    min-height: 40vh;
+  }
+  
+  .right-panel {
+    padding: 2rem 1rem;
+  }
+  
+  .register-form {
+    max-width: none;
+  }
+  
+  .form-columns {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .brand-title {
+    font-size: 2.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .right-panel {
+    padding: 1.5rem 1rem;
+  }
+  
+  .brand-title {
+    font-size: 2rem !important;
+  }
+}
