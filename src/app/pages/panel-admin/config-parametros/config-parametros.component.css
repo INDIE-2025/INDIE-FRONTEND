@@ -1,0 +1,205 @@
+.config-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.config-section {
+  background: #2a2d47;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #3a3d5c;
+  padding-bottom: 12px;
+}
+
+.subsection-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #c084fc;
+  margin-bottom: 16px;
+}
+
+/* Tabla de permisos */
+.permissions-table {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.table-header {
+  display: contents;
+  font-weight: 600;
+  color: #8b8fa3;
+  font-size: 14px;
+}
+
+.table-row {
+  display: contents;
+}
+
+.permission-name {
+  color: #ffffff;
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+.role-column {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+/* Configuración de eventos */
+.events-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.event-config {
+  background: #1e1f2e;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.config-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 8px 0;
+}
+
+.config-item label {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.number-input {
+  width: 80px;
+  padding: 6px 8px;
+  background: #2a2d47;
+  border: 1px solid #3a3d5c;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 14px;
+  text-align: center;
+}
+
+.number-input:focus {
+  outline: none;
+  border-color: #c084fc;
+}
+
+/* Tabla de notificaciones */
+.notifications-table {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.notification-name {
+  color: #ffffff;
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+.notification-column {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+/* Configuración de recomendaciones */
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.recommendation-group {
+  background: #1e1f2e;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+/* Configuración de reportes */
+.reports-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.report-group {
+  background: #1e1f2e;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+/* Sección de guardar */
+.save-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  padding: 24px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .permissions-table {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .table-header {
+    display: none;
+  }
+  
+  .table-row {
+    display: block;
+    background: #1e1f2e;
+    padding: 16px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  
+  .permission-name {
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  
+  .role-column {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .role-column::before {
+    content: attr(data-label);
+    color: #8b8fa3;
+    font-size: 12px;
+  }
+  
+  .events-grid,
+  .recommendations-grid,
+  .reports-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .notifications-table {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+

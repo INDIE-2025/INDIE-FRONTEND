@@ -1,0 +1,88 @@
+.admin-layout {
+  background: #1E1624;
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+.admin-header {
+  background: #261C38;
+  padding: 16px 24px;
+  border-bottom: 1px solid #3a3d5c;
+}
+
+.admin-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.admin-title i {
+  color: #C567FF;
+  font-size: 20px;
+}
+
+.admin-tabs {
+  background: #261C38;
+  padding: 0 24px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+}
+
+.tab-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  color: #8b8fa3;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+  min-width: fit-content;
+}
+
+.tab-item:hover {
+  color: #ffffff;
+  background: rgba(192, 132, 252, 0.1);
+}
+
+.tab-item.active {
+  color: #C567FF;
+  border-bottom-color: #C567FF;
+  background: rgba(192, 132, 252, 0.1);
+}
+
+.tab-item i {
+  font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-tabs {
+    padding: 0 16px;
+  }
+  
+  .tab-item {
+    padding: 12px;
+    font-size: 13px;
+  }
+  
+  .tab-item span {
+    display: none;
+  }
+  
+  .admin-content {
+    padding: 16px;
+  }
+  
+  .admin-header {
+    padding: 16px;
+  }
+}
+

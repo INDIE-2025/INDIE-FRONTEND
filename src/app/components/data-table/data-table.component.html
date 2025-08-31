@@ -1,0 +1,89 @@
+<!-- Filtros y búsqueda -->
+<div class="table-filters" *ngIf="showFilters">
+<div class="search-container">
+    <input 
+    type="text" 
+    [(ngModel)]="searchTerm" 
+    (input)="onSearch()"
+    [placeholder]="searchPlaceholder"
+    class="search-input">
+</div>
+<div class="filter-container" *ngIf="filters.length > 0">
+    <select 
+    *ngFor="let filter of filters" 
+    [(ngModel)]="filter.value"
+    (change)="onFilter()"
+    class="filter-select">
+    <option value="">{{filter.placeholder}}</option>
+    <option *ngFor="let option of filter.options" [value]="option.value">
+        {{option.label}}
+    </option>
+    </select>
+</div>
+<button 
+    *ngIf="showAddButton" 
+    (click)="onAdd()"
+    class="add-button">
+    {{addButtonText}}
+</button>
+</div>
+
+<!-- Tabla -->
+<table class="data-table">
+<thead>
+    <tr>
+    <th *ngFor="let column of columns" 
+        [class.sortable]="column.sortable"
+        (click)="onSort(column)">
+        {{column.label}}
+        <span *ngIf="column.sortable && sortColumn === column.key" 
+            class="sort-indicator">
+        {{sortDirection === 'asc' ? '↑' : '↓'}}
+        </span>
+    </th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let item of paginatedData">
+    <td *ngFor="let column of columns">
+        <ng-container [ngSwitch]="column.type">
+        <!-- Badge -->
+        <span *ngSwitchCase="'badge'" 
+                [class]="getBadgeClass(item[column.key])"
+                class="status-badge">
+            {{item[column.key]}}
+        </span>
+        <!-- Actions -->
+        <div *ngSwitchCase="'actions'" class="actions-container">
+            <button *ngFor="let action of actions"
+                    (click)="onAction(action.action, item)"
+                    [class]="action.class || 'action-button'"
+                    [title]="action.label">
+            <i [class]="action.icon"></i>
+            </button>
+        </div>
+        <!-- Text -->
+        <span *ngSwitchDefault>{{item[column.key]}}</span>
+        </ng-container>
+    </td>
+    </tr>
+</tbody>
+</table>
+
+<!-- Paginación -->
+<div class="pagination" *ngIf="showPagination">
+<button 
+    *ngFor="let page of getPages()" 
+    (click)="goToPage(page)"
+    [class.active]="page === currentPage"
+    [disabled]="page === '...'"
+    class="page-button">
+    {{page}}
+</button>
+<button 
+    (click)="nextPage()"
+    [disabled]="currentPage >= totalPages"
+    class="nav-button">
+    →
+</button>
+</div>
