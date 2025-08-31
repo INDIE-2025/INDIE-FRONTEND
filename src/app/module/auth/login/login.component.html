@@ -1,0 +1,69 @@
+<div class="login-container">
+  <div class="left-panel">
+    <div class="brand">
+      <h1 class="brand-title">INDIE</h1>
+      <p class="brand-subtitle">La plataforma definitiva para descubrir la mejor escena independiente</p>
+    </div>
+    
+    <div class="testimonial">
+      <div class="testimonial-content">
+        <div class="avatar">
+          <img src="assets/avatar-placeholder.svg" alt="Carlos Rodríguez" />
+        </div>
+        <div class="testimonial-text">
+          <p>"La mejor plataforma para artistas"</p>
+          <span class="author">Carlos Rodríguez - Músico Indie</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-header">
+        <h2>Bienvenido de vuelta</h2>
+        <p>Ingresa tus datos para continuar</p>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <mat-icon matPrefix class="icon">email</mat-icon>
+          <input matInput type="email" formControlName="emailUsuario" placeholder="tu@email.com" class="custom-placeholder">
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <mat-icon matPrefix class="icon">lock</mat-icon>
+          <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="••••••••" class="custom-placeholder">
+          <button mat-icon-button matSuffix type="button" (click)="togglePassword()" aria-label="Toggle password visibility">
+            <mat-icon>{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <div class="form-options">
+        <mat-checkbox formControlName="rememberMe" class="checkbox-label">
+          Recordarme
+        </mat-checkbox>
+        <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <button 
+        type="submit" 
+        [disabled]="!loginForm.valid" 
+        class="submit-btn"
+        mat-raised-button
+        color="primary"
+      >
+        Ingresar
+      </button>
+
+      <div class="form-footer">
+        <p>¿No tienes una cuenta? <a routerLink="/register" class="link">Regístrate</a></p>
+      </div>
+    </form>
+  </div>
+</div>

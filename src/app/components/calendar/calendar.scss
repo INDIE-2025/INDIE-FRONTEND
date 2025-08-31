@@ -1,0 +1,131 @@
+/* Cambiar tipografía general */
+::ng-deep .fc {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Título de la barra */
+::ng-deep .fc-toolbar-title {
+  color: #fbeffc;
+  font-size: 0%;
+  font-weight: normal;
+}
+
+::ng-deep .fc .fc-col-header-cell-cushion {
+  color: #fbeffc !important; 
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none; 
+}
+
+::ng-deep .fc .fc-daygrid-day-number {
+  color: #fbeffc; /* gris oscuro */
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 4px;
+}
+
+
+::ng-deep .fc-day-today {
+  background-color: #483186 !important;
+  color: #fbeffc !important;
+  border: 2px solid #fbeffc !important;
+}
+
+::ng-deep .fc .fc-daygrid-day:hover {
+  background-color: #c567ff;
+  cursor: pointer;
+}
+
+/* Eventos normales */
+::ng-deep .evento-normal {
+  background-color: #483186 !important;
+  border: none !important;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+/* Eventos importantes */
+::ng-deep .evento-importante {
+  background-color: #483186 !important;
+  border: none !important;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+
+::ng-deep .fc .fc-button {
+  background-color: #483186; 
+  border: none;
+  color: #fbeffc;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 6px 12px;
+  transition: 0.2s ease-in-out;
+}
+
+
+::ng-deep .fc .fc-button:hover {
+  background-color: #c567ff; 
+}
+
+
+::ng-deep .fc .fc-button-active {
+  background-color: #c567ff !important; 
+  color: #fbeffc !important;
+  border: none !important;
+}
+
+
+::ng-deep .fc .fc-today-button {
+  background-color: #483186 !important; 
+  color: #fbeffc !important;
+}
+
+::ng-deep .fc .fc-today-button:hover {
+  background-color: #c567ff !important; 
+}
+
+
+::ng-deep .fc .fc-prev-button,
+::ng-deep .fc .fc-next-button {
+  background-color: #483186 !important; 
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+::ng-deep .fc .fc-prev-button,
+::ng-deep .fc .fc-next-button:hover {
+  background-color: #c567ff !important; 
+}
+
+
+::ng-deep .fc .fc-prev-button .fc-icon,
+::ng-deep .fc .fc-next-button .fc-icon {
+  font-size: 14px;
+  color: #fbeffc;
+}
+
+::ng-deep .fc .fc-event-title,
+::ng-deep .fc .fc-event-time {
+  color: #fbeffc !important;  /* 👈 color de letra */
+  font-weight: 600;
+}
+
+::ng-deep .fc .fc-daygrid-event-dot {
+  border-color: #c567ff !important;
+  background-color: #c567ff !important;
+}
+
+::ng-deep .fc .fc-h-event {
+  background-color: #483186 !important; /* quita el azul */
+  border: 1px solid #483186 !important; /* borde violeta */
+}
+
+::ng-deep .fc .fc-h-event .fc-event-main {
+  color: #fbeffc !important;
+  font-weight: 600;
+}

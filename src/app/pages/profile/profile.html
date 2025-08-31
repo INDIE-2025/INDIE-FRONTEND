@@ -1,0 +1,47 @@
+<app-popup-message [message]="popupMessage" [visible]="popupVisible"></app-popup-message>
+<div class="profile-page">
+  <!-- Header perfil -->
+  <section class="profile-header">
+    <div class="profile-info">
+      <div>
+        <div class="profile-avatar-name">
+          <img src="assets/logo/images/logoBonito.jpg" alt="Perfil" class="profile-avatar" />
+          <h2>Café Bonito</h2>
+        </div>
+        <p class="type">Establecimiento</p>
+        <div class="social">
+          <span>Seguidores <strong>3000</strong></span>
+          <span>Seguidos <strong>2000</strong></span>
+        </div>
+        <div class="links">
+          <a href="#"><img src="assets/icons/youtube.svg" alt="YouTube"></a>
+          <a href="#"><img src="assets/icons/instagram.svg" alt="Instagram"></a>
+        </div>
+      </div>
+    </div>
+    <div class="map">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18..."
+        width="200" height="150" style="border:0;" allowfullscreen="" >
+      </iframe>
+    </div>
+  </section>
+  
+  <div class="profile-carousel">
+    <h3 class="titulo-carousel">Próximos Eventos</h3>
+    <app-carousel></app-carousel>
+  </div>
+  <div class="profile-carousel" style="height: 300px;">
+    <h3 class="titulo-carousel">Contenido Digital</h3>
+    <app-galleria></app-galleria> 
+  </div>
+    <div class="profile-calendar" style="height: 1000px;">
+      <h3 class="titulo-carousel">Calendario</h3>
+      <app-calendar></app-calendar>
+    </div>
+    <div class="profile-comments">
+      <h3 class="titulo-carousel">Comentarios</h3>
+      <!-- <app-comments></app-comments> -->
+    </div>
+</div>
+

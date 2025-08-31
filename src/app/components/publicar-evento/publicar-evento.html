@@ -1,0 +1,54 @@
+<app-popup-message [message]="popupMessage" [visible]="popupVisible"></app-popup-message>
+<div class="modal-container">
+  <header class="modal-header">
+    <h2>Publicar Evento</h2>
+    <div class="header-actions">
+      <select class="custom-select">
+        <option>Borradores</option>
+      </select>
+      <button class="btn-secondary">+ Agregar imagen</button>
+    </div>
+  </header>
+
+  <form [formGroup]="applyForm" (ngSubmit)="submitApplication()" class="modal-body">
+    <div class="form-grid">
+      <div>
+        <label for="nombreEvento">Nombre del Evento</label>
+        <input id="nombreEvento" formControlName="nombreEvento" placeholder="Ingrese el nombre del evento" />
+      </div>
+
+      <div>
+        <label for="hora">Hora del Evento</label>
+        <input id="hora" type="time" formControlName="hora" />
+      </div>
+
+      <div>
+        <label for="fecha">Fecha del Evento</label>
+        <input id="fecha" type="date" formControlName="fecha" />
+      </div>
+
+      <div>
+        <label for="direccion">Dirección del Evento</label>
+        <input id="direccion" formControlName="direccion" placeholder="Ingrese la dirección del evento" />
+      </div>
+
+      <div>
+        <label for="colaborador">Invitar un usuario a colaborar</label>
+        <input id="colaborador" formControlName="colaborador" placeholder="Ingrese el nombre del colaborador" />
+      </div>
+
+      <div class="col-span-2">
+        <label for="descripcion">Descripción del Evento</label>
+        <textarea id="descripcion" formControlName="descripcion" [maxLength]="300" placeholder="Este evento será..."></textarea>
+      </div>
+    </div>
+
+    <footer class="modal-footer">
+      <button type="button" class="btn-dark">Guardar borrador</button>
+      <div class="footer-actions">
+        <button type="button" class="btn-secondary" (click)="closeModal()">Cancelar</button>
+        <button type="submit" class="btn-primary">Publicar</button>
+      </div>
+    </footer>
+  </form>
+</div>
