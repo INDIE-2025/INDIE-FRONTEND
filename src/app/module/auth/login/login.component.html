@@ -29,7 +29,11 @@
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Email</mat-label>
           <mat-icon matPrefix class="icon">email</mat-icon>
-          <input matInput type="email" formControlName="emailUsuario" placeholder="tu@email.com" class="custom-placeholder">
+          <input matInput 
+                 type="email" 
+                 formControlName="emailUsuario" 
+                 placeholder="Ingresa tu email"
+                 autocomplete="email">
         </mat-form-field>
       </div>
 
@@ -37,8 +41,16 @@
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Contraseña</mat-label>
           <mat-icon matPrefix class="icon">lock</mat-icon>
-          <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="••••••••" class="custom-placeholder">
-          <button mat-icon-button matSuffix type="button" (click)="togglePassword()" aria-label="Toggle password visibility">
+          <input matInput 
+                 [type]="showPassword ? 'text' : 'password'" 
+                 formControlName="password" 
+                 placeholder="Ingresa tu contraseña"
+                 autocomplete="current-password">
+          <button mat-icon-button 
+                  matSuffix 
+                  type="button" 
+                  (click)="togglePassword()" 
+                  aria-label="Toggle password visibility">
             <mat-icon>{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </mat-form-field>

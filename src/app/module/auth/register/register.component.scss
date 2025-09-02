@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: row;
   height: 100vh;
-  width: 100vw; // Cambiar de 100% a 100vw para ocupar toda la ventana
-  position: fixed; // Agregar position fixed
+  width: 100vw;
+  position: fixed;
   top: 0;
   left: 0;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins';
   background: linear-gradient(135deg, #6c5ce7 0%, #a855f7 50%, #8b5cf6 100%);
 }
 
@@ -57,6 +57,7 @@
     opacity: 0.9;
     line-height: 1.4;
     margin: 0;
+    max-width: 400px;
   }
 }
 
@@ -110,10 +111,10 @@
   flex: 1;
   background: #1a1a1a;
   padding: 2rem;
-  max-width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-y: auto;
 }
 
 .register-form {
@@ -123,7 +124,7 @@
 }
 
 .form-header {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   text-align: left;
   
   h2 {
@@ -143,14 +144,6 @@
 .form-group {
   margin-bottom: 1.5rem;
   width: 100%;
-  
-  label {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #e5e7eb;
-    margin-bottom: 0.5rem;
-  }
 }
 
 .form-columns {
@@ -160,96 +153,8 @@
   margin-bottom: 1.5rem;
 }
 
-.form-column {
-  display: flex;
-  flex-direction: column;
-}
-
-.input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background: #2d2d2d;
-  border: 1px solid #404040;
-  border-radius: 8px;
-  padding: 0 12px;
-  transition: all 0.3s ease;
-  height: 48px; // Altura fija para todos los inputs
-
-  &:focus-within {
-    border-color: #a855f7;
-    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
-  }
-
-  .icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 12px;
-    color: #9ca3af;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    
-  }
-}
-
-.custom-placeholder {
-  color: #828282 !important; // Color cuando no hay texto
-
-  &:not(:placeholder-shown) {
-    color: white !important; // Color cuando hay texto ingresado
-  }
-}
-
-.form-input,
-.form-select {
-  flex: 1;
-  background: transparent;
-  border: none;
-  padding: 12px 0;
-  font-size: 1rem;
-  color: white;
-  outline: none;
-  height: 100%;
-
-
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.form-select {
-  cursor: pointer;
-  
-  option {
-    background: #2d2d2d;
-    color: white;
-  }
-}
-
-.toggle-password {
-  background: none;
-  border: none;
-  color: #9ca3af;
-  cursor: pointer;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 8px;
-
-  &:hover {
-    color: #e5e7eb;
-  }
-
-  mat-icon {
-    font-size: 18px;
-    width: 18px;
-    height: 18px;
-  }
+.full-width {
+  width: 100%;
 }
 
 .checkbox-group {
@@ -257,61 +162,15 @@
 }
 
 .checkbox-label {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
   font-size: 0.875rem;
-  line-height: 1.5;
-  color: #d1d5db;
-  cursor: pointer;
-}
-
-.checkbox {
-  width: 16px;
-  height: 16px;
-  margin: 0;
-  accent-color: #a855f7;
-}
-
-.checkmark {
-  width: 16px;
-  height: 16px;
-  border: 1px solid #6b7280;
-  border-radius: 3px;
+  color: white !important;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.submit-btn {
-  width: 100%;
-  height: 48px;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
-  color: white;
-  border: none;
-  padding: 14px 24px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.3);
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-  }
 }
 
 .form-footer {
   text-align: center;
+  margin-top: 1.5rem;
   
   p {
     margin: 0.5rem 0;
@@ -336,11 +195,7 @@
   }
 }
 
-// Estilos para Angular Material
-.full-width {
-  width: 100%;
-}
-
+// ESTILOS PARA ANGULAR MATERIAL - IGUALES QUE LOGIN
 ::ng-deep .mat-mdc-form-field {
   width: 100%;
   
@@ -349,104 +204,238 @@
     border-radius: 8px;
   }
   
+  // Bordes - TODOS BLANCOS
   .mdc-text-field--outlined .mdc-notched-outline__leading,
   .mdc-text-field--outlined .mdc-notched-outline__notch,
   .mdc-text-field--outlined .mdc-notched-outline__trailing {
-    border-color: #404040;
+    border-color: #ffffff !important;
+    border-width: 1px !important;
   }
   
   .mdc-text-field--focused .mdc-notched-outline__leading,
   .mdc-text-field--focused .mdc-notched-outline__notch,
   .mdc-text-field--focused .mdc-notched-outline__trailing {
-    border-color: #a855f7;
+    border-color: #a855f7 !important;
+    border-width: 2px !important;
   }
   
+  .mdc-text-field--outlined:hover .mdc-notched-outline__leading,
+  .mdc-text-field--outlined:hover .mdc-notched-outline__notch,
+  .mdc-text-field--outlined:hover .mdc-notched-outline__trailing {
+    border-color: #ffffff !important;
+  }
+  
+  // Input y placeholder
   .mat-mdc-input-element {
-    color: white;
+    color: white !important;
+    background-color: transparent !important;
+    
+    &::placeholder
+    &:not(:mat-form-field-invalid) {
+      color: #9ca3af !important;
+      opacity: 1 !important;
+    }
+    
+    &:focus::placeholder {
+      color: #ffffff !important;
+      opacity: 0.7 !important;
+    }
+    
+    &:not(:placeholder-shown) {
+      color: white !important;
+    }
   }
-  
-  .mat-mdc-form-field-label {
-    color: #9ca3af;
-  }
-  
-  .mat-mdc-form-field-label.mdc-floating-label--float-above {
-    color: #a855f7;
-  }
-  
-  .mat-mdc-select-value {
-    color: white;
-  }
-  
-  .mat-mdc-select-placeholder {
-    color: #3d3d3d !important;
-  }
-}
 
-// Estilos para la flecha del select
-::ng-deep .mat-mdc-form-field {
-  .mat-mdc-select {
-    .mat-mdc-select-arrow-wrapper {
-      width: 24px;
-      height: 24px;
-      margin-right: 12px;
-      flex-shrink: 0;
-      
-      .mat-mdc-select-arrow {
-        color: #9ca3af;
-      }
+  .mdc-floating-label--float-above {
+    color: #ffffff !important;
+    font-weight: 400 !important; // Más pesado
+    opacity: 1 !important;
+}
+ 
+  .mdc-floating-label {
+    color: #ffffff !important;
+    font-weight: 400 !important;
+    opacity: 1 !important;
+  }
+  
+  // Íconos prefix
+  .mat-mdc-form-field-icon-prefix {
+    color: #ffffff !important;
+  }
+  
+  // Íconos suffix
+  .mat-mdc-form-field-icon-suffix {
+    color: #9ca3af !important;
+    
+    &:hover {
+      color: #a855f7 !important;
     }
   }
   
-  .mat-mdc-text-field-wrapper .mdc-text-field__input {
-    padding-right: 40px;
+  // Notch
+  .mdc-notched-outline__notch {
+    border-top: none !important;
+  }
+
+
+  // Estados de error
+  &.mat-form-field-invalid {
+    .mdc-text-field--outlined .mdc-notched-outline__leading,
+    .mdc-text-field--outlined .mdc-notched-outline__notch,
+    .mdc-text-field--outlined .mdc-notched-outline__trailing {
+      border-color: #ef4444 !important;
+    }
+    
+    .mat-mdc-form-field-label {
+      color: #ef4444 !important;
+    }
+    
+    .mat-mdc-form-field-icon-prefix {
+      color: #ef4444 !important;
+    }
+  }
+  
+  // Estados válidos - mantener blanco
+  &.ng-valid.ng-touched {
+    .mdc-text-field--outlined .mdc-notched-outline__leading,
+    .mdc-text-field--outlined .mdc-notched-outline__notch,
+    .mdc-text-field--outlined .mdc-notched-outline__trailing {
+      border-color: #ffffff !important;
+    }
+    
+    .mat-mdc-form-field-icon-prefix {
+      color: #9ca3af !important;
+    }
   }
 }
 
-::ng-deep .mat-mdc-form-field.mat-focused .mat-mdc-select-arrow {
-  color: #a855f7;
+// ESTILOS ESPECÍFICOS PARA SELECT
+::ng-deep .mat-mdc-form-field {
+  .mat-mdc-select {
+    color: white !important;
+    
+    .mat-mdc-select-value {
+      color: white !important;
+    }
+    
+    .mat-mdc-select-placeholder {
+      color: #9ca3af !important;
+    }
+    
+    .mat-mdc-select-arrow {
+      color: #9ca3af !important;
+    }
+  }
+  
+  &.mat-focused .mat-mdc-select-arrow {
+    color: #a855f7 !important;
+  }
 }
 
+// PANEL DEL SELECT
 ::ng-deep .mat-mdc-select-panel {
-  background-color: #2d2d2d !important; // Fondo sólido en lugar de transparente
+  background-color: #2d2d2d !important;
   border: 1px solid #404040;
   border-radius: 8px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8); // Sombra más pronunciada
-  backdrop-filter: none; // Quitar el blur/transparencia
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
   
   .mat-mdc-option {
-    background-color: #2d2d2d !important; // Fondo sólido para cada opción
+    background-color: #2d2d2d !important;
     color: white !important;
     padding: 12px 16px;
     
     &:hover {
-      background-color: #404040 !important; // Color sólido al hacer hover
+      background-color: #404040 !important;
     }
     
     &.mdc-list-item--selected {
-      background-color: #a855f7 !important; // Color sólido para la opción seleccionada
+      background-color: #a855f7 !important;
       color: white !important;
     }
     
     &.mat-mdc-option-active {
-      background-color: #8b5cf6 !important; // Color sólido para la opción activa
+      background-color: #8b5cf6 !important;
     }
   }
   
-  // Asegurar que no haya transparencia en el contenedor
   .mdc-list {
     background-color: #2d2d2d !important;
   }
 }
 
-// También para el overlay que aparece detrás
-::ng-deep .cdk-overlay-pane {
-  .mat-mdc-select-panel {
-    background-color: #2d2d2d !important;
-    opacity: 1 !important;
+// CHECKBOX - IGUAL QUE LOGIN
+::ng-deep .mat-mdc-checkbox {
+  color: white !important;
+  
+  .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background {
+    border-color: #9ca3af !important;
+  }
+  
+  .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
+    background-color: #a855f7 !important;
+    border-color: #a855f7 !important;
+  }
+  
+  .mdc-form-field {
+    color: white !important;
+  }
+  
+  .mdc-label {
+    color: white !important;
+  }
+  
+  span {
+    color: white !important;
   }
 }
 
-// Responsividad para pantallas pequeñas
+// BOTÓN - IGUAL QUE LOGIN
+::ng-deep .submit-btn {
+  width: 100%;
+  margin-top: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  margin-bottom: 20px;
+  
+  &.mat-mdc-raised-button {
+    width: 100% !important;
+    height: 48px !important;
+    background-color: #a855f7 !important;
+    color: white !important;
+    border-radius: 8px !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    transition: all 0.3s ease !important;
+    box-shadow: none !important;
+    
+    &:not([disabled]):hover {
+      background-color: #9333ea !important;
+      transform: translateY(-1px) !important;
+      box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4) !important;
+    }
+    
+    &:not([disabled]):active {
+      transform: translateY(0) !important;
+      box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3) !important;
+    }
+    
+    &[disabled] {
+      background-color: #4b5563 !important;
+      color: #9ca3af !important;
+      cursor: not-allowed !important;
+      opacity: 0.8 !important;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+    
+    .mdc-button__label {
+      color: inherit !important;
+      font-weight: 600 !important;
+    }
+  }
+}
+
+// RESPONSIVIDAD
 @media (max-width: 768px) {
   .register-container {
     flex-direction: column;
@@ -458,6 +447,7 @@
   
   .right-panel {
     padding: 2rem 1rem;
+    max-width: none;
   }
   
   .register-form {
