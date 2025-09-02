@@ -35,6 +35,7 @@
     "@fullcalendar/interaction": "^6.1.19",
     "@fullcalendar/timegrid": "^6.1.19",
     "@primeuix/themes": "^1.2.3",
+    "fullcalendar": "^6.1.19",
     "primeicons": "^7.0.0",
     "primeng": "^20.0.1",
     "rxjs": "~7.8.0",

@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
-
 import { ConfiguracionProfile } from './pages/configuracion-profile/configuracion-profile';
 import { Calendario } from './pages/calendario/calendario';
 import { DatosPersonales } from './pages/datos-personales/datos-personales';
