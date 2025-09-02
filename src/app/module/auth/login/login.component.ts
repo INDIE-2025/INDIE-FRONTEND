@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,7 +17,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 })
 export class LoginComponent {
 
-  loginForm: any;
+  loginForm: FormGroup;
   showPassword: boolean = false;
 
   constructor(
@@ -64,6 +64,11 @@ export class LoginComponent {
         this.loginForm.get(key)?.markAsTouched();
       });
     }
+  }
+
+  // Getter para verificar si el botón debe estar habilitado
+  get isFormValid(): boolean {
+    return this.loginForm.valid;
   }
 
   // Método para verificar si un campo tiene errores y ha sido tocado
