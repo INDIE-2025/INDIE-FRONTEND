@@ -159,28 +159,39 @@
     border-radius: 8px;
   }
   
+  // Borde normal (sin foco)
   .mdc-text-field--outlined .mdc-notched-outline__leading,
   .mdc-text-field--outlined .mdc-notched-outline__notch,
   .mdc-text-field--outlined .mdc-notched-outline__trailing {
-    border-color: #404040;
+    border-color: #ffffff !important; // Forzar color blanco
   }
   
+  // Borde cuando está enfocado
   .mdc-text-field--focused .mdc-notched-outline__leading,
   .mdc-text-field--focused .mdc-notched-outline__notch,
   .mdc-text-field--focused .mdc-notched-outline__trailing {
-    border-color: #a855f7;
+    border-color: #a855f7 !important; // Color violeta cuando está enfocado
+
   }
+  
+  // Borde cuando hay hover
+  .mdc-text-field--outlined:hover .mdc-notched-outline__leading,
+  .mdc-text-field--outlined:hover .mdc-notched-outline__notch,
+  .mdc-text-field--outlined:hover .mdc-notched-outline__trailing {
+    border-color: #a855f7 !important; // Blanco más claro en hover
+  }
+  
+  // Si quieres un borde más grueso, usa 3px en lugar de 2px
+  // border-width: 3px !important;
   
   .mat-mdc-input-element {
     color: white;
     
-    // Placeholder cuando el label NO está flotando (campo vacío y no enfocado)
     &::placeholder {
       color: transparent;
       opacity: 0;
     }
     
-    // Placeholder cuando el campo está enfocado o tiene contenido
     &:focus::placeholder,
     &:not(:placeholder-shown)::placeholder {
       color: #6b7280;
@@ -189,29 +200,31 @@
   }
 
   .custom-placeholder {
-  color: #828282 !important; // Color cuando no hay texto
+    color: #828282 !important;
 
-  &:not(:placeholder-shown) {
-    color: white !important; // Color cuando hay texto ingresado
+    &:not(:placeholder-shown) {
+      color: white !important;
+    }
   }
-}
   
-  // Labels cuando están flotando (arriba)
+  // Labels
   .mat-mdc-form-field-label {
-    color: #9ca3af;
+    color: #debaff !important;
+    font-weight: 500;
+    background-color: #1a1a1a; // Fondo para que el label se vea mejor
+    padding: 0 4px; // Padding horizontal para el label
   }
   
-  // Labels cuando están enfocados
   .mat-mdc-form-field-label.mdc-floating-label--float-above {
-    color: #a855f7;
+    color: #debaff !important;
+    background-color: #1a1a1a;
+    padding: 0 4px;
   }
   
-  // Labels cuando el campo tiene contenido
   .mdc-floating-label--float-above {
-    color: #a855f7;
+    color: #debaff !important;
   }
   
-  // Cuando el campo está enfocado, mostrar placeholder
   &.mat-focused .mat-mdc-input-element::placeholder {
     color: #6b7280;
     opacity: 1;
@@ -220,6 +233,24 @@
   .mat-mdc-form-field-hint {
     color: #6b7280;
     font-size: 0.75rem;
+  }
+  
+  // Mejorar el notch para que el label se vea mejor
+  .mdc-notched-outline__notch {
+    border-top: none !important; // Quitar el borde superior del notch para que el label se vea mejor
+  }
+  
+  // Estado de error
+  &.mat-form-field-invalid {
+    .mdc-text-field--outlined .mdc-notched-outline__leading,
+    .mdc-text-field--outlined .mdc-notched-outline__notch,
+    .mdc-text-field--outlined .mdc-notched-outline__trailing {
+      border-color: #ef4444 !important; // Rojo para errores
+    }
+    
+    .mat-mdc-form-field-label {
+      color: #ef4444 !important;
+    }
   }
 }
 

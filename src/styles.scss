@@ -12,8 +12,8 @@ html {
       primary: mat.$magenta-palette,
       tertiary: mat.$violet-palette,
     ),
-    typography: Roboto,
-    density: 0,
+      typography: Poppins,
+        density: 0,
   ));
 }
 
@@ -89,4 +89,4 @@ body {
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; }
