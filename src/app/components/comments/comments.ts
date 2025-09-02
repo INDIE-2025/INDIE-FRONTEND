@@ -1,28 +1,31 @@
-// import { Component, OnInit } from '@angular/core';
-// import { CommonModule } from '@angular/common';
-// import { CommentsService, Comment } from '../services/comments.service';
+// import { Component, Input, OnInit } from '@angular/core';
+// import { CommentsService, ComentarioDTO } from '../services/comments.service';
 
 // @Component({
 //   selector: 'app-comments',
-//   standalone: true,
-//   imports: [CommonModule],
-//   templateUrl: './comments.html',
-//   styleUrls: ['./comments.css']
+//   templateUrl: './comments.component.html'
 // })
-// export class ProfileCommentsComponent implements OnInit {
-//   comments: Comment[] = [];
-//   profileId = 1; 
+// export class CommentsComponent implements OnInit {
+//   @Input() idUsuarioComentado!: string; // viene del profile
+//   comentarios: ComentarioDTO[] = [];
+//   nuevoComentario: string = '';
 
-//   constructor(private commentsService: CommentsService) {}
+//   constructor(@Inject(CommentsService) private commentsService: CommentsService) {}
 
 //   ngOnInit(): void {
-//     this.loadComments();
+//     this.cargarComentarios();
 //   }
 
-//   loadComments(): void {
-//     this.commentsService.getCommentsByProfile(this.profileId).subscribe({
-//       next: (data) => this.comments = data,
-//       error: (err) => console.error('Error al cargar comentarios', err)
-//     });
+//   cargarComentarios() {
+//     this.commentsService.traerComentariosDeUnUsuario(this.idUsuarioComentado)
+//       .subscribe(data => this.comentarios = data);
+//   }
+
+//   realizarComentario(idUsuarioComentador: string) {
+//     this.commentsService.realizarComentario(this.nuevoComentario, idUsuarioComentador, this.idUsuarioComentado)
+//       .subscribe(() => {
+//         this.nuevoComentario = '';
+//         this.cargarComentarios(); // refresca lista
+//       });
 //   }
 // }
