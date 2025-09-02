@@ -18,17 +18,16 @@ export class CommentsService {
 
   constructor(private http: HttpClient) {}
 
-  // Obtener comentarios de un perfil específico
+ 
   traerComentariosDeUnUsuario(idUsuarioComentado: string): Observable<ComentarioDTO[]> {
-  const url = `${this.apiUrl}/comentarios/${idUsuarioComentado}`;
-  return this.http.get<ComentarioDTO[]>(url);
-}
-
-  // Agregar un nuevo comentario
-  realizarComentario(comentario: string, idUsuarioComentador: string, idUsuarioComentado: string): Observable<ComentarioDTO> {
-    const url = `${this.apiUrl}/realizarComentario?comentario=${encodeURIComponent(comentario)}&idUsuarioComentador=${idUsuarioComentador}&idUsuarioComentado=${idUsuarioComentado}`;
-    return this.http.post(url, {}).pipe(
-      map((response: any) => response.data)
-    );
+    const url = `${this.apiUrl}/traercomentarios?idUsuarioComentado=${idUsuarioComentado}`;
+    return this.http.get<ComentarioDTO[]>(url);
   }
+
+
+  realizarComentario(comentario: string, idUsuarioComentador: string, idUsuarioComentado: string): Observable<ComentarioDTO> {
+  const url = `${this.apiUrl}/realizarComentario?comentario=${encodeURIComponent(comentario)}&idUsuarioComentador=${idUsuarioComentador}&idUsuarioComentado=${idUsuarioComentado}`;
+  return this.http.post<ComentarioDTO>(url, {});
+  } 
+
 }
