@@ -1,0 +1,17 @@
+.usuarios-container {
+  padding: 24px;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.table-filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 12px;
+}

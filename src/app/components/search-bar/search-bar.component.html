@@ -1,0 +1,7 @@
+<input 
+      type="text"
+      [(ngModel)]="search"
+      (input)="searchChange.emit(search)"
+      placeholder="Buscar..."
+      class="search-input"
+    />

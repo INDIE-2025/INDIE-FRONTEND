@@ -1,0 +1,36 @@
+<table class="data-table">
+    <thead>
+        <tr>
+            @for (col of columns; track col.key) {
+            <th>{{ col.label }}</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for (row of data; track row) {
+        <tr>
+            @for (col of columns; track col.key) {
+            <td>
+                @switch (col.type) {
+                    @case ('badge'){
+                        <span class="status-badge">{{ row[col.key] }}</span>
+                    }
+                    @case ('actions') {
+                    <div>
+                        @for (act of actions; track act.action) {
+                        <button (click)="actionClicked.emit({action: act.action, item: row})">
+                            <i [class]="act.icon"></i>
+                        </button>
+                        }
+                    </div>
+                    }
+                    @default{
+                        <span>{{ row[col.key] }}</span>
+                    }
+                }
+            </td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>

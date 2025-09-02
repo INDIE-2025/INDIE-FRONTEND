@@ -1,0 +1,22 @@
+<div class="usuarios-container">
+    <div class="table-header">
+        <div class="table-filters">
+            <app-search-bar (searchChange)="onSearch($event)"></app-search-bar>
+            <app-filters [filters]="filters()" (filtersChange)="onFilters($event)"></app-filters>
+        </div>
+        <button class="add-user-button" (click)="onAddUser()">
+            <i class="fas fa-plus"></i> Añadir Usuario
+        </button>
+    </div>
+    <app-data-table 
+            [data]="paginatedData()"
+            [columns]="columns"
+            [actions]="actions"
+            (actionClicked)="onAction($event)">
+    </app-data-table>
+    <app-pagination 
+        [page]="page()" 
+        [totalPages]="totalPages()" 
+        (pageChange)="onPage($event)">
+    </app-pagination>
+</div>

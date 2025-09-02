@@ -1,0 +1,51 @@
+<div class="backup-container">
+<!-- Actividad Reciente -->
+<section class="backup-section">
+    <h2 class="section-title">Actividad Reciente</h2>
+    <app-data-table
+    [columns]="operacionesColumns">
+    </app-data-table>
+</section>
+
+<!-- Backup -->
+<section class="backup-section">
+    <h2 class="section-title">Backup</h2>
+    <div class="backup-actions">
+    <app-form-button
+        label="Realizar Backup manual"
+        variant="primary"
+        size="large"
+        icon="fas fa-download"
+        (clicked)="realizarBackupManual()">
+    </app-form-button>
+    </div>
+</section>
+
+<!-- Recuperación -->
+<section class="backup-section">
+    <h2 class="section-title">Recuperación</h2>
+    <div class="backup-actions">
+    <app-form-button
+        label="Realizar Recuperación"
+        variant="primary"
+        size="large"
+        icon="fas fa-upload"
+        (clicked)="realizarRecuperacion()">
+    </app-form-button>
+    </div>
+</section>
+
+<!-- Panel de Administración de AWS -->
+<section class="backup-section pb-4">
+    <h2 class="section-title">Panel de Administración de AWS</h2>
+    <div class="backup-actions">
+    <app-form-button
+        label="Ir al Panel de Administración de AWS"
+        variant="primary"
+        size="large"
+        icon="fas fa-external-link-alt"
+        (clicked)="irPanelAWS()">
+    </app-form-button>
+    </div>
+</section>
+</div>

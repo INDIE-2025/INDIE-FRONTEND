@@ -4,6 +4,7 @@ import { ConfiguracionProfile } from './pages/configuracion-profile/configuracio
 import { Calendario } from './pages/calendario/calendario';
 import { DatosPersonales } from './pages/datos-personales/datos-personales';
 import { Reportes } from './pages/reportes/reportes';
+import { AdminRoutes } from './pages/panel-admin/admin-routes';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -44,6 +45,9 @@ export const routes: Routes = [
     ]
   },
   
+  // Ruta para el panel de administración (protegida)
+
+  { path: 'admin', children: AdminRoutes },
   // Ruta wildcard
   { path: '**', redirectTo: '/login' }
 ];
