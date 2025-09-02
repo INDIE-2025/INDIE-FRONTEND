@@ -1,0 +1,13 @@
+<div class="filter-container">
+  @for (f of filters; track f.placeholder) {
+    <select
+          [(ngModel)]="f.value"
+          (change)="filtersChange.emit(filters)"
+          class="filter-select">
+    <option value="">{{ f.placeholder }}</option>
+    @for (opt of f.options ; track opt.value) {
+    <option [value]="opt.value">{{ opt.label }}</option>
+    }
+  </select>
+  }
+</div>

@@ -18,15 +18,13 @@ thead {
 }   
 
 .search-container {
-  flex: 1;
   min-width: 200px;
 }
 
 .search-input {
-  width: 100%;
   padding: 8px 12px;
-  background: #1e1f2e;
-  border: 1px solid #3a3d5c;
+  background: #261C38;
+  border: 0px;
   border-radius: 6px;
   color: #ffffff;
   font-size: 14px;
@@ -48,8 +46,8 @@ thead {
 
 .filter-select {
   padding: 8px 12px;
-  background: #1e1f2e;
-  border: 1px solid #3a3d5c;
+  background: #261C38;
+  border: 0px;
   border-radius: 6px;
   color: #ffffff;
   font-size: 14px;

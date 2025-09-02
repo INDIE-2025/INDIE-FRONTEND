@@ -1,12 +1,10 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 
-import { ProfileComponent } from './pages/profile/profile';
 import { ConfiguracionProfile } from './pages/configuracion-profile/configuracion-profile';
 import { Calendario } from './pages/calendario/calendario';
 import { DatosPersonales } from './pages/datos-personales/datos-personales';
 import { Reportes } from './pages/reportes/reportes';
-import { Home } from './pages/home/home';
 import { AdminRoutes } from './pages/panel-admin/admin-routes';
 
 export const routes: Routes = [

@@ -13,9 +13,6 @@ import { DataTableComponent, TableColumn, TableAction } from '../../../component
         [data]="denuncias"
         [columns]="columns"
         [actions]="actions"
-        [showFilters]="false"
-        [showPagination]="true"
-        [showAddButton]="false"
         searchPlaceholder="Buscar denuncia"
         (actionClicked)="onAction($event)">
       </app-data-table>
@@ -90,16 +87,16 @@ export class AdminComentariosPage implements OnInit {
   ];
 
   columns: TableColumn[] = [
-    { key: 'usuarioDenunciante', label: 'Usuario denunciante', sortable: true },
-    { key: 'usuarioDenunciado', label: 'Usuario denunciado', sortable: true },
-    { key: 'comentario', label: 'Comentario', sortable: false },
-    { key: 'motivoDenuncia', label: 'Motivo de denuncia', sortable: false },
-    { key: 'fechaDenuncia', label: 'Fecha de denuncia', sortable: true },
+    { key: 'usuarioDenunciante', label: 'Usuario denunciante' },
+    { key: 'usuarioDenunciado', label: 'Usuario denunciado' },
+    { key: 'comentario', label: 'Comentario' },
+    { key: 'motivoDenuncia', label: 'Motivo de denuncia' },
+    { key: 'fechaDenuncia', label: 'Fecha de denuncia' },
     { key: 'acciones', label: 'Resolver', type: 'actions' }
   ];
 
   actions: TableAction[] = [
-    { icon: 'fas fa-check', label: 'Resolver', action: 'resolve', class: 'action-button resolve' }
+    { icon: 'fas fa-check', label: 'Resolver', action: 'resolve' }
   ];
 
   ngOnInit() {

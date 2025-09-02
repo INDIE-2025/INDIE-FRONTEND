@@ -13,10 +13,6 @@ import { DataTableComponent, TableColumn, TableAction } from '../../../component
         [data]="tiposUsuario"
         [columns]="columns"
         [actions]="actions"
-        [filters]="filters"
-        [showFilters]="true"
-        [showPagination]="false"
-        [showAddButton]="true"
         addButtonText="Agregar tipo de usuario"
         searchPlaceholder="Buscar tipo de usuario"
         (actionClicked)="onAction($event)"
@@ -100,17 +96,17 @@ export class AdminTiposUsuarioPage implements OnInit {
   ];
 
   columns: TableColumn[] = [
-    { key: 'tipoUsuario', label: 'Tipo de usuario', sortable: true },
-    { key: 'subtiposDisplay', label: 'Subtipos de usuario', sortable: false },
-    { key: 'cantidadUsuarios', label: 'Cantidad de usuarios', sortable: true },
-    { key: 'fechaAlta', label: 'Fecha de alta', sortable: true },
-    { key: 'estado', label: 'Estado', type: 'badge', sortable: true },
+    { key: 'tipoUsuario', label: 'Tipo de usuario' },
+    { key: 'subtiposDisplay', label: 'Subtipos de usuario' },
+    { key: 'cantidadUsuarios', label: 'Cantidad de usuarios' },
+    { key: 'fechaAlta', label: 'Fecha de alta' },
+    { key: 'estado', label: 'Estado', type: 'badge' },
     { key: 'acciones', label: 'Acciones', type: 'actions' }
   ];
 
   actions: TableAction[] = [
-    { icon: 'fas fa-edit', label: 'Editar', action: 'edit', class: 'action-button edit' },
-    { icon: 'fas fa-trash', label: 'Eliminar', action: 'delete', class: 'action-button delete' }
+    { icon: 'fas fa-edit', label: 'Editar', action: 'edit' },
+    { icon: 'fas fa-trash', label: 'Eliminar', action: 'delete' }
   ];
 
   filters = [

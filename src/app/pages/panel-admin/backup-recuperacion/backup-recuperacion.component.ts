@@ -25,11 +25,11 @@ export class BackupRecuperacionPage implements OnInit {
   }
 
   operacionesColumns: TableColumn[] = [
-    { key: 'nombreOperacion', label: 'Nombre', sortable: true },
-    { key: 'tipo', label: 'Tipo de operación', sortable: true },
-    { key: 'fechaRefactorizada', label: 'Fecha y hora', sortable: true },
-    { key: 'username', label: 'Iniciado por', sortable: true },
-    { key: 'estado', label: 'Estado', type: 'badge', sortable: true }
+    { key: 'nombreOperacion', label: 'Nombre' },
+    { key: 'tipo', label: 'Tipo de operación' },
+    { key: 'fechaRefactorizada', label: 'Fecha y hora' },
+    { key: 'username', label: 'Iniciado por' },
+    { key: 'estado', label: 'Estado', type: 'badge' }
   ];
 
   ngOnInit() {
