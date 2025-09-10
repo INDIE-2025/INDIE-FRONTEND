@@ -1,0 +1,60 @@
+<div class="comments">
+
+  <!-- Formulario -->
+  <div class="comments__form" *ngIf="idUsuarioComentador; else loginHint">
+    <form [formGroup]="form" (ngSubmit)="enviar()">
+      <textarea
+        class="comments__textarea"
+        formControlName="comentario"
+        rows="3"
+        placeholder="Escribe un comentario…"
+        [disabled]="posting"
+      ></textarea>
+
+      <div class="comments__form-row">
+        <div class="comments__errors">
+          <span class="error" *ngIf="f['comentario'].touched && f['comentario'].hasError('required')">
+            El comentario es obligatorio.
+          </span>
+          <span class="error" *ngIf="f['comentario'].touched && f['comentario'].hasError('maxLength')">
+            Máximo 1000 caracteres.
+          </span>
+          <span class="error" *ngIf="errorMsg">{{ errorMsg }}</span>
+        </div>
+
+        <button class="btn" type="submit" [disabled]="form.invalid || posting">
+          {{ posting ? 'Publicando…' : 'Publicar' }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #loginHint>
+    <div class="comments__login-hint">
+      Iniciá sesión para agregar un comentario.
+    </div>
+  </ng-template>
+
+  <!-- Lista -->
+  <div class="comments__list">
+    <div class="comments__loading" *ngIf="loadingList">Cargando comentarios…</div>
+
+    <div *ngIf="!loadingList && comentarios.length === 0" class="comments__empty">
+      Sé la primera persona en comentar
+    </div>
+
+    <article class="comment" *ngFor="let c of comentarios">
+      <div class="comment__avatar" aria-hidden="true">
+        {{ (c.nombreAutorComentario || 'U')[0] | uppercase }}
+      </div>
+
+      <div class="comment__body">
+        <header class="comment__meta">
+          <strong class="comment__author">{{ c.nombreAutorComentario || 'Usuario' }}</strong>
+          <span class="comment__date">• {{ c.createdAt | date: 'short' }}</span>
+        </header>
+        <p class="comment__text">{{ c.comentario }}</p>
+      </div>
+    </article>
+  </div>
+</div>

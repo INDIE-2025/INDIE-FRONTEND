@@ -41,7 +41,10 @@
     </div>
     <div class="profile-comments">
       <h3 class="titulo-carousel">Comentarios</h3>
-      <!-- <app-comments [idUsuarioComentado]="usuario.id"></app-comments> -->
+        <app-comments
+            [idUsuarioComentado]="perfil?.id"
+            [idUsuarioComentador]="usuarioActual?.id">
+        </app-comments>
     </div>
 </div>
 
