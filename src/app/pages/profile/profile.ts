@@ -8,25 +8,34 @@ import { Calendar } from "../../components/calendar/calendar";
 import { Galleria } from "../../components/galleria/galleria";
 import { PopupMessageComponent } from '../../components/popup-message/popup-message';
 import { CommentsComponent } from '../../components/comments/comments';
-
-
+import { CommonModule } from '@angular/common'; 
 @Component({
   selector: 'app-profile',
-  imports: [Carousel, Calendar, Galleria, PopupMessageComponent, CommentsComponent],
+  standalone: true, 
+  imports: [CommonModule, Carousel, Calendar, Galleria, PopupMessageComponent, CommentsComponent],
   templateUrl: './profile.html',
-  styleUrl: './profile.scss'
+  styleUrls: ['./profile.scss'] 
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   perfil: Usuario | null = null;
   popupMessage: string | null = null;
-  popupVisible: boolean = false;
+  popupVisible = false;
+
   private popupSub?: Subscription;
   private visibleSub?: Subscription;
+
   usuarioActual: Usuario | null = null;
-  esPerfilPropio: boolean = false;
-  
+  esPerfilPropio = false;
+
   private routeParamsSub?: Subscription;
   private usuarioActualSub?: Subscription;
+
+  /**
+   * ID de prueba para comentar si NO hay usuario logueado.
+   * 👉 PONÉ ACÁ un ID real de tu tabla Usuario para probar crear/eliminar comentarios.
+   * Si lo dejás vacío, el componente mostrará el hint de login y no permitirá publicar.
+   */
+  testerId: string = '70b2447c-1dfb-4f53-9a61-8491ddf968d7'; // Ej.: '70b2447c-1dfb-4f53-9a61-8491ddf968d7'
 
   constructor(
     private popupService: PopupService,
@@ -35,7 +44,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // Suscribirse al usuario actual
+    // 1) Usuario actual (si hay auth)
     this.usuarioActualSub = this.userService.getUsuarioActual().subscribe({
       next: (usuario: Usuario | null) => {
         this.usuarioActual = usuario;
@@ -46,25 +55,27 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     });
 
-    // Suscribirse a los parámetros de la ruta para obtener el ID del perfil
+    // 2) Parámetro de ruta para resolver el perfil
     this.routeParamsSub = this.route.paramMap.subscribe(params => {
       const perfilId = params.get('id');
-      
+
       if (perfilId) {
-        // Si hay ID en la URL, cargar ese perfil específico
+        // Perfil específico por URL
         this.cargarPerfilPorId(perfilId);
       } else {
-        // Si no hay ID, mostrar el perfil del usuario actual
+        // Perfil propio si hay usuario logueado
         if (this.usuarioActual) {
           this.perfil = this.usuarioActual;
           this.esPerfilPropio = true;
         } else {
-          // Si no hay usuario logueado, usar datos de ejemplo
+          // Datos de ejemplo si no hay login ni id en ruta
           this.perfil = { id: 'usuario-demo', emailUsuario: 'demo@example.com', nombreUsuario: 'Café Bonito' } as Usuario;
+          this.esPerfilPropio = false;
         }
       }
     });
-    
+
+    // 3) Popups
     this.popupSub = this.popupService.message$.subscribe(msg => this.popupMessage = msg);
     this.visibleSub = this.popupService.visible$.subscribe(v => this.popupVisible = v);
   }
@@ -78,8 +89,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
       },
       error: (err: any) => {
         console.error('Error al cargar el perfil:', err);
-        // Datos de ejemplo si hay error
-        this.perfil = { id: id, emailUsuario: '', nombreUsuario: 'Usuario no encontrado' } as Usuario;
+        // Fallback visual si hay error
+        this.perfil = { id, emailUsuario: '', nombreUsuario: 'Usuario no encontrado' } as Usuario;
+        this.esPerfilPropio = false;
       }
     });
   }
