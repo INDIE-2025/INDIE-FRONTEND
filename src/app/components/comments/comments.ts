@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommentsService, ComentarioDTO } from '../../services/commentsService';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+import { firstValueFrom } from 'rxjs';
+
 
 @Component({
   selector: 'app-comments',
@@ -164,43 +167,113 @@ export class CommentsComponent implements OnInit {
   }
 
   // Eliminar un comentario (UI sencilla, sin optimistic update).
-    eliminar(c: ComentarioDTO): void {
-    // valida que existan ids
+  async eliminar(c: ComentarioDTO): Promise<void> {
     if (!c.idComentario || !this.idUsuarioComentador) return;
 
-    if (!confirm('¿Seguro que quieres eliminar este comentario?')) return;
-
-    this.commentsSrv.eliminarComentario(c.idComentario, this.idUsuarioComentador).subscribe({
-        next: () => {
-        // recarga la lista una vez borrado
-        this.cargarComentarios();
-        },
-        error: (err) => {
-        console.error('Error al eliminar comentario:', err);
-        this.errorMsg = 'No se pudo eliminar el comentario.';
-        }
+    // 1) Confirmación
+    const { isConfirmed } = await Swal.fire({
+      title: '¿Eliminar comentario?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#483186',
+      cancelButtonColor: 'rgba(80, 78, 78, 1)',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
     });
+
+    if (!isConfirmed) return;
+
+    // 2) Llamar a la API
+    try {
+      await firstValueFrom(
+        this.commentsSrv.eliminarComentario(c.idComentario, this.idUsuarioComentador)
+      );
+
+      // 3) Éxito
+      await Swal.fire({
+        title: 'Eliminado',
+        text: 'El comentario fue eliminado.',
+        icon: 'success',
+        timer: 1400,
+        showConfirmButton: false
+      });
+
+      // 4) Refrescar lista
+      this.cargarComentarios();
+
+    } catch (err) {
+      console.error('Error al eliminar comentario:', err);
+      await Swal.fire({
+        title: 'Error',
+        text: 'No se pudo eliminar el comentario.',
+        icon: 'error'
+      });
     }
+ }
+
+
 
 
 
   // Denunciar un comentario con un motivo fijo de ejemplo (podés abrir un formulario si querés).
-    denunciar(c: ComentarioDTO): void {
-    if (!c.idComentario || !this.idUsuarioComentador) return;
-
-    const motivo = prompt('Motivo de la denuncia:'); // podés reemplazar prompt por un form bonito
-    if (!motivo || !motivo.trim()) return;
-
-    this.commentsSrv.denunciarComentario(c.idComentario, this.idUsuarioComentador, motivo).subscribe({
-        next: () => {
-        alert('Denuncia enviada con éxito');
-        },
-        error: (err) => {
-        console.error('Error al denunciar comentario:', err);
-        this.errorMsg = 'No se pudo enviar la denuncia.';
-        }
-    });
+  async denunciar(c: ComentarioDTO): Promise<void> {
+    // Validaciones mínimas con feedback visual
+    if (!c.idComentario) {
+      await Swal.fire({ icon: 'error', title: 'Dato faltante', text: 'No llegó el id del comentario.' });
+      return;
     }
+    if (!this.idUsuarioComentador) {
+      await Swal.fire({ icon: 'warning', title: 'Sesión requerida', text: 'Iniciá sesión para denunciar.' });
+      return;
+    }
+
+    // Popup con textarea para el motivo
+    const { isConfirmed } = await Swal.fire({
+      title: 'Denunciar comentario',
+      text: 'Contanos brevemente el motivo.',
+      input: 'textarea',
+      inputLabel: 'Motivo',
+      inputPlaceholder: 'Escribe el motivo de la denuncia…',
+      inputAttributes: { maxlength: '300', 'aria-label': 'Motivo de la denuncia' },
+      inputValidator: (v) => {
+        if (!v || !v.trim()) return 'El motivo es obligatorio.';
+        if (v.trim().length < 5) return 'El motivo debe tener al menos 5 caracteres.';
+        return undefined;
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Enviar denuncia',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#483186',
+      cancelButtonColor: 'rgba(80, 78, 78, 1)',
+      showLoaderOnConfirm: true,
+      // preConfirm recibe el valor del input (motivo)
+      preConfirm: async (motivo: string) => {
+        try {
+          await firstValueFrom(
+            this.commentsSrv.denunciarComentario(
+              c.idComentario!, this.idUsuarioComentador!, motivo.trim()
+            )
+          );
+        } catch (e) {
+          Swal.showValidationMessage('No se pudo enviar la denuncia.');
+          throw e;
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    });
+
+    if (isConfirmed) {
+      await Swal.fire({
+        icon: 'success',
+        title: 'Denuncia enviada',
+        timer: 1400,
+        showConfirmButton: false,
+      });
+      // (opcional) refrescar algo si querés marcar que fue denunciado
+      // this.cargarComentarios();
+    }
+  }
 
 
 }

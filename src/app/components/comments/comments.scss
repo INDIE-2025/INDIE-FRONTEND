@@ -185,3 +185,20 @@
   .comment__meta { color: #d1d5db; }
   .comment__avatar { background: #111827; color: #9ca3af; }
 }
+
+.comments__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  max-height: 360px;           
+  overflow-y: auto;
+  padding-right: 6px;            
+  scrollbar-gutter: stable both-edges; 
+
+  
+  &::-webkit-scrollbar { width: 8px; }
+  &::-webkit-scrollbar-thumb { background: #c7c7c7; border-radius: 8px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+}
+
