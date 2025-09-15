@@ -11,10 +11,20 @@ import { FormInputComponent, FormSelectComponent, FormButtonComponent, FormTextC
 @Component({
   selector: 'admin-usuarios-page',
   standalone: true,
-
-  imports: [CommonModule, SearchBarComponent, FiltersComponent, DataTableComponent, PaginationComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    SearchBarComponent,
+    FiltersComponent,
+    DataTableComponent,
+    PaginationComponent,
+    FormInputComponent,
+    FormSelectComponent,
+    FormButtonComponent,
+    FormTextComponent
+  ],
   templateUrl: "./admin-usuarios.component.html",
-  styleUrl: "./admin-usuarios.component.css"
+  styleUrls: ["./admin-usuarios.component.css"]
 })
 export class AdminUsuariosPage {
 

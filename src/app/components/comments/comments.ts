@@ -236,7 +236,7 @@ export class CommentsComponent implements OnInit {
       inputLabel: 'Motivo',
       inputPlaceholder: 'Escribe el motivo de la denuncia…',
       inputAttributes: { maxlength: '300', 'aria-label': 'Motivo de la denuncia' },
-      inputValidator: (v) => {
+      inputValidator: (v: string) => {
         if (!v || !v.trim()) return 'El motivo es obligatorio.';
         if (v.trim().length < 5) return 'El motivo debe tener al menos 5 caracteres.';
         return undefined;

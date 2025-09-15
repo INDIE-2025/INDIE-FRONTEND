@@ -23,18 +23,22 @@
 
   <div class="artist-carousel">
     <div class="artist-cards">
-      <!-- Artist Card 1 -->
-      <div class="artist-card" *ngFor="let artist of featuredArtists; trackBy: trackByArtistId">
-        <div class="artist-img">
-          <img [src]="artist.image" [alt]="artist.name" loading="lazy" class="fade-in">
-          <div class="loading-placeholder" *ngIf="!imagesLoaded"></div>
+      <!-- Artist Cards -->
+      @for (artist of featuredArtists; track artist.id) {
+        <div class="artist-card">
+          <div class="artist-img">
+            <img [src]="artist.image" [alt]="artist.name" loading="lazy" class="fade-in">
+            @if (!imagesLoaded) {
+              <div class="loading-placeholder"></div>
+            }
+          </div>
+          <div class="artist-info">
+            <h3>{{artist.name}}</h3>
+            <p>{{artist.genre}}</p>
+            <a [routerLink]="['/artists', artist.id]" class="profile-link">Ver perfil <i class="bi bi-arrow-right"></i></a>
+          </div>
         </div>
-        <div class="artist-info">
-          <h3>{{artist.name}}</h3>
-          <p>{{artist.genre}}</p>
-          <a [routerLink]="['/artists', artist.id]" class="profile-link">Ver perfil <i class="bi bi-arrow-right"></i></a>
-        </div>
-      </div>
+      }
     </div>
     
     <div class="view-all-link text-center">
@@ -56,19 +60,20 @@
     
     <div class="event-cards">
         <!-- Event Cards -->
-      <app-event-card
-        *ngFor="let event of upcomingEvents"
-        [id]="event.id"
-        [title]="event.title"
-        [date]="event.date"
-        [time]="event.time"
-        [location]="event.location"
-        [image]="event.image"
-        [creator]="event.creator"
-        [collaborator]="event.collaborator"
-        [interested]="event.interested"
-        [description]="event.description">
-      </app-event-card>
+      @for (event of upcomingEvents; track event.id) {
+        <app-event-card
+          [id]="event.id"
+          [title]="event.title"
+          [date]="event.date"
+          [time]="event.time"
+          [location]="event.location"
+          [image]="event.image"
+          [creator]="event.creator"
+          [collaborator]="event.collaborator"
+          [interested]="event.interested"
+          [description]="event.description">
+        </app-event-card>
+      }
     </div>
 
     <!-- Next arrow -->

@@ -8,17 +8,16 @@ import { Reportes } from './pages/reportes/reportes';
 import { AdminRoutes } from './pages/panel-admin/admin-routes';
 import { ProfileComponent } from './pages/profile/profile';
 
+
 export const routes: Routes = [
   
-    { path: 'profile', component: ProfileComponent }, // Perfil del usuario actual
-    { path: 'profile/:id', component: ProfileComponent }, // Perfil de un usuario específico
-    { path: 'home', component: Home },
-    { path: '', redirectTo: '/home', pathMatch: 'full' }, // Ruta por defecto
+     { path: 'profile', component: ProfileComponent }, // Perfil del usuario actual
+     { path: 'profile/:id', component: ProfileComponent }, // Perfil de un usuario específico
 
   // Ruta padre con hijas (protegida)
   { 
     path: '',
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { 
@@ -34,7 +33,6 @@ export const routes: Routes = [
             { path: 'reportes', component: Reportes, title: 'Reportes' }
         ] },
     { path: 'calendario', component: Calendario, title: 'Calendario' },
-    { path: 'profile', component: ProfileComponent, title: 'Perfil'}
     ]
   },
 
