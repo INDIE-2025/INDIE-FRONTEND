@@ -83,7 +83,7 @@
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Contraseña</mat-label>
               <mat-icon matPrefix class="icon">lock</mat-icon>
-              <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="••••••••" class="custom-placeholder">
+              <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="********" class="custom-placeholder">
               <button mat-icon-button matSuffix type="button" (click)="togglePassword()" aria-label="Toggle password visibility">
                 <mat-icon>{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
@@ -93,7 +93,7 @@
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Repetir contraseña</mat-label>
               <mat-icon matPrefix class="icon">lock</mat-icon>
-              <input matInput [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" placeholder="••••••••" class="custom-placeholder">
+              <input matInput [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" placeholder="********" class="custom-placeholder">
               <button mat-icon-button matSuffix type="button" (click)="toggleConfirmPassword()" aria-label="Toggle confirm password visibility">
                 <mat-icon>{{showConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
@@ -105,13 +105,13 @@
         <div class="checkbox-group">
           <mat-checkbox formControlName="acceptTerms" class="checkbox-label">
             Acepto los 
-            <a href="#" class="link">términos y condiciones</a> 
+            <a routerLink="/terminos-y-condiciones" class="link">Términos y Condiciones</a> 
             y la 
-            <a href="#" class="link">política de privacidad</a>
+            <a routerLink="/politica-de-privacidad" class="link">Política de Privacidad</a>
           </mat-checkbox>
         </div>
 
-        <!-- Botón de envío -->
+        <!-- Bot��n de env��o -->
         <button
           type="submit"
           [disabled]="!registerForm.valid"
@@ -129,3 +129,4 @@
       </form>
     </div>
 </div>
+

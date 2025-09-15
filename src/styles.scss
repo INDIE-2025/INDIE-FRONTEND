@@ -1,19 +1,15 @@
 
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
+// Include theming for Angular Material with modern @use syntax
 html {
   @include mat.theme((
     color: (
       primary: mat.$magenta-palette,
       tertiary: mat.$violet-palette,
     ),
-      typography: Poppins,
-        density: 0,
+    typography: Poppins,
+    density: 0,
   ));
 }
 
@@ -91,3 +87,39 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; }
+
+// Estilos básicos para ngx-toastr
+.toast-container {
+  .toast {
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    min-width: 300px;
+    
+    &.toast-error {
+      background-color: #dc3545 !important;
+      color: white !important;
+    }
+    
+    &.toast-success {
+      background-color: #28a745 !important;
+      color: white !important;
+    }
+    
+    &.toast-warning {
+      background-color: #ffc107 !important;
+      color: #212529 !important;
+    }
+    
+    .toast-title {
+      font-weight: 600;
+      font-size: 16px;
+    }
+    
+    .toast-message {
+      font-size: 14px;
+      margin-top: 4px;
+    }
+  }
+}

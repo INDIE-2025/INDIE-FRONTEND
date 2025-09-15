@@ -1,5 +1,5 @@
-<app-header/>
+@if (!hideChrome()) { <app-header/> }
 <main>
   <router-outlet />
 </main>
-<app-footer/>
+@if (!hideChrome()) { <app-footer/> }

@@ -1,13 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
-import { PopupMessageComponent } from '../../components/popup-message/popup-message';
 import { CommonModule } from '@angular/common';
 import { DialogRef } from '@angular/cdk/dialog';
 import { PopupService } from '../../services/popup.service';
 
 @Component({
   selector: 'app-datos-personales',
-  imports: [ ReactiveFormsModule, CommonModule, PopupMessageComponent],
+  imports: [ ReactiveFormsModule, CommonModule],
   templateUrl: './datos-personales.html',
   styleUrl: './datos-personales.scss',
   standalone: true
