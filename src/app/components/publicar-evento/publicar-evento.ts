@@ -76,8 +76,7 @@ export class PublicarEvento implements OnInit {
     if (!this.currentUserId) {
       // Si no hay usuario logueado, mostramos un mensaje de error
       this.popupService.show('No se ha detectado un usuario logueado. Por favor inicia sesión para publicar eventos.');
-      //  asignamos un ID por defecto para forzar el login
-      this.currentUserId = 'dd2d89d5-b4a9-4dd0-b61c-9df9e3e94944';
+      // No asignamos un ID por defecto; bloqueamos acciones que requieren autenticación.
     }
     
     // Cargar borradores al iniciar el componente
