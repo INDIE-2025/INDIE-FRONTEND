@@ -1,21 +1,73 @@
-<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="assets/logo/images/image1.jpeg" class="d-block" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="assets/logo/images/image1.jpeg" class="d-block" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="assets/logo/images/image1.jpeg" class="d-block" alt="...">
+<div class="galleria">
+
+  <!-- Uploader (solo si canUpload) -->
+  <div class="galleria__uploader" *ngIf="canUpload">
+    <input type="file" (change)="onFileChange($event)" multiple accept="image/*,video/*" />
+    <button class="btn" (click)="subir()" [disabled]="!selectedFiles.length || uploading">
+      {{ uploading ? 'Subiendo...' : 'Subir ' + selectedFiles.length + ' archivo(s)' }}
+    </button>
+
+    <div class="galleria__progress" *ngIf="uploading">
+      <div *ngFor="let f of selectedFiles">
+        <div class="row">
+          <span class="name">{{ f.name }}</span>
+          <span class="pct">{{ (progress[f.name] || 0) }}%</span>
+        </div>
+        <div class="bar"><div class="fill" [style.width.%]="progress[f.name] || 0"></div></div>
+      </div>
     </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+
+  <!-- Lista / Carousel -->
+  <div class="galleria__list">
+    <div class="loading" *ngIf="loading">Cargando contenido…</div>
+
+    <div *ngIf="!loading && !items.length" class="empty">Aún no hay contenido.</div>
+
+    <div *ngIf="!loading && items.length" #carouselEl
+         class="carousel slide"
+         [id]="carouselId"
+         [attr.data-bs-ride]="auto ? 'carousel' : null"
+         [attr.data-bs-interval]="auto ? intervalMs : null"
+         data-bs-wrap="true">
+
+      <!-- Indicadores -->
+      <div class="carousel-indicators">
+        <button *ngFor="let s of slides; let i = index"
+                type="button"
+                [attr.data-bs-target]="'#' + carouselId"
+                [attr.data-bs-slide-to]="i"
+                [class.active]="i === 0"
+                [attr.aria-current]="i === 0 ? 'true' : null"
+                [attr.aria-label]="'Slide ' + (i+1)"></button>
+      </div>
+
+      <!-- Slides (agrupados de a 3) -->
+      <div class="carousel-inner">
+        <div class="carousel-item" *ngFor="let group of slides; let gi = index" [class.active]="gi === 0">
+          <div class="slide-row">
+            <figure class="card" *ngFor="let i of group">
+              <img *ngIf="isImage(i)" class="media" [src]="i.urlArchivo" [alt]="i.nombreArchivo" loading="lazy" />
+              <video *ngIf="isVideo(i)" class="media" [src]="i.urlArchivo" controls preload="metadata"></video>
+
+              <figcaption class="meta">
+                <span class="name" [title]="i.nombreArchivo">{{ i.nombreArchivo }}</span>
+                <button *ngIf="canUpload" class="link" (click)="eliminar(i)">Eliminar</button>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controles -->
+      <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#' + carouselId" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#' + carouselId" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+  </div>
 </div>

@@ -5,14 +5,13 @@ import { PopupService } from '../../services/popup.service';
 import { UserService, Usuario } from '../../services/user.service';
 import { Carousel } from "../../components/carousel/carousel";
 import { Calendar } from "../../components/calendar/calendar";
-import { Galleria } from "../../components/galleria/galleria";
 import { PopupMessageComponent } from '../../components/popup-message/popup-message';
 import { CommentsComponent } from '../../components/comments/comments';
 import { CommonModule } from '@angular/common'; 
 @Component({
   selector: 'app-profile',
   standalone: true, 
-  imports: [CommonModule, Carousel, Calendar, Galleria, PopupMessageComponent, CommentsComponent],
+  imports: [CommonModule, Carousel, Calendar, PopupMessageComponent, CommentsComponent],
   templateUrl: './profile.html',
   styleUrls: ['./profile.scss'] 
 })

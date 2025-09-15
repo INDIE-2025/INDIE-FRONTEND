@@ -270,8 +270,7 @@ export class CommentsComponent implements OnInit {
         timer: 1400,
         showConfirmButton: false,
       });
-      // (opcional) refrescar algo si querés marcar que fue denunciado
-      // this.cargarComentarios();
+    
     }
   }
 

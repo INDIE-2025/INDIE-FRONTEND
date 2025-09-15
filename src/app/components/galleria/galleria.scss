@@ -1,5 +1,74 @@
-.carousel-item {
+.galleria {
+  display: grid;
+  gap: 12px;
+
+  &__uploader {
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+
+    input[type="file"] { max-width: 320px; }
+  }
+
+  &__progress {
+    width: 100%;
+    display: grid;
+    gap: 6px;
+    .row { display: flex; justify-content: space-between; font-size: .9rem; }
+    .bar { height: 6px; background: #e5e7eb; border-radius: 8px; overflow: hidden;
+      .fill { height: 100%; background: #6366f1; }
+    }
+  }
+
+  &__list {
+    .loading, .empty { color: #9ca3af; }
+  }
+}
+
+/* Carousel de a 3 cards por slide */
+.carousel-inner {
+  /* altura razonable para que el perfil no crezca demasiado */
+  height: 260px;
+}
+
+.carousel-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+  padding: 0 8px;
+}
+
+.card {
+  width: 30%; /* ~3 por fila */
+  min-width: 220px;
+  max-width: 360px;
+  border: 1px solid #e5e7eb; border-radius: 12px; background: #fff; padding: 8px; display: grid; gap: 6px;
+}
+
+.media {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #f3f4f6;
+}
+
+.meta {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  .name { font-size: .9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 70%; }
+  .link { background: transparent; border: none; color: #2563eb; cursor: pointer; padding: 0; }
+}
+
+/* Dark mode opcional */
+@media (prefers-color-scheme: dark) {
+  .card { background: #0b0b0c; border-color: #222; }
+  .media { background: #111; }
 }
