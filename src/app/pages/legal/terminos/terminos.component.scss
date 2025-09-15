@@ -1,0 +1,79 @@
+/* Contenedor principal */
+.legal {
+  max-width: 920px;
+  margin: 48px auto;
+  padding: 28px 28px 36px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(17, 12, 24, 0.08);
+  color: #111827; /* slate-900 */
+  line-height: 1.75;
+}
+
+/* Títulos */
+.legal h1 {
+  margin: 0 0 6px 0;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #1e1624; /* brand dark */
+}
+
+.legal h1 + p {
+  margin: 0 0 16px 0;
+  font-size: 0.875rem;
+  color: #6b7280; /* slate-500 */
+}
+
+.legal h2 {
+  margin: 28px 0 10px 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937; /* slate-800 */
+}
+
+/* Texto y listas */
+.legal p {
+  margin: 0 0 14px 0;
+}
+
+.legal ul,
+.legal ol {
+  margin: 0 0 16px 0;
+  padding-left: 1.25rem;
+}
+
+.legal li {
+  margin-bottom: 8px;
+}
+
+/* Enlaces con color de marca */
+.legal a {
+  color: #7c3aed; /* violet-600 */
+  text-decoration: none;
+}
+
+.legal a:hover {
+  color: #6d28d9; /* violet-700 */
+  text-decoration: underline;
+}
+
+/* Separadores sutiles entre secciones largas */
+.legal h2 + p,
+.legal h2 + ul,
+.legal h2 + ol {
+  border-top: 1px solid rgba(30, 22, 36, 0.06);
+  padding-top: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .legal {
+    margin: 24px 12px;
+    padding: 20px 16px 24px;
+    border-radius: 12px;
+  }
+
+  .legal h1 { font-size: 1.6rem; }
+  .legal h2 { font-size: 1.15rem; }
+}

@@ -4,8 +4,7 @@
             <app-search-bar (searchChange)="onSearch($event)"></app-search-bar>
             <app-filters [filters]="filters()" (filtersChange)="onFilters($event)"></app-filters>
         </div>
-        <button class="add-user-button" (click)="onAddUser()">
-            <i class="fas fa-plus"></i> Añadir Usuario
+        <button class="add-user-button" (click)="onAddUser()">Añadir Usuario
         </button>
     </div>
     <app-data-table 
@@ -19,4 +18,56 @@
         [totalPages]="totalPages()" 
         (pageChange)="onPage($event)">
     </app-pagination>
+
+    <!--  Modal del formulario -->
+    @if (showAddUserForm) {
+        <div class="modal-overlay">
+        <div class="modal-panel">
+            <form (ngSubmit)="guardarUsuario()">
+            <app-form-input label="Usuario" [(ngModel)]="nuevoUsuario.usuario" name="usuario"></app-form-input>
+            <app-form-input label="Nombre" [(ngModel)]="nuevoUsuario.nombre" name="nombre"></app-form-input>
+            <app-form-input label="Email" type="email" [(ngModel)]="nuevoUsuario.email" name="email"></app-form-input>
+
+            <app-form-select label="Tipo de Usuario"
+                                [options]="tiposUsuario"
+                                [(value)]="nuevoUsuario.tipoUsuario">
+            </app-form-select>
+
+            <app-form-select label="Subtipo de Usuario"
+                                [options]="subtiposUsuario"
+                                [(value)]="nuevoUsuario.subtipoUsuario">
+            </app-form-select>
+
+            <app-form-input label="Contraseña" type="password" [(ngModel)]="nuevoUsuario.password" name="password"></app-form-input>
+            <app-form-input label="Repetir contraseña" type="password" [(ngModel)]="nuevoUsuario.password2" name="password2"></app-form-input>
+
+            <app-form-select label="Estado del Usuario"
+                                [options]="estado"
+                                [(value)]="nuevoUsuario.estado">
+            </app-form-select>
+
+            <div class="modal-actions">
+                <app-form-button type="submit" label="Guardar" variant="primary" (clicked)="guardarUsuario()"></app-form-button>
+                <app-form-button type="button" label="Cancelar" variant="secondary" (clicked)="showAddUserForm=false"></app-form-button>
+            </div>
+            </form>
+        </div>
+    </div>
+    }
+    @if (showDeleteUserForm) {
+        <div class="modal-overlay">
+        <div class="modal-panel">
+            <app-form-text text='¿Está seguro de que desea dar de baja a este usuario?'
+               tag="h1"
+               [size]="28"
+               color="#FFFFFF"
+               [weight]="600" />
+            <div class="modal-actions">
+                <app-form-button type="submit" label="Confirmar" variant="primary" (clicked)="eliminarUsuario()"></app-form-button>
+                <app-form-button type="button" label="Cancelar" variant="secondary" (clicked)="showDeleteUserForm=false"></app-form-button>
+            </div>
+        </div>
+    </div>
+    }
+
 </div>

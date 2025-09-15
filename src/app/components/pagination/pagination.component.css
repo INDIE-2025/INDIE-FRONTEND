@@ -1,0 +1,69 @@
+:host {
+--pg-btn-bg: #1E1624; 
+--pg-btn-bg-hover: #352a42;
+--pg-btn-border: #C567FF;
+--pg-btn-text: #eae6f5;
+--pg-disabled: #7a6f8c;
+}
+
+.pagination {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 16px;
+background: var(--pg-bg);
+}
+
+/* Texto "current / total" */
+.pagination .page-info {
+color: var(--pg-btn-text);
+font-weight: 600;
+font-size: 18px;
+min-width: 80px;
+text-align: center;
+letter-spacing: 0.5px;
+}
+
+/* Botones prev/next */
+.pagination button{
+appearance: none;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 42px;
+height: 42px;
+border-radius: 8px;
+border: 2px solid var(--pg-btn-border);
+background: var(--pg-btn-bg);
+color: var(--pg-btn-text);
+cursor: pointer;
+transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .06s ease;
+user-select: none;
+}
+
+/* Hover / active / focus */
+.pagination button:hover{
+border-color: #a855f7;
+}
+
+.pagination button:active{
+transform: translateY(1px);
+}
+
+.pagination button:focus-visible{
+outline: none;
+box-shadow: 0 0 0 3px rgba(111,60,255,.35);
+}
+
+/* Estado deshabilitado */
+.pagination button[disabled]{
+opacity: .45;
+cursor: not-allowed;
+filter: grayscale(.2);
+}
+
+.pagination button > svg{
+width: 16px;
+height: 16px;
+background-color: #1E1624;
+}

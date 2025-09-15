@@ -1,6 +1,7 @@
-<app-header/>
+
+@if (!hideChrome()) { <app-header/> }
 <main>
   <router-outlet />
 </main>
 <app-popup-message [message]="message" [visible]="visible" />
-<app-footer/>
+@if (!hideChrome()) { <app-footer/> }

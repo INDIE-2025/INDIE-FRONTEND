@@ -8,6 +8,7 @@
     </thead>
     <tbody>
         @for (row of data; track row) {
+        @let rowIndex = $index;
         <tr>
             @for (col of columns; track col.key) {
             <td>
@@ -16,13 +17,40 @@
                         <span class="status-badge">{{ row[col.key] }}</span>
                     }
                     @case ('actions') {
-                    <div>
-                        @for (act of actions; track act.action) {
-                        <button (click)="actionClicked.emit({action: act.action, item: row})">
-                            <i [class]="act.icon"></i>
-                        </button>
-                        }
-                    </div>
+                        <div class="actions">
+                            @for (act of actions; track act.action) {
+                            <button class="icon-btn"
+                                (click)="actionClicked.emit({ action: act.action, item: row })">
+                                @if (act.isButton) {
+                                {{ act.label }}
+                                } @else {
+                                <img [src]="act.src" [alt]="act.label" class="icon-btn__svg" />
+                                }
+                            </button>
+                            }
+                        </div>
+                    }
+                    @case ('list') {
+                        <div class="list" [class.expanded]="isExpanded(row, rowIndex)">
+                            @if (isArray(row[col.key])) {
+                                @for (item of listItems(row, col, rowIndex); track item) {
+                                    <span class="chip">{{ item }}</span>
+                                }
+                                @if (extraCount(row, col) > 0 && !isExpanded(row, rowIndex)) {
+                                    <button class="show-more" type="button"
+                                            (click)="toggleExpand(row, rowIndex)">
+                                    Mostrar más… ({{ extraCount(row, col) }})
+                                    </button>
+                                }
+                                @if (extraCount(row, col) > 0 && isExpanded(row, rowIndex)) {
+                                    <button class="show-less" type="button"
+                                            (click)="toggleExpand(row, rowIndex)">
+                                    Mostrar menos
+                                    </button>
+                                }
+                            }
+                        </div>
+
                     }
                     @default{
                         <span>{{ row[col.key] }}</span>

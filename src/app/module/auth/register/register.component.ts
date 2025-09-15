@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -87,12 +89,26 @@ export class RegisterComponent implements OnInit {
 
       this.auth.register(formData).subscribe({
         next: () => {
-          alert('Registro exitoso');
           this.router.navigate(['/post-register']);
         },
         error: err => {
           console.error('Error en registro:', err);
-          alert('No se pudo registrar. Inténtalo de nuevo.');
+          
+          // Extraer mensaje de error del backend o usar uno genérico
+          const errorMessage = err.error?.message || 
+                              err.error?.error || 
+                              err.error ||
+                              'Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.';
+          
+          this.toastr.error(
+            errorMessage,
+            'Error en el Registro',
+            {
+              timeOut: 6000,
+              progressBar: true,
+              closeButton: true
+            }
+          );
         }
       });
     } else {
@@ -100,6 +116,16 @@ export class RegisterComponent implements OnInit {
       Object.keys(this.registerForm.controls).forEach(key => {
         this.registerForm.get(key)?.markAsTouched();
       });
+      
+      // Mostrar toast de error para formulario inválido
+      this.toastr.warning(
+        'Por favor, completa todos los campos requeridos correctamente.',
+        'Formulario Incompleto',
+        {
+          timeOut: 4000,
+          progressBar: true
+        }
+      );
     }
   }
 

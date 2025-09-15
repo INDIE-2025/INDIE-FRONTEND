@@ -1,0 +1,41 @@
+.tipos-usuario-container {
+  padding: 24px;
+}
+
+app-data-table {
+  margin-bottom: 16px;
+}
+app-pagination {
+  display: flex;
+  justify-content: right;
+  margin-top: 16px;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.table-filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 12px;
+}
+
+.add-user-button {
+  background-color: #C567FF;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+.add-user-button:hover {
+  background: #a855f7;
+}

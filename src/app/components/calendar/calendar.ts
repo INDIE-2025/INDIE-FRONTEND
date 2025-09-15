@@ -10,7 +10,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
   standalone: true,
   imports: [FullCalendarModule],
   templateUrl: './calendar.html',
-  styleUrls: ['./calendar.scss']
+  styleUrl: './calendar.scss',
+  standalone: true,
 })
 export class Calendar implements OnInit {
   
