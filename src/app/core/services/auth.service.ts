@@ -121,8 +121,8 @@ export class AuthService {
     return user ? user.id : null;
   }
 
-  requestPasswordReset(email: string): Observable<{ respuesta: string }> {
-    return this.http.post<{ respuesta: string }>(`${this.apiUrl}/request-password-reset`, { email });
+  requestPasswordReset(email: string): Observable<string> {
+    return this.http.post(`${this.apiUrl}/request-password-reset`, { email }, { responseType: 'text' as const });
   }
 
   validateResetToken(token: string): Observable<{ valid: boolean }> {
