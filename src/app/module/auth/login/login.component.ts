@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ToastrService } from 'ngx-toastr';
+import { NotifyService } from '../../../core/services/notify.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +25,7 @@ export class LoginComponent {
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private notify: NotifyService
   ) {
     this.loginForm = this.fb.group({
       emailUsuario: ['', [Validators.required, Validators.email]],
@@ -62,15 +62,7 @@ export class LoginComponent {
                               err.error ||
                               'Credenciales incorrectas. Por favor, verifica tu email y contraseña.';
           
-          this.toastr.error(
-            errorMessage,
-            'Error de Autenticación',
-            {
-              timeOut: 5000,
-              progressBar: true,
-              closeButton: true
-            }
-          );
+          this.notify.error(errorMessage, 'Error de Autenticación', 5000);
         }
       });
     } else {
@@ -80,14 +72,7 @@ export class LoginComponent {
       });
       
       // Mostrar toast de error para formulario inválido
-      this.toastr.warning(
-        'Por favor, completa todos los campos requeridos correctamente.',
-        'Formulario Incompleto',
-        {
-          timeOut: 4000,
-          progressBar: true
-        }
-      );
+      this.notify.warning('Por favor, completa todos los campos requeridos correctamente.', 'Formulario Incompleto', 4000);
     }
   }
 

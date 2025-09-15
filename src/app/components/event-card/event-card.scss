@@ -1,3 +1,4 @@
+@use "sass:color";
 $dark-background: #0e0517;
 $purple-light: #9747ff;
 $light-text: #ffffff;
@@ -28,7 +29,7 @@ $light-text: #ffffff;
 
 .event-card {
   width: 100%;
-  background: lighten($dark-background, 5%);
+  background: color.adjust($dark-background, $lightness: 5%);
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -141,8 +142,10 @@ $light-text: #ffffff;
       width: 100%;
       
       &:hover {
-        background-color: darken($purple-light, 10%);
+        background-color: color.adjust($purple-light, $lightness: -10%);
       }
     }
   }
 }
+
+
