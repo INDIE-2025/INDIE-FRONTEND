@@ -96,7 +96,7 @@ export class AdminComentariosPage implements OnInit {
   ];
 
   actions: TableAction[] = [
-    { icon: 'fas fa-check', label: 'Resolver', action: 'resolve' }
+  { src: '', label: 'Resolver', action: 'resolve', isButton: true }
   ];
 
   ngOnInit() {
