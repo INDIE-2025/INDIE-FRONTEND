@@ -1,0 +1,148 @@
+$dark-background: #0e0517;
+$purple-light: #9747ff;
+$light-text: #ffffff;
+
+// Smooth loading transitions
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+}
+
+.loading-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(110deg, #0e0517 8%, #1e0d2e 18%, #0e0517 33%);
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+  z-index: 1;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+.event-card {
+  width: 100%;
+  background: lighten($dark-background, 5%);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  transform: translateZ(0); // Force hardware acceleration
+  
+  .event-date-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: $purple-light;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    z-index: 5;
+    text-align: center;
+    
+    .date {
+      display: block;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    
+    .time {
+      display: block;
+      font-size: 0.8rem;
+    }
+    
+    .location {
+      display: block;
+      font-size: 0.75rem;
+    }
+  }
+  
+  .event-img {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      will-change: transform;
+    }
+  }
+  
+  .event-details {
+    padding: 1.5rem;
+    
+    h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      color: $light-text;
+    }
+    
+    .organizers {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      
+      h4 {
+        font-size: 0.8rem;
+        color: #c0b8cc;
+        margin-bottom: 0.2rem;
+      }
+      
+      p {
+        font-size: 0.9rem;
+        color: $light-text;
+        
+        i {
+          margin-right: 0.3rem;
+        }
+      }
+    }
+    
+    .interest {
+      margin-bottom: 0.8rem;
+      
+      p {
+        font-size: 0.9rem;
+        color: $light-text;
+        font-weight: 600;
+      }
+    }
+    
+    .event-description {
+      font-size: 0.9rem;
+      color: #c0b8cc;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+      max-height: 4.5rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+    
+    .interest-btn {
+      background-color: $purple-light;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      font-weight: 600;
+      border-radius: 5px;
+      width: 100%;
+      
+      &:hover {
+        background-color: darken($purple-light, 10%);
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<div class="event-card">
+  <div class="event-date-badge">
+    <span class="date">{{date}}</span>
+    <span class="time">{{time}}</span>
+    <span class="location">{{location}}</span>
+  </div>
+  <div class="event-img">
+    <img [src]="image" [alt]="title" loading="lazy" class="fade-in">
+    <div class="loading-placeholder" *ngIf="!imageLoaded" aria-hidden="true"></div>
+  </div>
+  <div class="event-details">
+    <h3>{{title}}</h3>
+    <div class="organizers">
+      <div>
+        <h4>Creador</h4>
+        <p><i class="bi bi-person"></i> {{creator}}</p>
+      </div>
+      <div>
+        <h4>En colaboración con:</h4>
+        <p><i class="bi bi-person"></i> {{collaborator}}</p>
+      </div>
+    </div>
+    <div class="interest">
+      <p>Interesados - {{interested}}</p>
+    </div>
+    <p class="event-description">{{description}}</p>
+    <button class="btn interest-btn">ME INTERESA</button>
+  </div>
+</div>

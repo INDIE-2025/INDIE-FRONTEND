@@ -1,0 +1,493 @@
+// Main colors - Exact from the design
+$purple-primary: #7b27cb;
+$purple-dark: #250a40;
+$purple-light: #9747ff;
+$dark-background: #0e0517;
+$light-text: #ffffff;
+
+// Page container with fade-in effect
+.page-container {
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+  will-change: opacity, transform;
+  min-height: 100vh;
+  
+  &.content-ready {
+    opacity: 1;
+  }
+  
+  .visible {
+    opacity: 1;
+  }
+  
+  .artist-card, .event-card {
+    opacity: 0;
+    transition: opacity 0.5s ease-in, transform 0.3s ease;
+    will-change: opacity, transform;
+    
+    &.visible {
+      opacity: 1;
+    }
+  }
+}
+
+// General styles
+section {
+  padding: 4rem 0;
+  will-change: opacity, transform;
+  opacity: 1;
+  transform: translateZ(0); // Force hardware acceleration
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $light-text;
+  font-weight: bold;
+}
+
+// Smooth loading transitions
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+}
+
+.loading-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(110deg, #0e0517 8%, #1e0d2e 18%, #0e0517 33%);
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+.section-header {
+  margin-bottom: 3rem;
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  
+  p {
+    color: #c0b8cc;
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1rem;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.view-all-link {
+  margin-top: 2rem;
+  
+  a {
+    color: $light-text;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-bottom: 1px solid $purple-light;
+    padding-bottom: 0.3rem;
+    
+    &:hover {
+      color: $purple-light;
+    }
+  }
+}
+
+// Hero Section
+.hero-section {
+  background: linear-gradient(rgba($purple-dark, 0.6), rgba($dark-background, 0.9)), 
+              url('/assets/logo/images/hero-bg.jpg') no-repeat center center;
+  background-size: cover;
+  padding: 6rem 0;
+  color: $light-text;
+  
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    text-align: left;
+    
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      
+      .indie-purple {
+        color: $purple-primary;
+        display: block;
+      }
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    
+    p {
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+      color: #c0b8cc;
+      max-width: 600px;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      
+      .explore-btn {
+        background-color: #cf88ff;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        font-weight: 600;
+        border-radius: 4px;
+        
+        &:hover {
+          background-color: darken(#cf88ff, 10%);
+        }
+      }
+      
+      .see-artists-btn {
+        background-color: transparent;
+        color: white;
+        border: 1px solid white;
+        padding: 0.8rem 1.5rem;
+        font-weight: 600;
+        border-radius: 5px;
+        
+        &:hover {
+          background-color: rgba(white, 0.1);
+        }
+      }
+    }
+  }
+}
+
+// Featured Artists Section
+.featured-artists {
+  background-color: $dark-background;
+  padding: 4rem 0;
+  
+  .artist-carousel {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    
+    .artist-cards {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      
+      .artist-card {
+        width: 250px;
+        background: lighten($dark-background, 5%);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        
+        .artist-img {
+          height: 200px;
+          overflow: hidden;
+          
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+          }
+        }
+        
+        &:hover .artist-img img {
+          transform: scale(1.1);
+        }
+        
+        .artist-info {
+          padding: 1.2rem;
+          
+          h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+          }
+          
+          p {
+            color: #c0b8cc;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+          }
+          
+          .profile-link {
+            color: $purple-light;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            
+            i {
+              transition: transform 0.3s ease;
+            }
+            
+            &:hover i {
+              transform: translateX(3px);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Upcoming Events Section
+.upcoming-events {
+  background-color: #110619;
+  padding: 4rem 0;
+  contain: paint; // Improve scrolling performance
+  
+  .section-header {
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+    padding: 0 1.5rem;
+  }
+  
+  .events-carousel {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    
+    .carousel-nav {
+      background: white;
+      color: $purple-primary;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: background 0.2s ease;
+      
+      &:hover {
+        background: $light-text;
+      }
+      
+      &.prev {
+        margin-right: -20px;
+      }
+      
+      &.next {
+        margin-left: -20px;
+      }
+      
+      i {
+        font-size: 1.2rem;
+      }
+    }
+    
+    .event-cards {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none; // Hide scrollbar for Firefox
+      padding: 1rem 1.5rem;
+      -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
+      contain: content; // Improve performance
+      will-change: transform; // Hardware acceleration hint
+      
+      &::-webkit-scrollbar {
+        display: none; // Hide scrollbar for Chrome/Safari
+      }
+      
+      .event-card {
+        min-width: 350px;
+        flex: 0 0 auto;
+        background: lighten($dark-background, 5%);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        scroll-snap-align: start;
+        position: relative;
+        
+          .event-date-badge {
+          position: absolute;
+          top: 15px;
+          left: 15px;
+          background: $purple-primary;
+          color: white;
+          padding: 0.3rem 0.7rem;
+          border-radius: 3px;
+          z-index: 5;
+          text-align: center;          .date {
+            display: block;
+            font-weight: 700;
+            font-size: 0.9rem;
+          }
+          
+          .time {
+            display: block;
+            font-size: 0.8rem;
+          }
+          
+          .location {
+            display: block;
+            font-size: 0.75rem;
+          }
+        }
+        
+        .event-img {
+          height: 200px;
+          
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        
+        .event-details {
+          padding: 1.5rem;
+          
+          h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+          }
+          
+          .organizers {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            
+            h4 {
+              font-size: 0.8rem;
+              color: #c0b8cc;
+              margin-bottom: 0.2rem;
+            }
+            
+            p {
+              font-size: 0.9rem;
+              color: $light-text;
+              
+              i {
+                margin-right: 0.3rem;
+              }
+            }
+          }
+          
+          .interest {
+            margin-bottom: 0.8rem;
+            
+            p {
+              font-size: 0.9rem;
+              color: $light-text;
+              font-weight: 600;
+            }
+          }
+          
+          .event-description {
+            font-size: 0.9rem;
+            color: #c0b8cc;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            max-height: 4.5rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+          }
+          
+          .interest-btn {
+            background-color: $purple-primary;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            font-weight: 600;
+            border-radius: 3px;
+            width: 100%;
+            
+            &:hover {
+              background-color: darken($purple-primary, 10%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive styles
+@media (max-width: 992px) {
+  .hero-section .hero-content {
+    h1 {
+      font-size: 2.5rem;
+    }
+  }
+  
+  .featured-artists .artist-cards {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 6rem 0;
+    
+    .hero-content {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.3rem;
+      }
+    }
+  }
+  
+  .featured-artists .artist-card {
+    width: 220px;
+  }
+  
+  .upcoming-events .event-cards .event-card {
+    min-width: 300px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-section .hero-buttons {
+    flex-direction: column;
+  }
+  
+  .featured-artists .artist-card {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .upcoming-events .event-cards .event-card {
+    min-width: 270px;
+  }
+}
