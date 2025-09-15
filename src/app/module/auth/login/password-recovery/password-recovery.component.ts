@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { ToastrService } from 'ngx-toastr';
+import { NotifyService } from '../../../../core/services/notify.service';
 
 @Component({
   selector: 'app-password-recovery',
@@ -28,7 +28,7 @@ export class PasswordRecoveryComponent implements OnDestroy {
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private notify: NotifyService
   ) {
     this.recoveryForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
@@ -53,15 +53,7 @@ export class PasswordRecoveryComponent implements OnDestroy {
                               err.error?.error || 
                               err.error ||
                               'Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.';
-          this.toastr.error(
-            errorMessage,
-            'Error de Autenticación',
-            {
-              timeOut: 5000,
-              progressBar: true,
-              closeButton: true
-            }
-          );
+          this.notify.error(errorMessage, 'Error de Autenticación', 5000);
           this.isLoading = false;
         }
       });

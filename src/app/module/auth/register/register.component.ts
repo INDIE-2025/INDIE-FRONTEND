@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ToastrService } from 'ngx-toastr';
+import { NotifyService } from '../../../core/services/notify.service';
 
 @Component({
   selector: 'app-register',
@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private notify: NotifyService
   ) {}
 
   ngOnInit() {
@@ -104,15 +104,7 @@ export class RegisterComponent implements OnInit {
                               err.error ||
                               'Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.';
           
-          this.toastr.error(
-            errorMessage,
-            'Error en el Registro',
-            {
-              timeOut: 6000,
-              progressBar: true,
-              closeButton: true
-            }
-          );
+          this.notify.error(errorMessage, 'Error en el Registro', 6000);
         }
       });
     } else {
@@ -122,14 +114,7 @@ export class RegisterComponent implements OnInit {
       });
       
       // Mostrar toast de error para formulario inválido
-      this.toastr.warning(
-        'Por favor, completa todos los campos requeridos correctamente.',
-        'Formulario Incompleto',
-        {
-          timeOut: 4000,
-          progressBar: true
-        }
-      );
+      this.notify.warning('Por favor, completa todos los campos requeridos correctamente.', 'Formulario Incompleto', 4000);
     }
   }
 

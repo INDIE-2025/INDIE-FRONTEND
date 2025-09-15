@@ -1,15 +1,13 @@
 import { PopupService } from './services/popup.service';
 import { PopupMessageComponent } from './components/popup-message/popup-message';
-import { HomeComponent } from './pages/home/home.component';
 import { Component, signal, computed } from '@angular/core';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { Footer } from './components/footer/footer';
 import { Header } from './components/header/header';
-import { ProfileComponent } from './pages/profile/profile';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HomeComponent, Header, Footer, ProfileComponent, PopupMessageComponent],
+  imports: [RouterOutlet, Header, Footer, PopupMessageComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

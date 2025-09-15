@@ -1,3 +1,4 @@
+@use "sass:color";
 // Main colors - Exact from the design
 $purple-primary: #7b27cb;
 $purple-dark: #250a40;
@@ -157,7 +158,7 @@ h1, h2, h3, h4, h5, h6 {
         border-radius: 4px;
         
         &:hover {
-          background-color: darken(#cf88ff, 10%);
+          background-color: color.adjust(#cf88ff, $lightness: -10%);
         }
       }
       
@@ -195,7 +196,7 @@ h1, h2, h3, h4, h5, h6 {
       
       .artist-card {
         width: 250px;
-        background: lighten($dark-background, 5%);
+        background: color.adjust($dark-background, $lightness: 5%);
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -322,7 +323,7 @@ h1, h2, h3, h4, h5, h6 {
       .event-card {
         min-width: 350px;
         flex: 0 0 auto;
-        background: lighten($dark-background, 5%);
+        background: color.adjust($dark-background, $lightness: 5%);
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -429,7 +430,7 @@ h1, h2, h3, h4, h5, h6 {
             width: 100%;
             
             &:hover {
-              background-color: darken($purple-primary, 10%);
+              background-color: color.adjust($purple-primary, $lightness: -10%);
             }
           }
         }

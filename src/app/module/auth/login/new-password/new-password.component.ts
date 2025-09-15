@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../../../core/services/auth.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
+import { NotifyService } from '../../../../core/services/notify.service';
 
 @Component({
   selector: 'app-new-password',
@@ -43,7 +43,7 @@ export class NewPasswordComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService
+    private notify: NotifyService
   ) {
     this.newPasswordForm = this.fb.group({
       password: [
@@ -108,15 +108,7 @@ export class NewPasswordComponent implements OnInit, OnDestroy {
         error: (error) => {
           this.isValidToken = false;
           this.errorMessage = 'El token de recuperación ha expirado o no es válido';
-          this.toastr.error(
-            this.errorMessage,
-            'Error de Validación',
-            {
-              timeOut: 5000,
-              progressBar: true,
-              closeButton: true
-            }
-          );
+          this.notify.error(this.errorMessage, 'Error de Validación', 5000);
         }
       });
   }

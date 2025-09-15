@@ -2,7 +2,6 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { EventCard } from '../../components/event-card/event-card';
-import { LayoutTransitionDirective } from '../../directives/layout-transition.directive';
 
 interface Artist {
   id: number;
@@ -26,7 +25,7 @@ interface Event {
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterModule, EventCard, LayoutTransitionDirective],
+  imports: [CommonModule, RouterModule, EventCard],
   templateUrl: './home.component.html',
   standalone: true,
   styleUrls: ['./home.component.scss']
