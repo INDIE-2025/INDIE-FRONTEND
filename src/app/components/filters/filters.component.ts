@@ -21,8 +21,7 @@ export interface Filter {
   styleUrl: "./filters.component.css"
 })
 export class FiltersComponent {
-  @Input() filters: Filter[] = [];
-  
+  @Input() filters: Filter[] = [];  
   @Output() filtersChange = new EventEmitter<Filter[]>();
   onChange() {
     // Emití un NUEVO array para facilitar la detección de cambios en el padre

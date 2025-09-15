@@ -7,10 +7,12 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { FormsModule } from '@angular/forms'; 
 import { FormInputComponent, FormSelectComponent, FormButtonComponent, FormTextComponent } from "../../../components/form/form-components.component";
 
+
 @Component({
   selector: 'admin-usuarios-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, SearchBarComponent, FiltersComponent, DataTableComponent, PaginationComponent, FormInputComponent, FormSelectComponent, FormButtonComponent, FormTextComponent],
+
+  imports: [CommonModule, SearchBarComponent, FiltersComponent, DataTableComponent, PaginationComponent],
   templateUrl: "./admin-usuarios.component.html",
   styleUrl: "./admin-usuarios.component.css"
 })

@@ -1,42 +1,37 @@
+@use '../../../shared/styles/auth-shared' as auth;
+
 .login-container {
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #6c5ce7 0%, #a855f7 50%, #8b5cf6 100%);
+  @include auth.auth-container;
 }
 
 .left-panel {
-  flex: 1;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  color: white;
-  position: relative;
-  overflow: hidden;
-  padding: 2rem;
+  @include auth.left-panel;
+}
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.1);
-    z-index: 1;
+.right-panel {
+  @include auth.right-panel;
+}
+
+.login-card {
+  @include auth.form-card;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.5px;
   }
 
-  > * {
-    position: relative;
-    z-index: 2;
+  p {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin: 0;
   }
 }
 
@@ -107,238 +102,72 @@
   }
 }
 
-.right-panel {
-  flex: 1;
-  background: #1a1a1a;
-  padding: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-y: auto;
-}
-
-.login-form {
-  width: 100%;
-  max-width: 400px;
-  color: white;
-}
-
-.form-header {
-  margin-bottom: 2.5rem;
-  text-align: left;
-  
-  h2 {
-    font-size: 1.875rem;
-    font-weight: 700;
-    margin: 0 0 0.5rem 0;
-    color: white;
-  }
-  
-  p {
-    font-size: 0.875rem;
-    color: #9ca3af;
-    margin: 0;
-  }
-}
-
 .form-group {
   margin-bottom: 1.5rem;
   width: 100%;
 }
 
-.full-width {
-  width: 100%;
-}
-
-// Estilos para Angular Material
 ::ng-deep .mat-mdc-form-field {
-  width: 100%;
-  
-  .mat-mdc-text-field-wrapper {
-    background-color: #2d2d2d;
-    border-radius: 8px;
-  }
-  
-  .mdc-text-field--outlined .mdc-notched-outline__leading,
-  .mdc-text-field--outlined .mdc-notched-outline__notch,
-  .mdc-text-field--outlined .mdc-notched-outline__trailing {
-    border-color: #404040;
-  }
-  
-  .mdc-text-field--focused .mdc-notched-outline__leading,
-  .mdc-text-field--focused .mdc-notched-outline__notch,
-  .mdc-text-field--focused .mdc-notched-outline__trailing {
-    border-color: #a855f7;
-  }
-  
-  .mat-mdc-input-element {
-    color: white;
-    
-    // Placeholder cuando el label NO está flotando (campo vacío y no enfocado)
-    &::placeholder {
-      color: transparent;
-      opacity: 0;
-    }
-    
-    // Placeholder cuando el campo está enfocado o tiene contenido
-    &:focus::placeholder,
-    &:not(:placeholder-shown)::placeholder {
-      color: #6b7280;
-      opacity: 1;
-    }
-  }
-
-  .custom-placeholder {
-  color: #828282 !important; // Color cuando no hay texto
-
-  &:not(:placeholder-shown) {
-    color: white !important; // Color cuando hay texto ingresado
-  }
+  @include auth.form-field;
 }
-  
-  // Labels cuando están flotando (arriba)
-  .mat-mdc-form-field-label {
-    color: #9ca3af;
-  }
-  
-  // Labels cuando están enfocados
-  .mat-mdc-form-field-label.mdc-floating-label--float-above {
-    color: #a855f7;
-  }
-  
-  // Labels cuando el campo tiene contenido
-  .mdc-floating-label--float-above {
-    color: #a855f7;
-  }
-  
-  // Cuando el campo está enfocado, mostrar placeholder
-  &.mat-focused .mat-mdc-input-element::placeholder {
-    color: #6b7280;
-    opacity: 1;
-  }
-  
-  .mat-mdc-form-field-hint {
-    color: #6b7280;
-    font-size: 0.75rem;
-  }
-}
-
-::ng-deep .mat-mdc-checkbox {
-  .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background {
-    border-color: #9ca3af;
-  }
-  
-  .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
-    background-color: #a855f7;
-    border-color: #a855f7;
-  }
-  
-  .mdc-form-field {
-    color: white;
-  }
-}
-
 
 .form-options {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1.5rem 0;
+  margin-bottom: 1.5rem;
+  width: 100%;
 }
 
-.checkbox-label {
-  font-size: 0.875rem;
-  color: #9ca3af;
+::ng-deep .mat-mdc-checkbox {
+  @include auth.auth-checkbox;
 }
 
 .forgot-password {
-  color: #a855f7;
-  font-size: 0.875rem;
-  text-decoration: none;
-  transition: color 0.3s ease;
-  
-  &:hover {
-    color: #c084fc;
-    text-decoration: underline;
-  }
+  @include auth.auth-link;
 }
 
-.submit-btn {
-  width: 100%;
-  height: 48px;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
-  color: white;
-  border: none;
-  padding: 14px 24px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
+::ng-deep .submit-btn {
+  @include auth.primary-button;
+  margin-top: 1rem;
+  margin-bottom: 20px;
+}
 
-  &:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.3);
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-  }
+.link {
+  @include auth.auth-link;
 }
 
 .form-footer {
+  width: 100%;
   text-align: center;
-  
+
   p {
+    color: white;
     font-size: 0.875rem;
-    color: #9ca3af;
     margin: 0;
   }
-  
-  .link {
-    color: #a855f7;
-    text-decoration: none;
-    font-weight: 500;
-    
-    &:hover {
-      text-decoration: underline;
-      color: #8b5cf6;
-    }
-  }
+
 }
 
-// Responsividad
-@media (max-width: 768px) {
+@include auth.mobile {
   .login-container {
     flex-direction: column;
   }
   
   .left-panel {
     min-height: 40vh;
+    padding: 1.5rem;
   }
   
   .right-panel {
-    padding: 2rem 1rem;
+    padding: 1.5rem;
   }
   
-  .login-form {
-    max-width: none;
+  .brand .brand-title {
+    font-size: 2.5rem;
   }
   
-  .brand-title {
-    font-size: 2.5rem !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .right-panel {
-    padding: 1.5rem 1rem;
-  }
-  
-  .brand-title {
-    font-size: 2rem !important;
+  .login-card {
+    padding: 1.5rem;
   }
 }

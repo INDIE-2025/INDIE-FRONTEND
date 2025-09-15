@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { tap, delay } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -30,5 +31,20 @@ export class AuthService {
 
   isAuthenticated() {
     return !!this.getToken();
+  }
+
+  requestPasswordReset(email: string): Observable<{ respuesta: string }> {
+    return this.http.post<{ respuesta: string }>(`${this.apiUrl}/request-password-reset`, { email });
+  }
+
+  validateResetToken(token: string): Observable<{ valid: boolean }> {
+    return this.http.get<{ valid: boolean }>(`${this.apiUrl}/validate-reset-token?token=${token}`);
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.apiUrl}/reset-password`, { 
+      token, 
+      newPassword 
+    });
   }
 }
