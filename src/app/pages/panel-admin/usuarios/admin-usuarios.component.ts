@@ -4,10 +4,14 @@ import { DataTableComponent, TableColumn, TableAction } from '../../../component
 import { SearchBarComponent } from '../../../components/search-bar/search-bar.component';
 import { FiltersComponent, Filter } from '../../../components/filters/filters.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
+import { FormsModule } from '@angular/forms'; 
+import { FormInputComponent, FormSelectComponent, FormButtonComponent, FormTextComponent } from "../../../components/form/form-components.component";
+
 
 @Component({
   selector: 'admin-usuarios-page',
   standalone: true,
+
   imports: [CommonModule, SearchBarComponent, FiltersComponent, DataTableComponent, PaginationComponent],
   templateUrl: "./admin-usuarios.component.html",
   styleUrl: "./admin-usuarios.component.css"
@@ -60,6 +64,69 @@ export class AdminUsuariosPage {
       email: 'email@correo.com',
       tipoUsuario: 'Artista',
       estado: 'Activo'
+    },
+    {
+      nombre: 'Carlos Lopez',
+      nombreUsuario: 'lopez.carlosss',
+      email: 'email@correo.com',
+      tipoUsuario: 'Artista',
+      estado: 'Activo'
+    },
+    {
+      nombre: 'Carlos Lopez',
+      nombreUsuario: 'lopez.carlosss',
+      email: 'email@correo.com',
+      tipoUsuario: 'Artista',
+      estado: 'Activo'
+    },
+    {
+      nombre: 'Carlos Lopez',
+      nombreUsuario: 'lopez.carlosss',
+      email: 'email@correo.com',
+      tipoUsuario: 'Artista',
+      estado: 'Activo'
+    },
+    {
+      nombre: 'Carlos Lopez',
+      nombreUsuario: 'lopez.carlosss',
+      email: 'email@correo.com',
+      tipoUsuario: 'Artista',
+      estado: 'Activo'
+    },
+    {
+      nombre: 'Carlos Lopez',
+      nombreUsuario: 'lopez.carlosss',
+      email: 'email@correo.com',
+      tipoUsuario: 'Artista',
+      estado: 'Activo'
+    },
+    {
+      nombre: 'Carlos Lopez',
+      nombreUsuario: 'lopez.carlosss',
+      email: 'email@correo.com',
+      tipoUsuario: 'Artista',
+      estado: 'Activo'
+    },
+    {
+      nombre: 'Carlos Lopez',
+      nombreUsuario: 'lopez.carlosss',
+      email: 'email@correo.com',
+      tipoUsuario: 'Artista',
+      estado: 'Activo'
+    },
+    {
+      nombre: 'Carlos Lopez',
+      nombreUsuario: 'lopez.carlosss',
+      email: 'email@correo.com',
+      tipoUsuario: 'Artista',
+      estado: 'Activo'
+    },
+    {
+      nombre: 'Carlos Lopez',
+      nombreUsuario: 'lopez.carlosss',
+      email: 'email@correo.com',
+      tipoUsuario: 'Artista',
+      estado: 'De baja'
     }
   ]);
 
@@ -73,8 +140,8 @@ export class AdminUsuariosPage {
   ];
 
   actions: TableAction[] = [
-    { icon: 'fas fa-edit', label: 'Editar', action: 'edit'},
-    { icon: 'fas fa-trash', label: 'Eliminar', action: 'delete'}
+  { src: '/assets/icons/edit.svg', label: 'Editar', action: 'edit', isButton: false },
+  { src: '/assets/icons/cancel.svg', label: 'Eliminar', action: 'delete', isButton: false }
   ];
 
   filteredData = computed(() => {
@@ -126,24 +193,85 @@ export class AdminUsuariosPage {
         this.editUser(event.item);
         break;
       case 'delete':
-        this.deleteUser(event.item);
+        this.onDeleteUser(event.item);
         break;
     }
   }
 
+  showAddUserForm = false;
+
+  showDeleteUserForm = false;
+
+  nuevoUsuario = {
+    usuario: '',
+    nombre: '',
+    email: '',
+    tipoUsuario: '',
+    subtipoUsuario: '',
+    password: '',
+    password2: '',
+    estado: 'Activo'
+  };
+
+  tiposUsuario = [
+    { value: 'Administrador', label: 'Administrador' },
+    { value: 'Fan',           label: 'Fan' },
+    { value: 'Artista',       label: 'Artista' },
+    { value: 'Establecimiento', label: 'Establecimiento' }
+  ];
+
+  subtiposUsuario = [{ value: '—', label: '—' }];
+
+  estado = [
+    { value: 'Activo', label: 'Activo' },
+    { value: 'De baja', label: 'De baja' }
+  ];
+  
   onAddUser() {
-    console.log('Agregar nuevo usuario');
-    // Implementar lógica para agregar usuario
+
+    this.nuevoUsuario = {
+      usuario: '',
+      nombre: '',
+      email: '',
+      tipoUsuario: '',
+      subtipoUsuario: '',
+      password: '',
+      password2: '',
+      estado: 'Activo'
+    };
+
+    this.showAddUserForm = true;
+
+  }
+
+  guardarUsuario() {
+  console.log('Datos a enviar:', this.nuevoUsuario);
+  // acá llamás a tu servicio para crear el usuario
+  // this.usuarioService.crearUsuario(this.nuevoUsuario).subscribe(...)
+  this.showAddUserForm = false; // opcional: cerrar formulario
   }
 
   editUser(user: any) {
-    console.log('Editar usuario:', user);
-    // Implementar lógica para editar usuario
+
+    this.nuevoUsuario.usuario = user.nombreUsuario;
+    this.nuevoUsuario.nombre = user.nombre;
+    this.nuevoUsuario.email = user.email;
+    this.nuevoUsuario.tipoUsuario = user.tipoUsuario;
+    this.nuevoUsuario.subtipoUsuario = '';
+    this.nuevoUsuario.estado = user.estado;
+
+    this.showAddUserForm = true;
+    
   }
 
-  deleteUser(user: any) {
-    console.log('Eliminar usuario:', user);
-    // Implementar lógica para eliminar usuario
+  onDeleteUser(user: any) {
+    this.showDeleteUserForm = true;
+  }
+
+  eliminarUsuario() {
+    // acá llamás a tu servicio para eliminar el usuario
+    // this.usuarioService.eliminarUsuario(userId).subscribe(...)
+    this.showDeleteUserForm = false; // opcional: cerrar formulario
   }
 }
 

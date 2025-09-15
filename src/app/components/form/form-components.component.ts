@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef, SecurityContext } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 
 // Componente de Input personalizado
 @Component({
@@ -84,10 +85,11 @@ export class FormInputComponent implements ControlValueAccessor {
       <select 
         [id]="selectId"
         [disabled]="disabled"
-        [value]="value"
+        [ngModel]="value"
         (change)="onChange($event)"
         class="form-select"
-        [class.error]="hasError">
+        [class.error]="hasError"
+        (ngModelChange)="onChange($event)">
         <option value="" *ngIf="placeholder">{{placeholder}}</option>
         <option *ngFor="let option of options" [value]="option.value">
           {{option.label}}
@@ -191,3 +193,107 @@ export class FormButtonComponent {
   }
 }
 
+//Componente de texto
+@Component({
+  selector: 'app-form-text',
+  standalone: true,
+  imports: [CommonModule],
+  styles: [`
+    .wrap {
+      width: 100%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+    .text {
+      margin: 0;
+      line-height: 1.3;
+    }
+  `],
+  template: `
+    <div class="wrap">
+      @switch (tag) {
+        @case ('h1') {
+          <h1 class="text" [style.color]="color" [style.fontSize.px]="size" [style.fontWeight]="weight">{{ text }}</h1>
+        }
+        @case ('h2') {
+          <h2 class="text" [style.color]="color" [style.fontSize.px]="size" [style.fontWeight]="weight">{{ text }}</h2>
+        }
+        @case ('h3') {
+          <h3 class="text" [style.color]="color" [style.fontSize.px]="size" [style.fontWeight]="weight">{{ text }}</h3>
+        }
+        @default {
+          <p  class="text" [style.color]="color" [style.fontSize.px]="size" [style.fontWeight]="weight">{{ text }}</p>
+        }
+      }
+    </div>
+  `
+})
+export class FormTextComponent {
+  @Input() text = '';
+  /** 'p' | 'h1' | 'h2' | 'h3' */
+  @Input() tag: 'p'|'h1'|'h2'|'h3' = 'p';
+  @Input() color = '#ffffff';
+  @Input() size = 16;          // px
+  @Input() weight: number|string = 500;
+}
+
+//Componente de icono
+
+@Component({
+  selector: 'app-form-svg',
+  standalone: true,
+  imports: [CommonModule],
+  styles: [`
+    .wrap {
+      width: 100%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+    .svg-asset, .svg-inline {
+      display: block;
+    }
+  `],
+  template: `
+    <div class="wrap" [style.color]="color">
+      <!-- Opción A: archivo en assets -->
+      @if (src && !svg) {
+      <img class="svg-asset"
+           [src]="src"
+           [alt]="alt"
+           [style.width.px]="width"
+           [style.height.px]="height" />
+      }
+      <!-- Opción B: SVG inline (usa currentColor) -->
+      @if (svg) {
+        <div class="svg-inline"
+            [style.width.px]="width"
+            [style.height.px]="height"
+            [innerHTML]="safeSvg">
+        </div>
+      }
+    </div>
+  `
+})
+export class FormSvgComponent {
+  constructor(private sanitizer: DomSanitizer) {}
+
+  /** Ruta a assets, ej: '/assets/icons/cancel.svg' */
+  @Input() src?: string;
+
+  /** SVG inline como string (usa fill="currentColor" para heredar color) */
+  @Input() set svg(v: string | undefined) {
+    this._svg = v || '';
+    const cleaned = this.sanitizer.sanitize(SecurityContext.HTML, this._svg) || '';
+    this.safeSvg = this.sanitizer.bypassSecurityTrustHtml(cleaned);
+  }
+  get svg() { return this._svg; }
+  private _svg = '';
+  safeSvg: any;
+
+  @Input() alt = 'icon';
+  @Input() width = 48;     // px
+  @Input() height = 48;    // px
+  @Input() color = '#ffffff'; // funciona si el SVG usa fill="currentColor"
+}
