@@ -18,4 +18,51 @@
         [totalPages]="totalPages()" 
         (pageChange)="onPage($event)">
     </app-pagination>
+
+    @if(showAddTipoUsuarioForm){
+        <div class="modal-overlay">
+            <div class="modal-panel">
+                <form>
+                    <app-form-input label="Tipo de Usuario" [(ngModel)]="nuevoTipoUsuario.nombreTipoUsuario" name="TipoUsuario"></app-form-input>
+                    <app-form-subtypes
+                        label="Subtipos de usuario"
+                        [ngModel]="nuevoTipoUsuario.subtipos()"
+                        name="SubtiposUsuario"
+                        (ngModelChange)="nuevoTipoUsuario.subtipos.set($event)">
+                    </app-form-subtypes>
+                    <app-form-select label="Estado del Tipo de Usuario"
+                                [options]="estados"
+                                [(value)]="nuevoTipoUsuario.estado">
+                    </app-form-select>  
+                    <div class="modal-actions">
+                        <app-form-button type="submit" label="Guardar" variant="primary" (clicked)="guardarNuevoTipoUsuario()"></app-form-button>
+                        <app-form-button type="button" label="Cancelar" variant="secondary" (clicked)="showAddTipoUsuarioForm=false"></app-form-button>
+                    </div>
+                </form>
+            </div>
+        </div> 
+    }
+    @if(showEditTipoUsuarioForm){
+        <div class="modal-overlay">
+            <div class="modal-panel">
+                <form>
+                    <app-form-input label="Tipo de Usuario" [(ngModel)]="nuevoTipoUsuario.nombreTipoUsuario" name="TipoUsuario"></app-form-input>
+                    <app-form-subtypes
+                        label="Subtipos de usuario"
+                        [ngModel]="nuevoTipoUsuario.subtipos()"
+                        name="SubtiposUsuario"
+                        (ngModelChange)="nuevoTipoUsuario.subtipos.set($event)">
+                    </app-form-subtypes>
+                    <app-form-select label="Estado del Tipo de Usuario"
+                                [options]="estados"
+                                [(value)]="nuevoTipoUsuario.estado">
+                    </app-form-select>  
+                    <div class="modal-actions">
+                        <app-form-button type="submit" label="Guardar" variant="primary" (clicked)="guardarTipoUsuario()"></app-form-button>
+                        <app-form-button type="button" label="Cancelar" variant="secondary" (clicked)="showEditTipoUsuarioForm=false"></app-form-button>
+                    </div>
+                </form>
+            </div>
+        </div> 
+    }
 </div>

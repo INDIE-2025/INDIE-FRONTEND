@@ -23,7 +23,7 @@
     @if (showAddUserForm) {
         <div class="modal-overlay">
         <div class="modal-panel">
-            <form (ngSubmit)="guardarUsuario()">
+            <form>
             <app-form-input label="Usuario" [(ngModel)]="nuevoUsuario.usuario" name="usuario"></app-form-input>
             <app-form-input label="Nombre" [(ngModel)]="nuevoUsuario.nombre" name="nombre"></app-form-input>
             <app-form-input label="Email" type="email" [(ngModel)]="nuevoUsuario.email" name="email"></app-form-input>
@@ -47,25 +47,41 @@
             </app-form-select>
 
             <div class="modal-actions">
-                <app-form-button type="submit" label="Guardar" variant="primary" (clicked)="guardarUsuario()"></app-form-button>
+                <app-form-button type="submit" label="Guardar" variant="primary" (clicked)="guardarNuevoUsuario()"></app-form-button>
                 <app-form-button type="button" label="Cancelar" variant="secondary" (clicked)="showAddUserForm=false"></app-form-button>
             </div>
             </form>
         </div>
     </div>
     }
-    @if (showDeleteUserForm) {
+        @if (showEditUserForm) {
         <div class="modal-overlay">
         <div class="modal-panel">
-            <app-form-text text='¿Está seguro de que desea dar de baja a este usuario?'
-               tag="h1"
-               [size]="28"
-               color="#FFFFFF"
-               [weight]="600" />
+            <form>
+            <app-form-input label="Usuario" [(ngModel)]="editarUsuario.usuario" name="usuario"></app-form-input>
+            <app-form-input label="Nombre" [(ngModel)]="editarUsuario.nombre" name="nombre"></app-form-input>
+            <app-form-input label="Email" type="email" [(ngModel)]="editarUsuario.email" name="email"></app-form-input>
+
+            <app-form-select label="Tipo de Usuario"
+                                [options]="tiposUsuario"
+                                [(value)]="editarUsuario.tipoUsuario">
+            </app-form-select>
+
+            <app-form-select label="Subtipo de Usuario"
+                                [options]="subtiposUsuario"
+                                [(value)]="editarUsuario.subtipoUsuario">
+            </app-form-select>
+
+            <app-form-select label="Estado del Usuario"
+                                [options]="estado"
+                                [(value)]="editarUsuario.estado">
+            </app-form-select>
+
             <div class="modal-actions">
-                <app-form-button type="submit" label="Confirmar" variant="primary" (clicked)="eliminarUsuario()"></app-form-button>
-                <app-form-button type="button" label="Cancelar" variant="secondary" (clicked)="showDeleteUserForm=false"></app-form-button>
+                <app-form-button type="submit" label="Guardar" variant="primary" (clicked)="guardarUsuario()"></app-form-button>
+                <app-form-button type="button" label="Cancelar" variant="secondary" (clicked)="showEditUserForm=false"></app-form-button>
             </div>
+            </form>
         </div>
     </div>
     }

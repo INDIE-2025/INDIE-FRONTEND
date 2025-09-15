@@ -4,11 +4,13 @@ import { DataTableComponent, TableColumn, TableAction } from '../../../component
 import { Filter, FiltersComponent } from '../../../components/filters/filters.component';
 import { PaginationComponent } from "../../../components/pagination/pagination.component";
 import { SearchBarComponent } from "../../../components/search-bar/search-bar.component";
+import { FormsModule } from '@angular/forms';
+import { FormSubtypesComponent, FormInputComponent, FormButtonComponent, FormSelectComponent, FormTextComponent } from "../../../components/form/form-components.component";
 
 @Component({
   selector: 'admin-tipos-usuario-page',
   standalone: true,
-  imports: [CommonModule, DataTableComponent, PaginationComponent, SearchBarComponent, FiltersComponent],
+  imports: [CommonModule, DataTableComponent, PaginationComponent, SearchBarComponent, FiltersComponent, FormSubtypesComponent, FormInputComponent, FormButtonComponent, FormsModule, FormSelectComponent],
   templateUrl: "./admin-tipos-usuario.component.html",
   styleUrl: "./admin-tipos-usuario.component.css"
 })
@@ -40,7 +42,6 @@ export class AdminTiposUsuarioPage {
 
   actions: TableAction[] = [
   { src: 'assets/icons/edit.svg',    label: 'Editar',  action: 'edit', isButton: false },
-  { src: 'assets/icons/cancel.svg',  label: 'Eliminar', action: 'delete', isButton: false }
   ];
 
     tiposUsuario = signal<any[]>([
@@ -159,27 +160,73 @@ export class AdminTiposUsuarioPage {
   onAction(event: {action: string, item: any}) {
     switch(event.action) {
       case 'edit':
-        this.editTipoUsuario(event.item);
-        break;
-      case 'delete':
-        this.deleteTipoUsuario(event.item);
+        this.onEditTipoUsuario(event.item);
         break;
     }
   }
 
+  showAddTipoUsuarioForm = false;
+
+  showEditTipoUsuarioForm = false;
+
+  showDeleteTipoUsuarioForm = false;
+
+  nuevoTipoUsuario = {
+    nombreTipoUsuario: '',
+    subtipos: signal<string[]>([]),
+    estado: 'Activo'
+  };
+
+  estados = [
+    { value: 'Activo', label: 'Activo' },
+    { value: 'De baja', label: 'De baja' }
+  ];
+
   onAddTipoUsuario() {
-    console.log('Agregar nuevo tipo de usuario');
-    // Implementar lógica para agregar tipo de usuario
+
+    this.nuevoTipoUsuario = {
+      nombreTipoUsuario: '',
+      subtipos: signal<string[]>([]),
+      estado: 'Activo'
+    };
+
+    this.showAddTipoUsuarioForm = true;
   }
 
-  editTipoUsuario(tipo: any) {
-    console.log('Editar tipo de usuario:', tipo);
-    // Implementar lógica para editar tipo de usuario
+  guardarNuevoTipoUsuario() {
+
+    const dto = {
+      nombreTipoUsuario: this.nuevoTipoUsuario.nombreTipoUsuario,
+      subtipos: [...this.nuevoTipoUsuario.subtipos()],
+      estado: this.nuevoTipoUsuario.estado,
+    };
+
+    console.log('Guardar nuevo tipo de usuario:', dto);
+
+    this.showAddTipoUsuarioForm = false;
   }
 
-  deleteTipoUsuario(tipo: any) {
-    console.log('Eliminar tipo de usuario:', tipo);
-    // Implementar lógica para eliminar tipo de usuario
+  onEditTipoUsuario(tipo: any) {
+    this.nuevoTipoUsuario = {
+      nombreTipoUsuario: tipo.tipoUsuario,
+      subtipos: signal(tipo.subtipos),
+      estado: tipo.estado
+    };
+
+    this.showEditTipoUsuarioForm = true; 
+  }
+
+  guardarTipoUsuario() {
+
+    const dtoEditarTipoUsuario = {
+      nombreTipoUsuario: this.nuevoTipoUsuario.nombreTipoUsuario,
+      subtipos: [...this.nuevoTipoUsuario.subtipos()],
+      estado: this.nuevoTipoUsuario.estado,
+    };
+
+    console.log('Guardar tipo de usuario:', dtoEditarTipoUsuario);
+
+    this.showEditTipoUsuarioForm = false;
   }
 }
 
