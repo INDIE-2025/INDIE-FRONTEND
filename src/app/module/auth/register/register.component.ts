@@ -87,6 +87,10 @@ export class RegisterComponent implements OnInit {
         password: this.registerForm.value.password
       };
 
+      if(formData.tipoUsuario == 'fan' || formData.tipoUsuario == 'establecimiento'){
+        formData.subtipoUsuario = formData.tipoUsuario; // Asignar valor por defecto si no es artista
+      }
+
       this.auth.register(formData).subscribe({
         next: () => {
           this.router.navigate(['/post-register']);
