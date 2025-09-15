@@ -1,0 +1,251 @@
+@import '../../_variables.scss';
+
+.notificaciones-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+
+  .filters-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    h2 {
+      color: $color-white;
+      font-weight: 600;
+      margin: 0;
+      display: flex;
+      align-items: center;
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $color-primary;
+        color: white;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        font-size: 0.8rem;
+        margin-left: 8px;
+      }
+    }
+
+    .filters {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+
+      button {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        border-radius: 20px;
+        color: $color-white;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        &.active {
+          background: $color-primary;
+          font-weight: 500;
+        }
+
+        &.mark-all {
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          
+          &:hover {
+            border-color: $color-primary;
+            color: $color-primary;
+          }
+        }
+      }
+    }
+  }
+
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    color: $color-white;
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: $color-primary;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
+  .notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: $color-white;
+      opacity: 0.6;
+      min-height: 200px;
+      text-align: center;
+      padding: 2rem;
+
+      i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+    }
+
+    .notification-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.06);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      position: relative;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      &.unread {
+        background-color: rgba($color-primary, 0.1);
+        border-left: 3px solid $color-primary;
+        
+        &:hover {
+          background-color: rgba($color-primary, 0.15);
+        }
+      }
+
+      .notification-avatar, .notification-icon {
+        min-width: 45px;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .notification-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .notification-icon i {
+        font-size: 1.2rem;
+        color: $color-primary;
+      }
+
+      .notification-content {
+        flex: 1;
+        min-width: 0;
+        
+        .notification-message {
+          color: $color-white;
+          margin-bottom: 0.25rem;
+          font-size: 0.95rem;
+          line-height: 1.4;
+          white-space: normal;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          .user-name {
+            font-weight: 600;
+            margin-right: 0.25rem;
+          }
+        }
+
+        .notification-time {
+          font-size: 0.8rem;
+          color: rgba(255, 255, 255, 0.6);
+        }
+      }
+
+      .notification-status {
+        .status-dot {
+          display: block;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: $color-primary;
+        }
+      }
+
+      .notification-action {
+        a {
+          color: rgba(255, 255, 255, 0.6);
+          transition: color 0.2s ease;
+          
+          &:hover {
+            color: $color-primary;
+          }
+          
+          i {
+            font-size: 1.2rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive styles
+@media (max-width: 600px) {
+  .notificaciones-container {
+    padding: 0.5rem;
+    
+    .filters-container {
+      flex-direction: column;
+      align-items: flex-start;
+      
+      .filters {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+    
+    .notification-item {
+      padding: 0.75rem;
+      
+      .notification-avatar, .notification-icon {
+        min-width: 40px;
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+}

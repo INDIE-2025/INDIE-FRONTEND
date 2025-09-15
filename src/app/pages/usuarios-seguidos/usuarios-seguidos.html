@@ -1,0 +1,53 @@
+<div class="usuarios-seguidos-container">
+  <h1 class="section-title">Usuarios Seguidos</h1>
+  
+  <div class="search-bar">
+    <input 
+      type="text" 
+      placeholder="Buscar artistas..." 
+      (input)="search($event)" 
+      [value]="searchTerm"
+      class="search-input">
+    <i class="bi bi-search search-icon"></i>
+  </div>
+  
+  <!-- Loading state -->
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Cargando artistas...</p>
+  </div>
+  
+  <!-- No results -->
+  <div *ngIf="!loading && filteredArtists.length === 0" class="no-results">
+    <i class="bi bi-person-slash"></i>
+    <p *ngIf="searchTerm">No se encontraron artistas que coincidan con "<strong>{{searchTerm}}</strong>"</p>
+    <p *ngIf="!searchTerm && followedArtists.length === 0">No sigues a ningún artista aún</p>
+  </div>
+  
+  <!-- Artist Grid -->
+  <div class="artist-grid" *ngIf="!loading && filteredArtists.length > 0">
+    <div 
+      *ngFor="let artist of filteredArtists" 
+      class="artist-card" 
+      [class.unfollowing]="!artist.isFollowing">
+      
+      <div class="artist-image" [routerLink]="['/profile', artist.id]">
+        <img [src]="artist.image" [alt]="artist.name">
+      </div>
+      
+      <div class="artist-info">
+        <h3 [routerLink]="['/profile', artist.id]">{{artist.name}}</h3>
+        <p class="genre">{{artist.genre}}</p>
+        <p class="followers">{{artist.followers}} seguidores</p>
+        
+        <button 
+          class="btn follow-button" 
+          [class.following]="artist.isFollowing"
+          (click)="toggleFollow(artist)">
+          <i class="bi" [class.bi-person-check-fill]="artist.isFollowing" [class.bi-person-dash]="!artist.isFollowing"></i>
+          {{artist.isFollowing ? 'Siguiendo' : 'Dejar de seguir'}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

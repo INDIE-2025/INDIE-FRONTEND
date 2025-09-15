@@ -4,8 +4,8 @@
         </button>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" (click)="openModal()" routerLinkActive="active">Publicar Evento</a></li>
-            <li><a class="dropdown-item" routerLink="/configuracion-profile/datos-personales" routerLinkActive="active">Mi Perfil</a></li>
-            <li><a class="dropdown-item" href="#" (click)="$event.preventDefault()" routerLinkActive="active">Mis Eventos</a></li>
+            <li><a class="dropdown-item" routerLink="/profile" routerLinkActive="active">Mi Perfil</a></li>
+            <li><a class="dropdown-item" routerLink="/mis-eventos" (click)="$event.preventDefault()" routerLinkActive="active">Mis Eventos</a></li>
             <li><a class="dropdown-item" routerLink="/calendario" routerLinkActive="active">Mi Calendario</a></li>
             <li><a class="dropdown-item" routerLink="/configuracion-profile" routerLinkActive="active">Configuración</a></li>
             <li><a class="dropdown-item" href="#" (click)="logout(); $event.preventDefault()" routerLinkActive="active">Cerrar Sesión</a></li>

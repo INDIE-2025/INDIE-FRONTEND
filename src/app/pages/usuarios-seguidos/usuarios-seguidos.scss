@@ -1,0 +1,210 @@
+// Variables
+$purple-primary: #9747ff;
+$purple-dark: #0e0517;
+$purple-light: #bb86fc;
+$bg-dark: #1a1a1a;
+$bg-card: #2d2d2d;
+$text-light: #ffffff;
+$text-muted: #c0b8cc;
+$success-color: #2ed573;
+
+.usuarios-seguidos-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: $text-light;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: $purple-light;
+  text-align: center;
+}
+
+.search-bar {
+  position: relative;
+  margin-bottom: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  .search-input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border-radius: 30px;
+    border: 1px solid #444;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: $text-light;
+    font-size: 1rem;
+    
+    &:focus {
+      border-color: $purple-primary;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba($purple-primary, 0.2);
+    }
+    
+    &::placeholder {
+      color: $text-muted;
+    }
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $text-muted;
+    font-size: 1rem;
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(151, 71, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: $purple-primary;
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 1rem;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  p {
+    color: $text-muted;
+    font-size: 1rem;
+  }
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem 0;
+  
+  i {
+    font-size: 3rem;
+    color: $text-muted;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  
+  p {
+    color: $text-muted;
+    font-size: 1.1rem;
+  }
+}
+
+.artist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.artist-card {
+  background-color: $bg-card;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  
+  &.unfollowing {
+    opacity: 0.6;
+    transform: scale(0.98);
+  }
+  
+  .artist-image {
+    height: 180px;
+    overflow: hidden;
+    cursor: pointer;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+  
+  .artist-info {
+    padding: 1.25rem;
+    
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: $text-light;
+      cursor: pointer;
+      
+      &:hover {
+        color: $purple-primary;
+      }
+    }
+    
+    .genre {
+      color: $purple-light;
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .followers {
+      color: $text-muted;
+      font-size: 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+    
+    .follow-button {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background-color: transparent;
+      border: 1px solid $purple-primary;
+      color: $text-light;
+      transition: all 0.2s ease;
+      
+      &.following {
+        background-color: $purple-primary;
+        
+        &:hover {
+          background-color: darken($purple-primary, 10%);
+        }
+      }
+      
+      &:hover:not(.following) {
+        background-color: rgba($purple-primary, 0.2);
+      }
+      
+      i {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .usuarios-seguidos-container {
+    padding: 1rem;
+  }
+  
+  .artist-grid {
+    grid-template-columns: 1fr;
+  }
+}

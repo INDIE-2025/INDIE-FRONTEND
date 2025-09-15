@@ -1,14 +1,82 @@
-<div class="container">
-  <div class="panel post">
-    <a href="javascript:void();"><span>8 </span>Posts</a>
+<div class="reportes-container">
+  <h1>Tus Estadísticas</h1>
+
+  <!-- Stats cards -->
+  <div class="stats-grid">
+    <div class="stat-card" *ngFor="let stat of socialStats" [ngClass]="stat.color">
+      <div class="stat-icon">
+        <i class="bi" [ngClass]="stat.icon"></i>
+      </div>
+      <div class="stat-content">
+        <div class="stat-count">{{stat.count}}</div>
+        <div class="stat-title">{{stat.title}}</div>
+      </div>
+    </div>
   </div>
-  <div class="panel page">
-    <a href="javascript:void();"><span>39 </span>Comentarios</a>
+
+  <!-- Activity chart section -->
+  <div class="chart-section">
+    <h2>Actividad de Eventos</h2>
+    <div class="chart-container">
+      <div class="chart-bars">
+        <div class="chart-legend">
+          <div class="legend-item">
+            <div class="legend-color published"></div>
+            <span>Publicados</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color attended"></div>
+            <span>Asistidos</span>
+          </div>
+        </div>
+
+        <div class="chart">
+          <div class="month-data" *ngFor="let month of eventData">
+            <div class="bars">
+              <div class="bar published" [style.height.%]="month.published * 20"></div>
+              <div class="bar attended" [style.height.%]="month.attended * 20"></div>
+            </div>
+            <div class="month-label">{{month.month}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="panel comment">
-    <a href="javascript:void();"><span>5 </span>Búsquedas</a>
-  </div>
-  <div class="panel user">
-    <a href="javascript:void();"><span>40 </span>Seguidores</a>
+
+  <!-- Two column layout for bottom sections -->
+  <div class="columns-container">
+    <!-- Favorite genres -->
+    <div class="column">
+      <div class="section-card">
+        <h2>Géneros Favoritos</h2>
+        <div class="genres-list">
+          <div class="genre-item" *ngFor="let genre of favoriteGenres">
+            <div class="genre-name">{{genre.name}}</div>
+            <div class="progress-container">
+              <div class="progress-bar" [style.width.%]="genre.percentage"></div>
+            </div>
+            <div class="genre-percentage">{{genre.percentage}}%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent activity -->
+    <div class="column">
+      <div class="section-card">
+        <h2>Actividad Reciente</h2>
+        <div class="activity-list">
+          <div class="activity-item" *ngFor="let activity of recentActivity">
+            <div class="activity-icon">
+              <i class="bi bi-activity"></i>
+            </div>
+            <div class="activity-content">
+              <div class="activity-action">{{activity.action}}</div>
+              <div class="activity-date">{{activity.date}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
