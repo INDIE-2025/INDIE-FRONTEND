@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter, forwardRef, SecurityContext } from '@angular/core';
+
+import { Component, Input, Output, EventEmitter, forwardRef, SecurityContext, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -296,4 +297,92 @@ export class FormSvgComponent {
   @Input() width = 48;     // px
   @Input() height = 48;    // px
   @Input() color = '#ffffff'; // funciona si el SVG usa fill="currentColor"
+}
+
+@Component({
+  selector: 'app-form-subtypes',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => FormSubtypesComponent),
+    multi: true,
+  }],
+  styleUrls: ['./form-components.component.css'],
+  template: `
+    <label class="label">{{label}}</label>
+
+    <div class="row" [class.disabled]="disabled">
+      <input
+        [placeholder]="placeholder"
+        [(ngModel)]="draft"
+        (keydown.enter)="add()"
+        (blur)="onTouched()"
+        [disabled]="disabled" />
+      <button class="add-btn" type="button" (click)="add()" [disabled]="disabled" aria-label="Agregar">
+        <!-- Ícono + -->
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M11 5a1 1 0 1 1 2 0v6h6a1 1 0 1 1 0 2h-6v6a1 1 0 1 1-2 0v-6H5a1 1 0 1 1 0-2h6V5z"/>
+        </svg>
+      </button>
+    </div>
+
+    @if (hint) { <div class="hint">{{ hint }}</div> }
+
+    <div class="list">
+      @for (s of subtypes(); track s; let i = $index) {
+        <div class="item">
+          <span class="item-name">{{ s }}</span>
+          <button class="remove-btn" type="button" (click)="remove(i)" aria-label="Quitar">
+            <!-- Ícono X -->
+            <svg viewBox="0 0 18 18" fill="currentColor" aria-hidden="true">
+              <path d="M4.22 3.17 9 7.95l4.78-4.78a1 1 0 1 1 1.41 1.42L10.41 9.36l4.78 4.78a1 1 0 0 1-1.41 1.41L9 10.77l-4.78 4.78a1 1 0 0 1-1.41-1.41L7.59 9.36 2.81 4.58A1 1 0 0 1 4.22 3.17Z"/>
+            </svg>
+          </button>
+        </div>
+      }
+    </div>
+  `
+})
+export class FormSubtypesComponent implements ControlValueAccessor {
+  // API visual
+  @Input() label: string = '';
+  @Input() placeholder: string = '';
+  hint?: string;
+
+  // estado interno
+  subtypes = signal<string[]>([]);
+  draft = '';
+  disabled = false;
+
+  // CVA
+  onChange: (value: string[]) => void = () => {};
+  onTouched: () => void = () => {};
+
+  writeValue(value: string[] | null): void {
+    this.subtypes.set(Array.isArray(value) ? value : []);
+  }
+  registerOnChange(fn: (value: string[]) => void): void { this.onChange = fn; }
+  registerOnTouched(fn: () => void): void { this.onTouched = fn; }
+  setDisabledState(isDisabled: boolean): void { this.disabled = isDisabled; }
+
+  add(): void {
+    const v = this.draft.trim();
+    if (!v) return;
+    if (this.subtypes().some(s => s.toLowerCase() === v.toLowerCase())) {
+      this.draft = '';
+      return; // evitar duplicados (case-insensitive)
+    }
+    const next = [...this.subtypes(), v];
+    this.subtypes.set(next);
+    this.onChange(next);
+    this.draft = '';
+  }
+
+  remove(index: number): void {
+    const next = this.subtypes().filter((_, i) => i !== index);
+    this.subtypes.set(next);
+    this.onChange(next);
+    this.onTouched();
+  }
 }

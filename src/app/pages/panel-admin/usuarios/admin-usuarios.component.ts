@@ -7,7 +7,6 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { FormsModule } from '@angular/forms'; 
 import { FormInputComponent, FormSelectComponent, FormButtonComponent, FormTextComponent } from "../../../components/form/form-components.component";
 
-
 @Component({
   selector: 'admin-usuarios-page',
   standalone: true,
@@ -21,7 +20,6 @@ import { FormInputComponent, FormSelectComponent, FormButtonComponent, FormTextC
     FormInputComponent,
     FormSelectComponent,
     FormButtonComponent,
-    FormTextComponent
   ],
   templateUrl: "./admin-usuarios.component.html",
   styleUrls: ["./admin-usuarios.component.css"]
@@ -145,13 +143,12 @@ export class AdminUsuariosPage {
     { key: 'nombreUsuario', label: 'Nombre de usuario'},
     { key: 'email', label: 'Email'},
     { key: 'tipoUsuario', label: 'Tipo de usuario'},
-    { key: 'estado', label: 'Estado', type: 'badge'},
-    { key: 'acciones', label: 'Acciones', type: 'actions' }
+    { key: 'estado', label: 'Estado', type: 'badge', width: '90px' },
+    { key: 'acciones', label: 'Acciones', type: 'actions', width: '120px' }
   ];
 
   actions: TableAction[] = [
   { src: '/assets/icons/edit.svg', label: 'Editar', action: 'edit', isButton: false },
-  { src: '/assets/icons/cancel.svg', label: 'Eliminar', action: 'delete', isButton: false }
   ];
 
   filteredData = computed(() => {
@@ -200,17 +197,14 @@ export class AdminUsuariosPage {
   onAction(event: {action: string, item: any}) {
     switch(event.action) {
       case 'edit':
-        this.editUser(event.item);
-        break;
-      case 'delete':
-        this.onDeleteUser(event.item);
-        break;
+        this.onEditUser(event.item);
+        break;;
     }
   }
 
   showAddUserForm = false;
 
-  showDeleteUserForm = false;
+  showEditUserForm = false;
 
   nuevoUsuario = {
     usuario: '',
@@ -221,6 +215,15 @@ export class AdminUsuariosPage {
     password: '',
     password2: '',
     estado: 'Activo'
+  };
+
+  editarUsuario = {
+    usuario: '',
+    nombre: '',
+    email: '',
+    tipoUsuario: '',
+    subtipoUsuario: '',
+    estado: ''
   };
 
   tiposUsuario = [
@@ -253,35 +256,49 @@ export class AdminUsuariosPage {
     this.showAddUserForm = true;
 
   }
+  
+  guardarNuevoUsuario() {
 
-  guardarUsuario() {
-  console.log('Datos a enviar:', this.nuevoUsuario);
-  // acá llamás a tu servicio para crear el usuario
-  // this.usuarioService.crearUsuario(this.nuevoUsuario).subscribe(...)
-  this.showAddUserForm = false; // opcional: cerrar formulario
+    const dtoCrearUsuario = {
+      usuario: this.nuevoUsuario.usuario,
+      nombre: this.nuevoUsuario.nombre,
+      email: this.nuevoUsuario.email,
+      tipoUsuario: this.nuevoUsuario.tipoUsuario,
+      subtipoUsuario: this.nuevoUsuario.subtipoUsuario,
+      password: this.nuevoUsuario.password,
+      estado: this.nuevoUsuario.estado
+    };
+
+    console.log('Datos a enviar:', dtoCrearUsuario);
+    this.showAddUserForm = false; // opcional: cerrar formulario
   }
 
-  editUser(user: any) {
+  onEditUser(user: any) {
 
-    this.nuevoUsuario.usuario = user.nombreUsuario;
-    this.nuevoUsuario.nombre = user.nombre;
-    this.nuevoUsuario.email = user.email;
-    this.nuevoUsuario.tipoUsuario = user.tipoUsuario;
-    this.nuevoUsuario.subtipoUsuario = '';
-    this.nuevoUsuario.estado = user.estado;
+    this.editarUsuario.usuario = user.nombreUsuario;
+    this.editarUsuario.nombre = user.nombre;
+    this.editarUsuario.email = user.email;
+    this.editarUsuario.tipoUsuario = user.tipoUsuario;
+    this.editarUsuario.subtipoUsuario = '';
+    this.editarUsuario.estado = user.estado;
 
-    this.showAddUserForm = true;
+    this.showEditUserForm = true;
     
   }
 
-  onDeleteUser(user: any) {
-    this.showDeleteUserForm = true;
+  guardarUsuario() {
+
+    const dtoEditarUsuario = {
+      usuario: this.editarUsuario.usuario,
+      nombre: this.editarUsuario.nombre,
+      email: this.editarUsuario.email,
+      tipoUsuario: this.editarUsuario.tipoUsuario,
+      subtipoUsuario: this.editarUsuario.subtipoUsuario,
+      estado: this.editarUsuario.estado
+    };
+
+    console.log('Datos a enviar:', dtoEditarUsuario);
+    this.showEditUserForm = false; // opcional: cerrar formulario
   }
 
-  eliminarUsuario() {
-    // acá llamás a tu servicio para eliminar el usuario
-    // this.usuarioService.eliminarUsuario(userId).subscribe(...)
-    this.showDeleteUserForm = false; // opcional: cerrar formulario
-  }
 }
-

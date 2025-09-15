@@ -11,6 +11,9 @@ app-pagination {
   margin-top: 16px;
 }
 
+::ng-deep .actions{
+  padding-left: 26px !important;
+}
 .table-header {
   display: flex;
   justify-content: space-between;

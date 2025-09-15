@@ -10,7 +10,6 @@ import { ProfileComponent } from './pages/profile/profile';
 import { Notificaciones } from './pages/notificaciones/notificaciones';
 import { UsuariosSeguidos } from './pages/usuarios-seguidos/usuarios-seguidos';
 
-
 export const routes: Routes = [
   // Ruta padre con hijas (protegida)
   { 
@@ -75,7 +74,6 @@ export const routes: Routes = [
     loadComponent: () => import('./module/auth/login/new-password/new-password.component').then(m => m.NewPasswordComponent)
   },
       
-  
   
   // Ruta para el panel de administración (protegida)
 
