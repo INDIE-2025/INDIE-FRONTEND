@@ -41,7 +41,15 @@
     </div>
     <div class="profile-comments">
       <h3 class="titulo-carousel">Comentarios</h3>
-      <!-- <app-comments></app-comments> -->
-    </div>
+      <!-- Renderizo el componente SOLO cuando ya tengo el id del perfil -->
+      <ng-container *ngIf="perfil?.id as targetId">
+        <app-comments
+          [idUsuarioComentado]="targetId"
+          [idUsuarioComentador]="usuarioActual?.id ?? testerId">
+        </app-comments>
+      </ng-container>
+      <!-- Si no hay perfil cargado aún, no renderizo app-comments (evita ngOnInit sin id) -->
+</div>
+
 </div>
 

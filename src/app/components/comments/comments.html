@@ -1,0 +1,83 @@
+
+<div class="comments">
+  <div class="comments__form" *ngIf="idUsuarioComentador; else loginHint">
+    <form [formGroup]="form" (ngSubmit)="enviar()">
+      <textarea
+        class="comments__textarea"
+        formControlName="comentario"
+        rows="3"
+        placeholder="Escribe un comentario…"
+        [disabled]="posting"
+      ></textarea>
+
+      <!-- Fila inferior: errores + botón -->
+      <div class="comments__form-row">
+        <div class="comments__errors">
+          <!-- Error si el control fue tocado y falta el requerido -->
+          <span class="error" *ngIf="f['comentario'].touched && f['comentario'].hasError('required')">
+            El comentario es obligatorio.
+          </span>
+          <span class="error" *ngIf="f['comentario'].touched && f['comentario'].hasError('maxlength')">
+            Máximo 1000 caracteres.
+          </span>
+          <span class="error" *ngIf="errorMsg">{{ errorMsg }}</span>
+        </div>
+
+        <!-- Botón de publicar: deshabilitado si el form es inválido o está posteando -->
+        <button class="btn" type="submit" [disabled]="form.invalid || posting">
+          {{ posting ? 'Publicando…' : 'Publicar' }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Si no hay idUsuarioComentador, muestra el aviso de login -->
+  <ng-template #loginHint>
+    <div class="comments__login-hint">
+      Iniciá sesión para agregar un comentario.
+    </div>
+  </ng-template>
+
+  <!-- Lista de comentarios -->
+  <div class="comments__list">
+    <!-- Estado de carga -->
+    <div class="comments__loading" *ngIf="loadingList">Cargando comentarios…</div>
+
+    <!-- Mensaje cuando no hay comentarios -->
+    <div *ngIf="!loadingList && comentarios.length === 0" class="comments__empty">
+      Sé la primera persona en comentar
+    </div>
+
+    <!-- Renderiza cada comentario -->
+    <article class="comment" *ngFor="let c of comentarios">
+      <!-- Avatar: primera letra del nombre del autor -->
+      <div class="comment__avatar" aria-hidden="true">
+        {{ (c.nombreAutorComentario || 'U')[0] | uppercase }}
+      </div>
+
+      <!-- Cuerpo del comentario -->
+      <div class="comment__body">
+        <!-- Encabezado con autor + fecha -->
+        <header class="comment__meta">
+          <strong class="comment__author">{{ c.nombreAutorComentario || 'Usuario' }}</strong>
+          <span class="comment__date">• {{ c.createdAt | date: 'short' }}</span>
+        </header>
+
+        <!-- Texto del comentario -->
+        <p class="comment__text">{{ c.comentario }}</p>
+
+        <!-- ===== OPCIONAL: acciones por comentario (eliminar/denunciar) ===== -->
+        <div class="comment__actions">
+            <!-- solo el autor puede eliminar -->
+            <button class="comment__link" *ngIf="c.idUsuarioComentador === idUsuarioComentador" (click)="eliminar(c)">
+                Eliminar
+            </button>
+            <!-- cualquier usuario puede denunciar -->
+            <button class="comment__link" (click)="denunciar(c)">
+                Denunciar
+            </button>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>

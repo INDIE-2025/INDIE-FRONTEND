@@ -14,6 +14,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     provideAnimationsAsync(),
+          providePrimeNG(),
+
     provideToastr({
       timeOut: 5000,
       positionClass: 'toast-top-center',

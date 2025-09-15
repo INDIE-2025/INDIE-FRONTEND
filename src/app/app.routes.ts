@@ -8,6 +8,11 @@ import { Reportes } from './pages/reportes/reportes';
 import { AdminRoutes } from './pages/panel-admin/admin-routes';
 
 export const routes: Routes = [
+  
+    { path: 'profile', component: ProfileComponent }, // Perfil del usuario actual
+    { path: 'profile/:id', component: ProfileComponent }, // Perfil de un usuario específico
+    { path: 'home', component: Home },
+    { path: '', redirectTo: '/home', pathMatch: 'full' }, // Ruta por defecto
 
   // Ruta padre con hijas (protegida)
   { 
