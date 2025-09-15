@@ -1,0 +1,13 @@
+<div class="pagination">
+    <button (click)="prev()" [disabled]="page <= 1">
+        <svg transform="rotate(180)" class="arrow" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.5 10.5L5.46967 6.53033C5.76256 6.23744 5.76256 5.76256 5.46967 5.46967L1.5 1.5" stroke="#C567FF" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </button>
+    <span class="active">{{ page }} / {{ totalPages }}</span>
+    <button (click)="next()" [disabled]="page >= totalPages">
+        <svg class="arrow" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.5 10.5L5.46967 6.53033C5.76256 6.23744 5.76256 5.76256 5.46967 5.46967L1.5 1.5" stroke="#C567FF" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </button>
+</div>

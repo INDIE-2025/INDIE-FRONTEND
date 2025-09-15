@@ -1,0 +1,101 @@
+body {
+  padding: 20px;
+  font: 16px/22px "Open Sans", sans-serif;
+}
+.container {
+  margin: 0 auto;
+  max-width: 980px;
+}
+.panel {
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  width: 300px;
+  height: 160px;
+  margin: 10px;
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+  overflow: hidden;
+  border-radius: 8px;
+  a {
+    position: relative;
+    display: block;
+    padding: 12px 25px 25px 25px;
+    color: #fff;
+    text-decoration: none;
+    z-index: 2;
+    span {
+      display: block;
+      font-size: 96px;
+      font-weight: 700;
+      line-height: 96px;
+    }
+  }
+  &:after {
+    position: absolute;
+    font-family: FontAwesome;
+    color: rgba(0, 0, 0, 1);
+    z-index: 1;
+    transition: all .5s;
+    // Use this to prevent misplacing background caused by default line-height
+    line-height: normal;
+  }
+  &.post {
+    background-color: #ec9de8;
+    &:after {
+      content: "\f08d";
+      font-size: 200px;
+      color: #c963d0;
+      top: 45px;
+      right: 60px;
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+    &:hover:after {
+      top: 8px;
+    }
+  }
+  &.comment{
+    background-color: #d05bfb;
+    &:after {
+      content: "\f075";
+      font-size: 180px;
+      color: #b01bc5;
+      top: 30px;
+      right: 35px;
+    }
+    &:hover:after {
+      top: -5px;
+    }
+  }
+  &.page {
+    background-color: #ec9de8;
+    &:after {
+      content: "\f15c";
+      font-size: 160px;
+      color: #c963d0;
+      top: 62px; 
+      right: 39px;
+    }
+    &:hover:after {
+      top: 24px; 
+    }
+  }
+  &.user {
+    background-color: #d05bfb;
+    &:after {
+      content: "\f007";
+      font-size: 200px;
+      color: #a818bf;
+      top: 45px;
+      right: 35px;
+    }
+    &:hover:after {
+      top: 7px;
+    }
+  }
+  &:hover:after {
+    transition: all .5s;
+  }
+}

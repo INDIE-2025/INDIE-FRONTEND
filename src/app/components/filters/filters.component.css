@@ -1,0 +1,16 @@
+.filter-container {
+  display: flex;
+  gap: 12px;
+  min-height: 40px;
+}
+.filter-select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  background-color: #261C38;
+  border: none;
+  color: white;
+}
+
+option {
+  font-family: 'Poppins', sans-serif;
+}

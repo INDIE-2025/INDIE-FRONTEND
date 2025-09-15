@@ -1,0 +1,12 @@
+.search-input {
+  padding: 8px 12px;
+  background: #261C38;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px #C567FF;
+}

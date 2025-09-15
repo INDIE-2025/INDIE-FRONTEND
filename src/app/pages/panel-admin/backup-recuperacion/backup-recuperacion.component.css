@@ -1,0 +1,38 @@
+.backup-container {
+  width: 100%;
+}
+
+.backup-section {
+  background: #1E1624;
+  border-radius: 8px;
+  padding: 24px 24px 0px 24px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  padding-bottom: 12px;
+  margin: 0px;
+}
+
+.backup-actions {
+  display: flex;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .backup-container {
+    padding: 0 16px;
+  }
+  
+  .backup-section {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .section-title {
+    font-size: 16px;
+  }
+}
+

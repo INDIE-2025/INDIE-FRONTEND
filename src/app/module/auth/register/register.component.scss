@@ -1,0 +1,211 @@
+@use '../../../shared/styles/auth-shared' as auth;
+
+.register-container {
+  @include auth.auth-container;
+}
+
+.left-panel {
+  @include auth.left-panel;
+}
+
+.right-panel {
+  @include auth.right-panel;
+}
+
+.register-card {
+  @include auth.form-card;
+  max-width: 500px;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.5px;
+  }
+
+  p {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin: 0;
+  }
+}
+
+.brand {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .brand-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0;
+    background: linear-gradient(45deg, #ffffff, #e0e7ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -2px;
+  }
+
+  .brand-subtitle {
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin: 0.5rem 0 0 0;
+    opacity: 0.9;
+  }
+}
+
+.testimonial {
+  .testimonial-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  .testimonial-text {
+    p {
+      font-size: 1rem;
+      font-weight: 500;
+      margin: 0 0 0.5rem 0;
+      line-height: 1.4;
+    }
+    
+    .author {
+      font-size: 0.875rem;
+      opacity: 0.8;
+      font-weight: 400;
+    }
+  }
+}
+
+.form-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  @include auth.mobile {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+::ng-deep .mat-mdc-form-field {
+  @include auth.form-field;
+}
+
+// Estilos específicos para select
+::ng-deep .mat-mdc-select-panel {
+  background-color: #2d2d2d !important;
+  border-radius: 8px;
+  margin-top: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+  
+  .mat-mdc-option {
+    background-color: #2d2d2d !important;
+    color: white !important;
+    padding: 12px 16px;
+    
+    &:hover {
+      background-color: #404040 !important;
+    }
+    
+    &.mdc-list-item--selected {
+      background-color: auth.$primary-color !important;
+      color: white !important;
+    }
+    
+    &.mat-mdc-option-active {
+      background-color: auth.$secondary-color !important;
+    }
+  }
+  
+  .mdc-list {
+    background-color: #2d2d2d !important;
+  }
+}
+
+.checkbox-group {
+  margin-bottom: 1.5rem;
+}
+
+::ng-deep .mat-mdc-checkbox {
+  @include auth.auth-checkbox;
+}
+
+::ng-deep .submit-btn {
+  @include auth.primary-button;
+  margin-top: 1rem;
+  margin-bottom: 20px;
+}
+
+.link {
+  @include auth.auth-link;
+}
+
+.form-footer {
+  width: 100%;
+  text-align: center;
+
+  p {
+    color: white;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+}
+
+@include auth.mobile {
+  .register-container {
+    flex-direction: column;
+  }
+  
+  .left-panel {
+    min-height: 30vh;
+    padding: 1.5rem;
+  }
+  
+  .right-panel {
+    padding: 1.5rem;
+  }
+  
+  .brand .brand-title {
+    font-size: 2.5rem;
+  }
+  
+  .register-card {
+    padding: 1.5rem;
+    max-width: none;
+  }
+}
