@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { EventCard } from '../../components/event-card/event-card';
 
@@ -25,7 +25,7 @@ interface Event {
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterModule, EventCard],
+  imports: [RouterModule, EventCard],
   templateUrl: './home.component.html',
   standalone: true,
   styleUrls: ['./home.component.scss']

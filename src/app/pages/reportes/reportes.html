@@ -3,15 +3,17 @@
 
   <!-- Stats cards -->
   <div class="stats-grid">
-    <div class="stat-card" *ngFor="let stat of socialStats" [ngClass]="stat.color">
-      <div class="stat-icon">
-        <i class="bi" [ngClass]="stat.icon"></i>
+    @for (stat of socialStats; track stat) {
+      <div class="stat-card" [ngClass]="stat.color">
+        <div class="stat-icon">
+          <i class="bi" [ngClass]="stat.icon"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-count">{{stat.count}}</div>
+          <div class="stat-title">{{stat.title}}</div>
+        </div>
       </div>
-      <div class="stat-content">
-        <div class="stat-count">{{stat.count}}</div>
-        <div class="stat-title">{{stat.title}}</div>
-      </div>
-    </div>
+    }
   </div>
 
   <!-- Activity chart section -->
@@ -31,13 +33,15 @@
         </div>
 
         <div class="chart">
-          <div class="month-data" *ngFor="let month of eventData">
-            <div class="bars">
-              <div class="bar published" [style.height.%]="month.published * 20"></div>
-              <div class="bar attended" [style.height.%]="month.attended * 20"></div>
+          @for (month of eventData; track month) {
+            <div class="month-data">
+              <div class="bars">
+                <div class="bar published" [style.height.%]="month.published * 20"></div>
+                <div class="bar attended" [style.height.%]="month.attended * 20"></div>
+              </div>
+              <div class="month-label">{{month.month}}</div>
             </div>
-            <div class="month-label">{{month.month}}</div>
-          </div>
+          }
         </div>
       </div>
     </div>
@@ -50,13 +54,15 @@
       <div class="section-card">
         <h2>Géneros Favoritos</h2>
         <div class="genres-list">
-          <div class="genre-item" *ngFor="let genre of favoriteGenres">
-            <div class="genre-name">{{genre.name}}</div>
-            <div class="progress-container">
-              <div class="progress-bar" [style.width.%]="genre.percentage"></div>
+          @for (genre of favoriteGenres; track genre) {
+            <div class="genre-item">
+              <div class="genre-name">{{genre.name}}</div>
+              <div class="progress-container">
+                <div class="progress-bar" [style.width.%]="genre.percentage"></div>
+              </div>
+              <div class="genre-percentage">{{genre.percentage}}%</div>
             </div>
-            <div class="genre-percentage">{{genre.percentage}}%</div>
-          </div>
+          }
         </div>
       </div>
     </div>
@@ -66,15 +72,17 @@
       <div class="section-card">
         <h2>Actividad Reciente</h2>
         <div class="activity-list">
-          <div class="activity-item" *ngFor="let activity of recentActivity">
-            <div class="activity-icon">
-              <i class="bi bi-activity"></i>
+          @for (activity of recentActivity; track activity) {
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i class="bi bi-activity"></i>
+              </div>
+              <div class="activity-content">
+                <div class="activity-action">{{activity.action}}</div>
+                <div class="activity-date">{{activity.date}}</div>
+              </div>
             </div>
-            <div class="activity-content">
-              <div class="activity-action">{{activity.action}}</div>
-              <div class="activity-date">{{activity.date}}</div>
-            </div>
-          </div>
+          }
         </div>
       </div>
     </div>

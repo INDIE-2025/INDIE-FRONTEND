@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { AdminLayoutComponent } from '../../../layout/admin-layout/admin-layout.component';
 import { FormCheckboxComponent, FormButtonComponent } from '../../../components/form/form-components.component';
@@ -40,7 +40,7 @@ interface ReportConfig {
 @Component({
   selector: 'config-parametros-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, AdminLayoutComponent, FormCheckboxComponent, FormButtonComponent],
+  imports: [FormsModule, AdminLayoutComponent, FormCheckboxComponent, FormButtonComponent],
   template: `
     <admin-layout>
       <div class="config-container">
@@ -55,27 +55,29 @@ interface ReportConfig {
               <div class="role-column">Establecimiento</div>
               <div class="role-column">Artista</div>
             </div>
-            <div class="table-row" *ngFor="let permission of permissions">
-              <div class="permission-name">{{permission.name}}</div>
-              <div class="role-column">
-                <app-form-checkbox 
-                  [(checked)]="permission.administrador"
-                  [disabled]="permission.name === 'Panel de administrador'">
-                </app-form-checkbox>
+            @for (permission of permissions; track permission) {
+              <div class="table-row">
+                <div class="permission-name">{{permission.name}}</div>
+                <div class="role-column">
+                  <app-form-checkbox
+                    [(checked)]="permission.administrador"
+                    [disabled]="permission.name === 'Panel de administrador'">
+                  </app-form-checkbox>
+                </div>
+                <div class="role-column">
+                  <app-form-checkbox [(checked)]="permission.fan"></app-form-checkbox>
+                </div>
+                <div class="role-column">
+                  <app-form-checkbox [(checked)]="permission.establecimiento"></app-form-checkbox>
+                </div>
+                <div class="role-column">
+                  <app-form-checkbox [(checked)]="permission.artista"></app-form-checkbox>
+                </div>
               </div>
-              <div class="role-column">
-                <app-form-checkbox [(checked)]="permission.fan"></app-form-checkbox>
-              </div>
-              <div class="role-column">
-                <app-form-checkbox [(checked)]="permission.establecimiento"></app-form-checkbox>
-              </div>
-              <div class="role-column">
-                <app-form-checkbox [(checked)]="permission.artista"></app-form-checkbox>
-              </div>
-            </div>
+            }
           </div>
         </section>
-
+    
         <!-- Configurar eventos -->
         <section class="config-section">
           <h2 class="section-title">Configurar eventos</h2>
@@ -104,7 +106,7 @@ interface ReportConfig {
             </div>
           </div>
         </section>
-
+    
         <!-- Configurar notificaciones -->
         <section class="config-section">
           <h2 class="section-title">Configurar notificaciones</h2>
@@ -114,18 +116,20 @@ interface ReportConfig {
               <div class="notification-column">Genera notificación</div>
               <div class="notification-column">Notificar por mail</div>
             </div>
-            <div class="table-row" *ngFor="let notification of notifications">
-              <div class="notification-name">{{notification.name}}</div>
-              <div class="notification-column">
-                <app-form-checkbox [(checked)]="notification.generaNotificacion"></app-form-checkbox>
+            @for (notification of notifications; track notification) {
+              <div class="table-row">
+                <div class="notification-name">{{notification.name}}</div>
+                <div class="notification-column">
+                  <app-form-checkbox [(checked)]="notification.generaNotificacion"></app-form-checkbox>
+                </div>
+                <div class="notification-column">
+                  <app-form-checkbox [(checked)]="notification.notificarPorMail"></app-form-checkbox>
+                </div>
               </div>
-              <div class="notification-column">
-                <app-form-checkbox [(checked)]="notification.notificarPorMail"></app-form-checkbox>
-              </div>
-            </div>
+            }
           </div>
         </section>
-
+    
         <!-- Configurar recomendaciones -->
         <section class="config-section">
           <h2 class="section-title">Configurar recomendaciones</h2>
@@ -150,24 +154,28 @@ interface ReportConfig {
             </div>
           </div>
         </section>
-
+    
         <!-- Configurar reportes y estadísticas -->
         <section class="config-section">
           <h2 class="section-title">Configurar reportes y estadísticas</h2>
           <div class="reports-grid">
-            <div class="report-group" *ngFor="let reportGroup of reportGroups">
-              <h3 class="subsection-title">{{reportGroup.category}}</h3>
-              <div class="config-item" *ngFor="let item of reportGroup.items">
-                <label>{{item.name}}</label>
-                <app-form-checkbox [(checked)]="item.enabled"></app-form-checkbox>
+            @for (reportGroup of reportGroups; track reportGroup) {
+              <div class="report-group">
+                <h3 class="subsection-title">{{reportGroup.category}}</h3>
+                @for (item of reportGroup.items; track item) {
+                  <div class="config-item">
+                    <label>{{item.name}}</label>
+                    <app-form-checkbox [(checked)]="item.enabled"></app-form-checkbox>
+                  </div>
+                }
               </div>
-            </div>
+            }
           </div>
         </section>
-
+    
         <!-- Botón guardar -->
         <div class="save-section">
-          <app-form-button 
+          <app-form-button
             label="Guardar Cambios"
             variant="primary"
             size="large"
@@ -175,8 +183,8 @@ interface ReportConfig {
           </app-form-button>
         </div>
       </div>
-    <admin-layout>
-  `,
+      <admin-layout>
+    `,
   styleUrls: ['./config-parametros.component.css']
 })
 export class ConfigParametrosPage implements OnInit {

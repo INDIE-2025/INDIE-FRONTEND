@@ -2,7 +2,7 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { PopupMessageComponent } from '../popup-message/popup-message';
 import { PopupService } from '../../services/popup.service';
 import { EventoService } from '../../services/evento.service';
@@ -12,7 +12,7 @@ import { AuthService } from '../../core/services/auth.service';
 @Component({
   selector: 'app-publicar-evento',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, PopupMessageComponent],
+  imports: [ReactiveFormsModule, PopupMessageComponent],
   templateUrl: './publicar-evento.html',
   styleUrl: './publicar-evento.scss'
 })

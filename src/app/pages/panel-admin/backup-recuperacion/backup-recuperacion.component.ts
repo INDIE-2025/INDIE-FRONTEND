@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { DataTableComponent, TableColumn } from '../../../components/data-table/data-table.component';
 import { FormButtonComponent } from '../../../components/form/form-components.component';
 import { HistorialOperacionesService, Operacion } from '../../../services/panel-admin/historial-operaciones.service';
@@ -7,7 +7,7 @@ import { HistorialOperacionesService, Operacion } from '../../../services/panel-
 @Component({
   selector: 'backup-recuperacion-page',
   standalone: true,
-  imports: [CommonModule, DataTableComponent, FormButtonComponent],
+  imports: [DataTableComponent, FormButtonComponent],
   templateUrl: './backup-recuperacion.component.html',
   styleUrls: ['./backup-recuperacion.component.css']
 })

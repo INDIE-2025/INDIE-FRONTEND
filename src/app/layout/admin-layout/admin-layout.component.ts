@@ -1,5 +1,5 @@
 import { Component, input, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -14,7 +14,7 @@ export interface TabItem {
 @Component({
   selector: 'admin-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   templateUrl: './admin-layout.component.html',
   styleUrl: './admin-layout.component.css',
 })

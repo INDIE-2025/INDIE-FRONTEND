@@ -1,6 +1,6 @@
 import { Component, inject, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { DialogRef } from '@angular/cdk/dialog';
 import { PopupService } from '../../services/popup.service';
 import { UserService, Usuario } from '../../services/user.service';
@@ -31,7 +31,7 @@ export function matchingPasswords(controlName: string, matchingControlName: stri
 
 @Component({
   selector: 'app-datos-personales',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './datos-personales.html',
   styleUrl: './datos-personales.scss',
   standalone: true

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { AdminLayoutComponent } from '../../../layout/admin-layout/admin-layout.component';
 
 @Component({
   selector: 'admin-reportes-page',
   standalone: true,
-  imports: [CommonModule, AdminLayoutComponent],
+  imports: [AdminLayoutComponent],
   template: `
     <admin-layout>
       <div class="reportes-container">

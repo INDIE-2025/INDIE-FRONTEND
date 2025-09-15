@@ -5,7 +5,9 @@
     <div class="header-actions">
       <select id="borradorSelect" class="custom-select" (change)="onBorradorSelect($event)">
         <option value="">Borradores</option>
-        <option *ngFor="let b of borradores" [value]="b.id">{{ b.titulo }}</option>
+        @for (b of borradores; track b) {
+          <option [value]="b.id">{{ b.titulo }}</option>
+        }
       </select>
       <button class="btn-secondary">+ Agregar imagen</button>
     </div>
