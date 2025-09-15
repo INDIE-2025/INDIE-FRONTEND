@@ -1,0 +1,68 @@
+<section class="mis-eventos-container">
+  <div class="section-header">
+    <h1>MIS EVENTOS</h1>
+    <p>Gestiona tus eventos y borradores</p>
+  </div>
+
+  <div class="filter-buttons">
+    <button 
+      [class.active]="activeFilter === 'todos'"
+      (click)="applyFilter('todos')">
+      TODOS
+    </button>
+    <button 
+      [class.active]="activeFilter === 'creados'"
+      (click)="applyFilter('creados')">
+      CREADOS
+    </button>
+    <button 
+      [class.active]="activeFilter === 'borradores'"
+      (click)="applyFilter('borradores')">
+      BORRADORES
+    </button>
+    <button 
+      [class.active]="activeFilter === 'publicados'"
+      (click)="applyFilter('publicados')">
+      PUBLICADOS
+    </button>
+    <button 
+      [class.active]="activeFilter === 'finalizados'"
+      (click)="applyFilter('finalizados')">
+      FINALIZADOS
+    </button>
+  </div>
+
+  <div class="create-event">
+    <button class="btn create-btn" (click)="openCrearEventoModal()">CREAR NUEVO EVENTO</button>
+  </div>
+
+  @if (loading) {
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <p>Cargando eventos...</p>
+    </div>
+  } @else {
+    <div class="events-grid">
+      @if (filteredEvents.length > 0) {
+        @for (event of filteredEvents; track trackByEventId($index, event)) {
+          <app-event-card
+            [id]="event.id"
+            [title]="event.title"
+            [date]="event.date"
+            [time]="event.time"
+            [location]="event.location"
+            [image]="event.image"
+            [creator]="event.creator"
+            [collaborator]="event.collaborator"
+            [interested]="event.interested"
+            [description]="event.description">
+          </app-event-card>
+        }
+      } @else {
+        <div class="no-events">
+          <p>No hay eventos que coincidan con el filtro seleccionado.</p>
+        </div>
+      }
+    </div>
+  }
+</section>

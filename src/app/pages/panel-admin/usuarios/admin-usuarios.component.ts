@@ -10,9 +10,19 @@ import { FormInputComponent, FormSelectComponent, FormButtonComponent, FormTextC
 @Component({
   selector: 'admin-usuarios-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, SearchBarComponent, FiltersComponent, DataTableComponent, PaginationComponent, FormInputComponent, FormSelectComponent, FormButtonComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    SearchBarComponent,
+    FiltersComponent,
+    DataTableComponent,
+    PaginationComponent,
+    FormInputComponent,
+    FormSelectComponent,
+    FormButtonComponent,
+  ],
   templateUrl: "./admin-usuarios.component.html",
-  styleUrl: "./admin-usuarios.component.css"
+  styleUrls: ["./admin-usuarios.component.css"]
 })
 export class AdminUsuariosPage {
 
@@ -246,7 +256,7 @@ export class AdminUsuariosPage {
     this.showAddUserForm = true;
 
   }
-
+  
   guardarNuevoUsuario() {
 
     const dtoCrearUsuario = {

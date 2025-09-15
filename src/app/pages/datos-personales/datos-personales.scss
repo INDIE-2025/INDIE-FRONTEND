@@ -1,0 +1,263 @@
+// Variables
+$purple-primary: #9747ff;
+$purple-dark: #0e0517;
+$purple-light: #bb86fc;
+$bg-dark: #1a1a1a;
+$bg-card: #2d2d2d;
+$text-light: #ffffff;
+$text-muted: #c0b8cc;
+$danger-color: #ff4757;
+
+.datos-personales-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: $text-light;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: $purple-light;
+  text-align: center;
+}
+
+.profile-image-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: $bg-card;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  border: 3px solid $purple-primary;
+  overflow: hidden;
+  
+  span {
+    font-size: 4rem;
+    font-weight: 700;
+    color: $text-light;
+  }
+}
+
+.profile-image-controls {
+  display: flex;
+  gap: 1rem;
+  
+  .btn-outline {
+    background: transparent;
+    border: 1px solid $purple-primary;
+    color: $text-light;
+    
+    &:hover {
+      background-color: rgba(187, 134, 252, 0.1);
+    }
+  }
+}
+
+.profile-form {
+  background-color: $bg-card;
+  border-radius: 10px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: $text-light;
+      font-weight: 500;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 5px;
+      border: 1px solid #444;
+      background-color: #333;
+      color: $text-light;
+      font-size: 1rem;
+      
+      &:focus {
+        border-color: $purple-primary;
+        outline: none;
+      }
+      
+      &.is-invalid {
+        border-color: $danger-color;
+      }
+    }
+    
+    .invalid-feedback {
+      color: $danger-color;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+  }
+}
+
+.password-section {
+  margin-top: 2rem;
+  border-top: 1px solid #444;
+  padding-top: 2rem;
+  
+  h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: $text-light;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background-color: $purple-primary;
+    border: none;
+    color: white;
+    
+    &:hover {
+      background-color: darken($purple-primary, 5%);
+    }
+  }
+  
+  .btn-outline {
+    background: transparent;
+    border: 1px solid #444;
+    color: $text-light;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  }
+}
+
+.delete-account-section {
+  background-color: rgba($danger-color, 0.1);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  
+  h3 {
+    color: $danger-color;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    color: $text-muted;
+    margin-bottom: 1rem;
+  }
+  
+  .btn-danger {
+    background-color: $danger-color;
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    font-weight: 600;
+    
+    &:hover {
+      background-color: darken($danger-color, 10%);
+    }
+  }
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: $bg-card;
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  
+  h2 {
+    color: $danger-color;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    color: $text-muted;
+    margin-bottom: 1.5rem;
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    
+    .btn-danger {
+      background-color: $danger-color;
+      border: none;
+      color: white;
+      
+      &:hover {
+        background-color: darken($danger-color, 10%);
+      }
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #444;
+      color: $text-light;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .datos-personales-container {
+    padding: 1rem;
+  }
+  
+  .profile-form {
+    padding: 1.5rem;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    
+    .btn {
+      width: 100%;
+    }
+  }
+}

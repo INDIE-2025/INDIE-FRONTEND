@@ -164,7 +164,7 @@ export class AdminTiposUsuarioPage {
         break;
     }
   }
-
+  
   showAddTipoUsuarioForm = false;
 
   showEditTipoUsuarioForm = false;
