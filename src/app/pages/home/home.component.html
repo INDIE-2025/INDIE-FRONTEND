@@ -1,2 +1,81 @@
 
-<h1>Home</h1>
+<!-- Hero Section -->
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-content">
+    <h1>DESCUBRE LA ESCENA<span class="indie-purple">INDIE</span></h1>
+    <h2>Los mejores artistas y eventos en un solo lugar</h2>
+    <p>Conecta con artistas locales, descubre nuevos establecimientos y mantente al día con los eventos más interesantes de la escena independiente.</p>
+    
+    <div class="hero-buttons">
+      <button class="btn btn-primary explore-btn" (click)="exploreEvents()">EXPLORAR EVENTOS</button>
+      <button class="btn btn-outline see-artists-btn" (click)="viewArtists()">VER ARTISTAS</button>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Artists Shection -->
+<section class="featured-artists">
+  <div class="section-header text-center">
+    <h2>ARTISTAS DESTACADOS</h2>
+    <p>Descubre a los artistas más interesantes del momento y sumérjete en sus propuestas musicales innovadoras.</p>
+  </div>
+
+  <div class="artist-carousel">
+    <div class="artist-cards">
+      <!-- Artist Card 1 -->
+      <div class="artist-card" *ngFor="let artist of featuredArtists; trackBy: trackByArtistId">
+        <div class="artist-img">
+          <img [src]="artist.image" [alt]="artist.name" loading="lazy" class="fade-in">
+          <div class="loading-placeholder" *ngIf="!imagesLoaded"></div>
+        </div>
+        <div class="artist-info">
+          <h3>{{artist.name}}</h3>
+          <p>{{artist.genre}}</p>
+          <a [routerLink]="['/artists', artist.id]" class="profile-link">Ver perfil <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="view-all-link text-center">
+      <a href="#">VER TODOS LOS ARTISTAS</a>
+    </div>
+  </div>
+</section>
+
+<!-- Upcoming Events Section -->
+<section class="upcoming-events">
+  <div class="section-header text-center">
+    <h2>PRÓXIMOS EVENTOS</h2>
+    <p>No te pierdas los eventos más esperados. Desde conciertos íntimos hasta festivales, encuentra experiencias únicas.</p>
+  </div>
+
+  <div class="events-carousel">
+    <!-- Previous arrow -->
+    <button class="carousel-nav prev"><i class="bi bi-chevron-left"></i></button>
+    
+    <div class="event-cards">
+        <!-- Event Cards -->
+      <app-event-card
+        *ngFor="let event of upcomingEvents"
+        [id]="event.id"
+        [title]="event.title"
+        [date]="event.date"
+        [time]="event.time"
+        [location]="event.location"
+        [image]="event.image"
+        [creator]="event.creator"
+        [collaborator]="event.collaborator"
+        [interested]="event.interested"
+        [description]="event.description">
+      </app-event-card>
+    </div>
+
+    <!-- Next arrow -->
+    <button class="carousel-nav next"><i class="bi bi-chevron-right"></i></button>
+  </div>
+  
+  <div class="view-all-link text-center">
+    <a href="#">VER TODOS LOS EVENTOS</a>
+  </div>
+</section>

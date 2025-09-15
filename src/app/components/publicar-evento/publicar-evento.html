@@ -3,8 +3,9 @@
   <header class="modal-header">
     <h2>Publicar Evento</h2>
     <div class="header-actions">
-      <select class="custom-select">
-        <option>Borradores</option>
+      <select id="borradorSelect" class="custom-select" (change)="onBorradorSelect($event)">
+        <option value="">Borradores</option>
+        <option *ngFor="let b of borradores" [value]="b.id">{{ b.titulo }}</option>
       </select>
       <button class="btn-secondary">+ Agregar imagen</button>
     </div>
@@ -44,7 +45,7 @@
     </div>
 
     <footer class="modal-footer">
-      <button type="button" class="btn-dark">Guardar borrador</button>
+      <button type="button" class="btn-dark" (click)="guardarComoBorrador()">Guardar borrador</button>
       <div class="footer-actions">
         <button type="button" class="btn-secondary" (click)="closeModal()">Cancelar</button>
         <button type="submit" class="btn-primary">Publicar</button>

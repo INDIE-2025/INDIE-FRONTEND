@@ -1,3 +1,6 @@
+import { PopupService } from './services/popup.service';
+import { PopupMessageComponent } from './components/popup-message/popup-message';
+import { HomeComponent } from './pages/home/home.component';
 import { Component, signal, computed } from '@angular/core';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { Footer } from './components/footer/footer';
@@ -6,12 +9,15 @@ import { ProfileComponent } from './pages/profile/profile';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Footer],
+  imports: [RouterOutlet, HomeComponent, Header, Footer, ProfileComponent, PopupMessageComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
   protected readonly title = signal('indie-front-end');
+  message: string | null = null;
+  visible: boolean = false;
+
   private readonly hideShellRoutes = [
     '/login',
     '/register',
@@ -25,7 +31,9 @@ export class App {
   currentUrl = signal<string>('');
   hideChrome = computed(() => this.shouldHideChrome(this.currentUrl()));
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private popupService: PopupService) {
+     this.popupService.message$.subscribe(msg => this.message = msg);
+    this.popupService.visible$.subscribe(vis => this.visible = vis);
     this.currentUrl.set(this.router.url);
     this.router.events.subscribe(ev => {
       if (ev instanceof NavigationEnd) {

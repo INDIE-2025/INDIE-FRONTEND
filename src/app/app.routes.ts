@@ -6,6 +6,7 @@ import { Calendario } from './pages/calendario/calendario';
 import { DatosPersonales } from './pages/datos-personales/datos-personales';
 import { Reportes } from './pages/reportes/reportes';
 import { AdminRoutes } from './pages/panel-admin/admin-routes';
+import { ProfileComponent } from './pages/profile/profile';
 
 export const routes: Routes = [
   
@@ -17,7 +18,7 @@ export const routes: Routes = [
   // Ruta padre con hijas (protegida)
   { 
     path: '',
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { 
@@ -33,6 +34,7 @@ export const routes: Routes = [
             { path: 'reportes', component: Reportes, title: 'Reportes' }
         ] },
     { path: 'calendario', component: Calendario, title: 'Calendario' },
+    { path: 'profile', component: ProfileComponent, title: 'Perfil'}
     ]
   },
 
