@@ -31,11 +31,11 @@ export class AdminTiposUsuarioPage {
 
   columns: TableColumn[] = [
     { key: 'tipoUsuario', label: 'Tipo de usuario' },
-    { key: 'subtipos', label: 'Subtipos de usuario', type: 'list' },
+    { key: 'subtipos', label: 'Subtipos de usuario', type: 'list',},
     { key: 'cantidadUsuarios', label: 'Cantidad de usuarios' },
     { key: 'fechaAlta', label: 'Fecha de alta' },
-    { key: 'estado', label: 'Estado', type: 'badge' },
-    { key: 'acciones', label: 'Acciones', type: 'actions' }
+    { key: 'estado', label: 'Estado', type: 'badge', width: '90px' },
+    { key: 'acciones', label: 'Acciones', type: 'actions', width: '120px' }
   ];
 
   actions: TableAction[] = [

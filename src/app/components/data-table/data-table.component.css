@@ -78,17 +78,29 @@ thead {
 .data-table {
   width: 100%;
   border-spacing: 0;
-  border-collapse: separate;
+  table-layout: fixed;
+  border-collapse: collapse;
   overflow: hidden;
   border-radius: 8px;
 }
 
+th, td {
+  vertical-align: top;
+  overflow: hidden;
+  text-overflow: ellipsis;      /* opcional para textos largos */
+  word-break: break-word;
+}
+
+td > * { min-width: 0; }
+
 .data-table th {
+  vertical-align: top;
   padding: 12px;
   text-align: left;
   font-weight: 500;
   color: #ffffff;
   font-size: 14px;
+  word-break: break-word;
 }
 
 .data-table th.sortable {
@@ -264,6 +276,7 @@ tbody{
   flex-wrap: wrap;
   gap: 6px; 
   align-items: center;
+  max-width: 100%;
 }
 
 .list.expanded {

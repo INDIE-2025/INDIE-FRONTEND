@@ -5,6 +5,7 @@ export interface TableColumn {
   key: string;
   label: string;
   type?: 'text' | 'badge' | 'actions' | 'list';
+  width?: string; // e.g., '150px', '20%'
 }
 
 export interface TableAction {

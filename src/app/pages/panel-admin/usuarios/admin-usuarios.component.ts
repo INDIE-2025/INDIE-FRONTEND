@@ -133,8 +133,8 @@ export class AdminUsuariosPage {
     { key: 'nombreUsuario', label: 'Nombre de usuario'},
     { key: 'email', label: 'Email'},
     { key: 'tipoUsuario', label: 'Tipo de usuario'},
-    { key: 'estado', label: 'Estado', type: 'badge'},
-    { key: 'acciones', label: 'Acciones', type: 'actions' }
+    { key: 'estado', label: 'Estado', type: 'badge', width: '90px' },
+    { key: 'acciones', label: 'Acciones', type: 'actions', width: '120px' }
   ];
 
   actions: TableAction[] = [

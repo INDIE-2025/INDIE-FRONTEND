@@ -1,4 +1,9 @@
 <table class="data-table">
+     <colgroup>
+        @for (col of columns; track col.key) {
+            <col [style.width]="col.width || null">
+        }
+    </colgroup>
     <thead>
         <tr>
             @for (col of columns; track col.key) {
