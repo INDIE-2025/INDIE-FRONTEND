@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NotifyService } from '../../../core/services/notify.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ export class LoginComponent {
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private notify: NotifyService
+    private notify: NotifyService,
+    private userService: UserService
   ) {
     this.loginForm = this.fb.group({
       emailUsuario: ['', [Validators.required, Validators.email]],
@@ -46,11 +48,24 @@ export class LoginComponent {
       };
 
       this.auth.login(formData).subscribe({
-        next: () => {
-          // Si "recordarme" está marcado, podrías guardar algún flag adicional
+        next: (resp) => {
+          // Mantiene tu lógica de "recordarme"
           if (this.loginForm.value.rememberMe) {
             localStorage.setItem('rememberMe', 'true');
-          }          
+          }
+
+          // Intentamos obtener el token:
+          // - si tu AuthService devuelve { token }, usamos resp.token
+          // - si tu AuthService ya lo guardó en localStorage, lo tomamos de ahí
+          const token: string | null = (resp as any)?.token ?? localStorage.getItem('token');
+
+          if (token) {
+            // Guarda token (si no estaba) y trae /me; publica usuarioActual
+            this.userService.hydrateFromToken(token);
+          } else {
+            console.warn('Login OK pero no se encontró token en resp ni en localStorage');
+          }
+
           this.router.navigate(['/home']);
         },
         error: (err) => {

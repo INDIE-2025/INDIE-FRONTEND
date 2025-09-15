@@ -1,6 +1,6 @@
 
 <div class="comments">
-  @if (idUsuarioComentador) {
+  @if (usuarioActualId) {
     <div class="comments__form">
       <form [formGroup]="form" (ngSubmit)="enviar()">
         <textarea
@@ -10,6 +10,7 @@
           placeholder="Escribe un comentario…"
           [disabled]="posting"
         ></textarea>
+
         <!-- Fila inferior: errores + botón -->
         <div class="comments__form-row">
           <div class="comments__errors">
@@ -28,6 +29,7 @@
               <span class="error">{{ errorMsg }}</span>
             }
           </div>
+
           <!-- Botón de publicar: deshabilitado si el form es inválido o está posteando -->
           <button class="btn" type="submit" [disabled]="form.invalid || posting">
             {{ posting ? 'Publicando…' : 'Publicar' }}
@@ -36,12 +38,11 @@
       </form>
     </div>
   } @else {
+    <!-- Si no hay idUsuarioComentador, muestra el aviso de login -->
     <div class="comments__login-hint">
       Iniciá sesión para agregar un comentario.
     </div>
   }
-
-  <!-- Si no hay idUsuarioComentador, muestra el aviso de login -->
 
   <!-- Lista de comentarios -->
   <div class="comments__list">
@@ -58,12 +59,13 @@
     }
 
     <!-- Renderiza cada comentario -->
-    @for (c of comentarios; track c) {
+    @for (c of comentarios; track c.idUsuarioComentador) {
       <article class="comment">
         <!-- Avatar: primera letra del nombre del autor -->
         <div class="comment__avatar" aria-hidden="true">
           {{ (c.nombreAutorComentario || 'U')[0] | uppercase }}
         </div>
+
         <!-- Cuerpo del comentario -->
         <div class="comment__body">
           <!-- Encabezado con autor + fecha -->
@@ -71,20 +73,20 @@
             <strong class="comment__author">{{ c.nombreAutorComentario || 'Usuario' }}</strong>
             <span class="comment__date">• {{ c.createdAt | date: 'short' }}</span>
           </header>
+
           <!-- Texto del comentario -->
           <p class="comment__text">{{ c.comentario }}</p>
+
           <!-- ===== OPCIONAL: acciones por comentario (eliminar/denunciar) ===== -->
           <div class="comment__actions">
-            <!-- solo el autor puede eliminar -->
-            @if (c.idUsuarioComentador === idUsuarioComentador) {
-              <button class="comment__link" (click)="eliminar(c)">
-                Eliminar
+              @if (puedeEliminar(c)) {
+                <button class="comment__link" (click)="eliminar(c)">
+                  Eliminar
+                </button>
+              }
+              <button class="comment__link" (click)="denunciar(c)">
+                  Denunciar
               </button>
-            }
-            <!-- cualquier usuario puede denunciar -->
-            <button class="comment__link" (click)="denunciar(c)">
-              Denunciar
-            </button>
           </div>
         </div>
       </article>
