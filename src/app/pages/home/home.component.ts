@@ -26,7 +26,7 @@ interface Event {
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterModule, EventCard, LayoutTransitionDirective],
+  imports: [CommonModule, RouterModule, EventCard],
   templateUrl: './home.component.html',
   standalone: true,
   styleUrls: ['./home.component.scss']

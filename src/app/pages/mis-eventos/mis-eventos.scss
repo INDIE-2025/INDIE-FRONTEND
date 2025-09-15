@@ -1,0 +1,149 @@
+$dark-background: #0e0517;
+$purple-light: #9747ff;
+$light-text: #ffffff;
+
+.mis-eventos-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: $light-text;
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      color: #c0b8cc;
+      font-size: 1rem;
+    }
+  }
+  
+  .filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    
+    button {
+      padding: 0.75rem 1.5rem;
+      background-color: lighten($dark-background, 5%);
+      color: $light-text;
+      border: 1px solid #2c1e3d;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      
+      &:hover {
+        background-color: lighten($dark-background, 8%);
+      }
+      
+      &.active {
+        background-color: $purple-light;
+        border-color: $purple-light;
+        
+        &:hover {
+          background-color: darken($purple-light, 5%);
+        }
+      }
+    }
+  }
+  
+  .create-event {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    
+    .create-btn {
+      background-color: $purple-light;
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      border: none;
+      
+      &:hover {
+        background-color: darken($purple-light, 10%);
+        transform: translateY(-2px);
+      }
+    }
+  }
+  
+  .loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0;
+    
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(151, 71, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: $purple-light;
+      animation: spin 1s ease-in-out infinite;
+      margin-bottom: 1rem;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    p {
+      color: #c0b8cc;
+      font-size: 1rem;
+    }
+  }
+  
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    
+    .no-events {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 0;
+      background-color: lighten($dark-background, 3%);
+      border-radius: 10px;
+      
+      p {
+        color: #c0b8cc;
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .mis-eventos-container {
+    padding: 1rem;
+    
+    .filter-buttons {
+      flex-direction: row;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      
+      button {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+    }
+    
+    .events-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
