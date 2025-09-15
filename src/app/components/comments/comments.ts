@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CommentsService, ComentarioDTO } from '../../services/commentsService';
+import { CommentsService, ComentarioDTO } from '../../services/comments.service';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { firstValueFrom } from 'rxjs';

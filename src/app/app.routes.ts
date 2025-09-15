@@ -70,7 +70,7 @@ export const routes: Routes = [
     loadComponent: () => import('./module/auth/login/password-recovery/password-recovery.component').then(m => m.PasswordRecoveryComponent)
   },
   {
-    path: 'new-password/:token',
+    path: 'new-password',
     loadComponent: () => import('./module/auth/login/new-password/new-password.component').then(m => m.NewPasswordComponent)
   },
       
