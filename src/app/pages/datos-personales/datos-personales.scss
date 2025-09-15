@@ -1,3 +1,4 @@
+@use "sass:color";
 // Variables
 $purple-primary: #9747ff;
 $purple-dark: #0e0517;
@@ -140,7 +141,7 @@ $danger-color: #ff4757;
     color: white;
     
     &:hover {
-      background-color: darken($purple-primary, 5%);
+      background-color: color.adjust($purple-primary, $lightness: -5%);
     }
   }
   
@@ -181,7 +182,7 @@ $danger-color: #ff4757;
     font-weight: 600;
     
     &:hover {
-      background-color: darken($danger-color, 10%);
+      background-color: color.adjust($danger-color, $lightness: -10%);
     }
   }
 }
@@ -227,7 +228,7 @@ $danger-color: #ff4757;
       color: white;
       
       &:hover {
-        background-color: darken($danger-color, 10%);
+        background-color: color.adjust($danger-color, $lightness: -10%);
       }
     }
     
@@ -261,3 +262,4 @@ $danger-color: #ff4757;
     }
   }
 }
+
