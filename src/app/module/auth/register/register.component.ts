@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NotifyService } from '../../../core/services/notify.service';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private notify: NotifyService
   ) {}
 
   ngOnInit() {
@@ -85,14 +87,24 @@ export class RegisterComponent implements OnInit {
         password: this.registerForm.value.password
       };
 
+      if(formData.tipoUsuario == 'fan' || formData.tipoUsuario == 'establecimiento'){
+        formData.subtipoUsuario = formData.tipoUsuario; // Asignar valor por defecto si no es artista
+      }
+
       this.auth.register(formData).subscribe({
         next: () => {
-          alert('Registro exitoso');
           this.router.navigate(['/post-register']);
         },
         error: err => {
           console.error('Error en registro:', err);
-          alert('No se pudo registrar. Inténtalo de nuevo.');
+          
+          // Extraer mensaje de error del backend o usar uno genérico
+          const errorMessage = err.error?.message || 
+                              err.error?.error || 
+                              err.error ||
+                              'Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.';
+          
+          this.notify.error(errorMessage, 'Error en el Registro', 6000);
         }
       });
     } else {
@@ -100,6 +112,9 @@ export class RegisterComponent implements OnInit {
       Object.keys(this.registerForm.controls).forEach(key => {
         this.registerForm.get(key)?.markAsTouched();
       });
+      
+      // Mostrar toast de error para formulario inválido
+      this.notify.warning('Por favor, completa todos los campos requeridos correctamente.', 'Formulario Incompleto', 4000);
     }
   }
 

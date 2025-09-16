@@ -1,3 +1,35 @@
+
+@use '@angular/material' as mat;
+
+// Include theming for Angular Material with modern @use syntax
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$magenta-palette,
+      tertiary: mat.$violet-palette,
+    ),
+    typography: Poppins,
+    density: 0,
+  ));
+}
+
+body {
+  // Default the application to a dark color theme with deep purple background
+  color-scheme: dark;
+  background-color: #0e0517 !important; /* Deep purple background */
+  margin: 0;
+  padding: 0;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+}
 /* Global styles */
 * {
   box-sizing: border-box;
@@ -7,7 +39,8 @@ body, html {
   margin: 0;
   background-color: #1E1624;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins';
+  background: #f5f5f5;
   overflow-x: hidden; // Prevent horizontal scroll
 }
 
@@ -52,3 +85,43 @@ body {
   width: device-width;
   initial-scale: 1;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; }
+
+// Estilos básicos para ngx-toastr
+.toast-container {
+  .toast {
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    min-width: 300px;
+    
+    &.toast-error {
+      background-color: #dc3545 !important;
+      color: white !important;
+    }
+    
+    &.toast-success {
+      background-color: #28a745 !important;
+      color: white !important;
+    }
+    
+    &.toast-warning {
+      background-color: #ffc107 !important;
+      color: #212529 !important;
+    }
+    
+    .toast-title {
+      font-weight: 600;
+      font-size: 16px;
+    }
+    
+    .toast-message {
+      font-size: 14px;
+      margin-top: 4px;
+    }
+  }
+}
+

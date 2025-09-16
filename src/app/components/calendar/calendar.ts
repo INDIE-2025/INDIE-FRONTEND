@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import  daygridPlugin  from '@fullcalendar/daygrid';
+import daygridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import esLocale from '@fullcalendar/core/locales/es';
@@ -7,9 +7,10 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-calendar',
+  standalone: true,
   imports: [FullCalendarModule],
   templateUrl: './calendar.html',
-  styleUrl: './calendar.scss'
+  styleUrls: ['./calendar.scss']
 })
 export class Calendar implements OnInit {
   
@@ -30,6 +31,7 @@ export class Calendar implements OnInit {
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay'
       },
+      events: this.events
     }
 
     this.events = [

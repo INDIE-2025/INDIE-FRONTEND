@@ -146,7 +146,7 @@ export class AdminTiposUsuarioPage implements OnInit {
         break;
     }
   }
-
+  
   showAddTipoUsuarioForm = false;
 
   showEditTipoUsuarioForm = false;

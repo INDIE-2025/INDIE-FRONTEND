@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NotifyService } from '../../../core/services/notify.service';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +18,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 })
 export class LoginComponent {
 
-  loginForm: any;
+  loginForm: FormGroup;
   showPassword: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private notify: NotifyService
   ) {
     this.loginForm = this.fb.group({
       emailUsuario: ['', [Validators.required, Validators.email]],
@@ -48,14 +50,19 @@ export class LoginComponent {
           // Si "recordarme" está marcado, podrías guardar algún flag adicional
           if (this.loginForm.value.rememberMe) {
             localStorage.setItem('rememberMe', 'true');
-          }
-          
-          alert('Login exitoso');
+          }          
           this.router.navigate(['/home']);
         },
         error: (err) => {
           console.error('Error en login:', err);
-          alert('Credenciales inválidas. Inténtalo de nuevo.');
+          
+          // Extraer mensaje de error del backend o usar uno genérico
+          const errorMessage = err.error?.message || 
+                              err.error?.error || 
+                              err.error ||
+                              'Credenciales incorrectas. Por favor, verifica tu email y contraseña.';
+          
+          this.notify.error(errorMessage, 'Error de Autenticación', 5000);
         }
       });
     } else {
@@ -63,7 +70,15 @@ export class LoginComponent {
       Object.keys(this.loginForm.controls).forEach(key => {
         this.loginForm.get(key)?.markAsTouched();
       });
+      
+      // Mostrar toast de error para formulario inválido
+      this.notify.warning('Por favor, completa todos los campos requeridos correctamente.', 'Formulario Incompleto', 4000);
     }
+  }
+
+  // Getter para verificar si el botón debe estar habilitado
+  get isFormValid(): boolean {
+    return this.loginForm.valid;
   }
 
   // Método para verificar si un campo tiene errores y ha sido tocado
