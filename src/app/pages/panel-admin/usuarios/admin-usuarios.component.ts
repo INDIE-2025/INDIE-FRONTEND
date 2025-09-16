@@ -1,4 +1,6 @@
-import { Component, computed, signal } from '@angular/core';
+
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { DataTableComponent, TableColumn, TableAction } from '../../../components/data-table/data-table.component';
 import { SearchBarComponent } from '../../../components/search-bar/search-bar.component';
@@ -6,6 +8,11 @@ import { FiltersComponent, Filter } from '../../../components/filters/filters.co
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { FormsModule } from '@angular/forms'; 
 import { FormInputComponent, FormSelectComponent, FormButtonComponent, FormTextComponent } from "../../../components/form/form-components.component";
+import { AdminUsuariosService } from '../../../services/panel-admin/admin-usuarios.service';
+
+interface SelectOption { value: string; label: string; }
+interface TipoUsuarioCatalogo extends SelectOption { subtipos: SelectOption[]; }
+
 
 @Component({
   selector: 'admin-usuarios-page',
@@ -23,7 +30,17 @@ import { FormInputComponent, FormSelectComponent, FormButtonComponent, FormTextC
   templateUrl: "./admin-usuarios.component.html",
   styleUrls: ["./admin-usuarios.component.css"]
 })
-export class AdminUsuariosPage {
+export class AdminUsuariosPage implements OnInit {
+
+  private readonly adminUsuariosService = inject(AdminUsuariosService);
+
+  private readonly tiposUsuarioCatalogo = signal<TipoUsuarioCatalogo[]>([]);
+  tiposUsuario = computed<SelectOption[]>(() => this.tiposUsuarioCatalogo().map(({ value, label }) => ({ value, label })));
+  subtiposNuevoUsuario = signal<SelectOption[]>([]);
+  subtiposEditarUsuario = signal<SelectOption[]>([]);
+
+
+  usuarios = signal<any[]>([]);
 
   search = signal('');
   page = signal(1);
@@ -50,92 +67,6 @@ export class AdminUsuariosPage {
     }
   ]);
 
-  usuarios = signal<any[]>( [
-    {
-      nombre: 'Tomás Guiñazu',
-      nombreUsuario: 'tomas.guinazu',
-      email: 'tomasguinazu@gmail.com',
-      tipoUsuario: 'Administrador',
-      estado: 'Activo'
-    },
-    {
-      nombre: 'María García',
-      nombreUsuario: 'mari_garcia40',
-      email: 'email@correo.com',
-      tipoUsuario: 'Fan',
-      estado: 'Activo'
-    },
-    {
-      nombre: 'Carlos Lopez',
-      nombreUsuario: 'lopez.carlosss',
-      email: 'email@correo.com',
-      tipoUsuario: 'Artista',
-      estado: 'Activo'
-    },
-    {
-      nombre: 'Carlos Lopez',
-      nombreUsuario: 'lopez.carlosss',
-      email: 'email@correo.com',
-      tipoUsuario: 'Artista',
-      estado: 'Activo'
-    },
-    {
-      nombre: 'Carlos Lopez',
-      nombreUsuario: 'lopez.carlosss',
-      email: 'email@correo.com',
-      tipoUsuario: 'Artista',
-      estado: 'Activo'
-    },
-    {
-      nombre: 'Carlos Lopez',
-      nombreUsuario: 'lopez.carlosss',
-      email: 'email@correo.com',
-      tipoUsuario: 'Artista',
-      estado: 'Activo'
-    },
-    {
-      nombre: 'Carlos Lopez',
-      nombreUsuario: 'lopez.carlosss',
-      email: 'email@correo.com',
-      tipoUsuario: 'Artista',
-      estado: 'Activo'
-    },
-    {
-      nombre: 'Carlos Lopez',
-      nombreUsuario: 'lopez.carlosss',
-      email: 'email@correo.com',
-      tipoUsuario: 'Artista',
-      estado: 'Activo'
-    },
-    {
-      nombre: 'Carlos Lopez',
-      nombreUsuario: 'lopez.carlosss',
-      email: 'email@correo.com',
-      tipoUsuario: 'Artista',
-      estado: 'Activo'
-    },
-    {
-      nombre: 'Carlos Lopez',
-      nombreUsuario: 'lopez.carlosss',
-      email: 'email@correo.com',
-      tipoUsuario: 'Artista',
-      estado: 'Activo'
-    },
-    {
-      nombre: 'Carlos Lopez',
-      nombreUsuario: 'lopez.carlosss',
-      email: 'email@correo.com',
-      tipoUsuario: 'Artista',
-      estado: 'Activo'
-    },
-    {
-      nombre: 'Carlos Lopez',
-      nombreUsuario: 'lopez.carlosss',
-      email: 'email@correo.com',
-      tipoUsuario: 'Artista',
-      estado: 'De baja'
-    }
-  ]);
 
   columns: TableColumn[] = [
     { key: 'nombre', label: 'Nombre'},
@@ -150,15 +81,66 @@ export class AdminUsuariosPage {
   { src: '/assets/icons/edit.svg', label: 'Editar', action: 'edit', isButton: false },
   ];
 
+
+  ngOnInit(): void {
+    this.cargarUsuarios();
+    this.cargarTiposUsuario();
+  }
+
+  private cargarUsuarios(): void {
+    this.adminUsuariosService.obtenerUsuarios().subscribe({
+      next: (usuarios: any[]) => {
+        this.usuarios.set(usuarios ?? []);
+        this.page.set(1);
+      },
+      error: (error) => console.error('Error al cargar usuarios', error)
+    });
+  }
+
+  private cargarTiposUsuario(): void {
+    this.adminUsuariosService.obtenerTiposUsuario().subscribe({
+      next: (tipos: any[]) => {
+        const catalogo = (tipos ?? []).map((tipo: any) => {
+          const nombre = (tipo?.nombreTipoUsuario ?? tipo?.tipoUsuario ?? '').toString();
+          const subtipos = Array.isArray(tipo?.subtipos) ? tipo.subtipos : [];
+          return {
+            value: nombre,
+            label: nombre,
+            subtipos: subtipos.map((subtipo: any) => ({ value: String(subtipo), label: String(subtipo) })),
+          } as TipoUsuarioCatalogo;
+        });
+
+        this.tiposUsuarioCatalogo.set(catalogo);
+
+        const [tipoFilter, estadoFilter] = this.filters();
+        const updatedTipoOptions = catalogo.map(({ value, label }) => ({ value, label }));
+        const selectedTipo = tipoFilter?.value ?? '';
+        const tipoValue = updatedTipoOptions.some(option => option.value === selectedTipo) ? selectedTipo : '';
+
+        const tipoFilterActual = tipoFilter ?? { placeholder: 'Tipo de usuario', value: '', options: [] };
+        const estadoFilterActual = estadoFilter ?? { placeholder: 'Estado', value: '', options: this.estado };
+
+        this.filters.set([
+          { ...tipoFilterActual, value: tipoValue, options: updatedTipoOptions },
+          { ...estadoFilterActual },
+        ]);
+
+        this.actualizarSubtiposPorTipo(this.nuevoUsuario.tipoUsuario, 'nuevo');
+        this.actualizarSubtiposPorTipo(this.editarUsuario.tipoUsuario, 'editar');
+      },
+      error: (error) => console.error('Error al cargar tipos de usuario', error)
+    });
+  }
+
   filteredData = computed(() => {
     const term = this.search().toLowerCase();
     const [tipoUsuarioFilter, estadoFilter] = this.filters();
 
     return this.usuarios().filter(u => {
       const matchesSearch =
-        u.nombre.toLowerCase().includes(term) ||
-        u.nombreUsuario.toLowerCase().includes(term) ||
-        u.email.toLowerCase().includes(term);
+        (u.nombre ?? '').toLowerCase().includes(term) ||
+        (u.nombreUsuario ?? '').toLowerCase().includes(term) ||
+        (u.email ?? '').toLowerCase().includes(term);
 
       const matchesTipo =
         !tipoUsuarioFilter.value || u.tipoUsuario === tipoUsuarioFilter.value;
@@ -181,7 +163,7 @@ export class AdminUsuariosPage {
 
   onFilters(newFilters: Filter[]) {
     this.filters.set(newFilters);
-    this.page.set(1); // resetea página al cambiar filtro
+    this.page.set(1); // resetea pagina al cambiar filtro
   }
 
   onSearch(term: string) {
@@ -197,7 +179,7 @@ export class AdminUsuariosPage {
     switch(event.action) {
       case 'edit':
         this.onEditUser(event.item);
-        break;;
+        break;
     }
   }
 
@@ -225,20 +207,40 @@ export class AdminUsuariosPage {
     estado: ''
   };
 
-  tiposUsuario = [
-    { value: 'Administrador', label: 'Administrador' },
-    { value: 'Fan',           label: 'Fan' },
-    { value: 'Artista',       label: 'Artista' },
-    { value: 'Establecimiento', label: 'Establecimiento' }
-  ];
 
-  subtiposUsuario = [{ value: '—', label: '—' }];
 
   estado = [
     { value: 'Activo', label: 'Activo' },
     { value: 'De baja', label: 'De baja' }
   ];
   
+
+  private actualizarSubtiposPorTipo(tipo: string, contexto: 'nuevo' | 'editar'): void {
+    const catalogo = this.tiposUsuarioCatalogo().find(opcion => opcion.value === tipo);
+    const opciones = catalogo ? catalogo.subtipos.map(subtipo => ({ ...subtipo })) : [];
+    if (contexto === 'nuevo') {
+      this.subtiposNuevoUsuario.set(opciones);
+      if (!opciones.some(opt => opt.value === this.nuevoUsuario.subtipoUsuario)) {
+        this.nuevoUsuario.subtipoUsuario = '';
+      }
+    } else {
+      this.subtiposEditarUsuario.set(opciones);
+      if (!opciones.some(opt => opt.value === this.editarUsuario.subtipoUsuario)) {
+        this.editarUsuario.subtipoUsuario = '';
+      }
+    }
+  }
+
+  onTipoUsuarioChangeNuevo(tipo: string): void {
+    this.nuevoUsuario.tipoUsuario = tipo;
+    this.actualizarSubtiposPorTipo(tipo, 'nuevo');
+  }
+
+  onTipoUsuarioChangeEditar(tipo: string): void {
+    this.editarUsuario.tipoUsuario = tipo;
+    this.actualizarSubtiposPorTipo(tipo, 'editar');
+  }
+
   onAddUser() {
 
     this.nuevoUsuario = {
@@ -252,6 +254,7 @@ export class AdminUsuariosPage {
       estado: 'Activo'
     };
 
+    this.actualizarSubtiposPorTipo(this.nuevoUsuario.tipoUsuario, 'nuevo');
     this.showAddUserForm = true;
 
   }
@@ -268,8 +271,14 @@ export class AdminUsuariosPage {
       estado: this.nuevoUsuario.estado
     };
 
-    console.log('Datos a enviar:', dtoCrearUsuario);
-    this.showAddUserForm = false; // opcional: cerrar formulario
+    this.adminUsuariosService.crearUsuario(dtoCrearUsuario).subscribe({
+      next: () => {
+        console.log('Datos a enviar:', dtoCrearUsuario);
+        this.cargarUsuarios();
+        this.showAddUserForm = false; // opcional: cerrar formulario
+      },
+      error: (error) => console.error('Error al crear usuario', error)
+    });
   }
 
   onEditUser(user: any) {
@@ -278,8 +287,10 @@ export class AdminUsuariosPage {
     this.editarUsuario.nombre = user.nombre;
     this.editarUsuario.email = user.email;
     this.editarUsuario.tipoUsuario = user.tipoUsuario;
-    this.editarUsuario.subtipoUsuario = '';
+    this.editarUsuario.subtipoUsuario = user.subtipoUsuario ?? '';
     this.editarUsuario.estado = user.estado;
+
+    this.actualizarSubtiposPorTipo(this.editarUsuario.tipoUsuario, 'editar');
 
     this.showEditUserForm = true;
     
@@ -296,8 +307,19 @@ export class AdminUsuariosPage {
       estado: this.editarUsuario.estado
     };
 
-    console.log('Datos a enviar:', dtoEditarUsuario);
-    this.showEditUserForm = false; // opcional: cerrar formulario
+    this.adminUsuariosService.actualizarUsuario(dtoEditarUsuario.email, dtoEditarUsuario).subscribe({
+      next: () => {
+        console.log('Datos a enviar:', dtoEditarUsuario);
+        this.cargarUsuarios();
+        this.showEditUserForm = false; // opcional: cerrar formulario
+      },
+      error: (error) => console.error('Error al actualizar usuario', error)
+    });
   }
 
 }
+
+
+
+
+

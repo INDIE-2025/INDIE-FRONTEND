@@ -29,12 +29,13 @@
             <app-form-input label="Email" type="email" [(ngModel)]="nuevoUsuario.email" name="email"></app-form-input>
 
             <app-form-select label="Tipo de Usuario"
-                                [options]="tiposUsuario"
-                                [(value)]="nuevoUsuario.tipoUsuario">
+                                [options]="tiposUsuario()"
+                                [(value)]="nuevoUsuario.tipoUsuario"
+                                (valueChange)="onTipoUsuarioChangeNuevo($event)">
             </app-form-select>
 
             <app-form-select label="Subtipo de Usuario"
-                                [options]="subtiposUsuario"
+                                [options]="subtiposNuevoUsuario()"
                                 [(value)]="nuevoUsuario.subtipoUsuario">
             </app-form-select>
 
@@ -63,12 +64,13 @@
             <app-form-input label="Email" type="email" [(ngModel)]="editarUsuario.email" name="email"></app-form-input>
 
             <app-form-select label="Tipo de Usuario"
-                                [options]="tiposUsuario"
-                                [(value)]="editarUsuario.tipoUsuario">
+                                [options]="tiposUsuario()"
+                                [(value)]="editarUsuario.tipoUsuario"
+                                (valueChange)="onTipoUsuarioChangeEditar($event)">
             </app-form-select>
 
             <app-form-select label="Subtipo de Usuario"
-                                [options]="subtiposUsuario"
+                                [options]="subtiposEditarUsuario()"
                                 [(value)]="editarUsuario.subtipoUsuario">
             </app-form-select>
 
