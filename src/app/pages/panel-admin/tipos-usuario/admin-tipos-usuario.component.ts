@@ -1,4 +1,6 @@
-import { Component, computed, signal } from '@angular/core';
+
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { DataTableComponent, TableColumn, TableAction } from '../../../components/data-table/data-table.component';
 import { Filter, FiltersComponent } from '../../../components/filters/filters.component';
@@ -6,6 +8,7 @@ import { PaginationComponent } from "../../../components/pagination/pagination.c
 import { SearchBarComponent } from "../../../components/search-bar/search-bar.component";
 import { FormsModule } from '@angular/forms';
 import { FormSubtypesComponent, FormInputComponent, FormButtonComponent, FormSelectComponent, FormTextComponent } from "../../../components/form/form-components.component";
+import { AdminUsuariosService } from '../../../services/panel-admin/admin-usuarios.service';
 
 @Component({
   selector: 'admin-tipos-usuario-page',
@@ -14,7 +17,11 @@ import { FormSubtypesComponent, FormInputComponent, FormButtonComponent, FormSel
   templateUrl: "./admin-tipos-usuario.component.html",
   styleUrl: "./admin-tipos-usuario.component.css"
 })
-export class AdminTiposUsuarioPage {
+export class AdminTiposUsuarioPage implements OnInit {
+
+  private readonly adminUsuariosService = inject(AdminUsuariosService);
+
+  tiposUsuario = signal<any[]>([]);
 
   search = signal('');
   page = signal(1);
@@ -36,103 +43,80 @@ export class AdminTiposUsuarioPage {
     { key: 'subtipos', label: 'Subtipos de usuario', type: 'list',},
     { key: 'cantidadUsuarios', label: 'Cantidad de usuarios' },
     { key: 'fechaAlta', label: 'Fecha de alta' },
-    { key: 'estado', label: 'Estado', type: 'badge', width: '90px' },
+    { key: 'estado', label: 'Estado', type: 'badge', width: '100px' },
     { key: 'acciones', label: 'Acciones', type: 'actions', width: '120px' }
   ];
 
   actions: TableAction[] = [
-  { src: 'assets/icons/edit.svg',    label: 'Editar',  action: 'edit', isButton: false },
+    { src: 'assets/icons/edit.svg', label: 'Editar', action: 'edit', isButton: false },
   ];
 
-    tiposUsuario = signal<any[]>([
-    {
-      tipoUsuario: 'Administrador',
-      subtipos: ['Administrador'],
-      cantidadUsuarios: '100000',
-      fechaAlta: '14/03/2025',
-      estado: 'Activo'
-    },
-    {
-      tipoUsuario: 'Establecimiento',
-      subtipos: ['Establecimiento'],
-      cantidadUsuarios: '1000000',
-      fechaAlta: '14/03/2025',
-      estado: 'Activo'
-    },
-    {
-      tipoUsuario: 'Fan',
-      subtipos: ['Fan'],
-      cantidadUsuarios: '199999',
-      fechaAlta: '14/03/2025',
-      estado: 'Activo'
-    },
-    {
-      tipoUsuario: 'Artista',
-      subtipos: ['Metal', 'Jazz', 'Trap', 'Rap', 'Rock', 'Pop', 'Indie'],
-      cantidadUsuarios: '19999999',
-      fechaAlta: '14/03/2025',
-      estado: 'Activo'
-    },
-    {
-      tipoUsuario: 'Tipo de usuario 5',
-      subtipos: ['Tipo de usuario 5'],
-      cantidadUsuarios: '1941932',
-      fechaAlta: '14/03/2025',
-      estado: 'De baja'
-    },
-    {
-      tipoUsuario: 'Administrador',
-      subtipos: ['Administrador'],
-      cantidadUsuarios: '100000',
-      fechaAlta: '14/03/2025',
-      estado: 'Activo'
-    },
-    {
-      tipoUsuario: 'Administrador',
-      subtipos: ['Administrador'],
-      cantidadUsuarios: '100000',
-      fechaAlta: '14/03/2025',
-      estado: 'Activo'
-    },
-    {
-      tipoUsuario: 'Administrador',
-      subtipos: ['Administrador'],
-      cantidadUsuarios: '100000',
-      fechaAlta: '14/03/2025',
-      estado: 'Activo'
-    },
-    {
-      tipoUsuario: 'Administrador',
-      subtipos: ['Administrador'],
-      cantidadUsuarios: '100000',
-      fechaAlta: '14/03/2025',
-      estado: 'Activo'
-    },
-    {
-      tipoUsuario: 'Administrador',
-      subtipos: ['Administrador'],
-      cantidadUsuarios: '100000',
-      fechaAlta: '14/03/2025',
-      estado: 'Activo'
-    }
-  ]);
+  ngOnInit(): void {
+    this.cargarTiposUsuario();
+  }
 
+  private cargarTiposUsuario(): void {
+    this.adminUsuariosService.obtenerTiposUsuario().subscribe({
+      next: (tipos: any[]) => {
+        const normalizados = (tipos ?? []).map((tipo: any) => {
+          const nombre = (tipo?.nombreTipoUsuario ?? tipo?.tipoUsuario ?? '').toString();
+          const subtipos = Array.isArray(tipo?.subtipos)
+            ? tipo.subtipos
+                .map((subtipo: any) => {
+                  if (typeof subtipo === 'string') {
+                    return subtipo;
+                  }
+                  const nombreSubtipo = subtipo?.nombreSubtipo ?? subtipo?.subtipo ?? '';
+                  return nombreSubtipo ? String(nombreSubtipo) : '';
+                })
+                .filter(Boolean)
+            : [];
+
+          return {
+            ...tipo,
+            nombreTipoUsuario: nombre,
+            tipoUsuario: nombre,
+            subtipos,
+          };
+        });
+
+        this.tiposUsuario.set(normalizados);
+        this.page.set(1);
+      },
+      error: (error) => console.error('Error al cargar tipos de usuario', error)
+    });
+  }
 
   filteredData = computed(() => {
     const term = this.search().toLowerCase();
     const [estadoFilter] = this.filters();
 
-    return this.tiposUsuario().filter(u => {
+    return this.tiposUsuario().filter(tipo => {
+      const nombreTipo = (tipo?.nombreTipoUsuario ?? tipo?.tipoUsuario ?? '').toString().toLowerCase();
+      const subtipos = Array.isArray(tipo?.subtipos)
+        ? tipo.subtipos
+            .map((subtipo: any) => {
+              if (typeof subtipo === 'string') {
+                return subtipo;
+              }
+              const nombreSubtipo = subtipo?.nombreSubtipo ?? subtipo?.subtipo ?? subtipo ?? '';
+              return nombreSubtipo ? String(nombreSubtipo) : '';
+            })
+            .filter(Boolean)
+        : [];
+
       const matchesSearch =
-        u.tipoUsuario.toLowerCase().includes(term) ||
-        u.subtiposUsuario.subtipoUsuario.toLowerCase().includes(term);
+        !term ||
+        nombreTipo.includes(term) ||
+        subtipos.some((subtipo: string) => subtipo.toLowerCase().includes(term));
 
       const matchesEstado =
-        !estadoFilter.value || u.estado === estadoFilter.value;
+        !estadoFilter.value || tipo.estado === estadoFilter.value;
 
       return matchesSearch && matchesEstado;
     });
   });
+  ;
 
   totalPages = computed(() =>
     Math.max(1, Math.ceil(this.filteredData().length / this.pageSize))
@@ -145,7 +129,7 @@ export class AdminTiposUsuarioPage {
 
   onFilters(newFilters: Filter[]) {
     this.filters.set(newFilters);
-    this.page.set(1); // resetea página al cambiar filtro
+    this.page.set(1); // resetea pagina al cambiar filtro
   }
 
   onSearch(term: string) {
@@ -195,25 +179,32 @@ export class AdminTiposUsuarioPage {
 
   guardarNuevoTipoUsuario() {
 
-    const dto = {
+    const dtoCrearTipoUsuario = {
       nombreTipoUsuario: this.nuevoTipoUsuario.nombreTipoUsuario,
       subtipos: [...this.nuevoTipoUsuario.subtipos()],
       estado: this.nuevoTipoUsuario.estado,
     };
 
-    console.log('Guardar nuevo tipo de usuario:', dto);
-
-    this.showAddTipoUsuarioForm = false;
+    this.adminUsuariosService.crearTipoUsuario(dtoCrearTipoUsuario).subscribe({
+      next: () => {
+        console.log('Guardar nuevo tipo de usuario:', dtoCrearTipoUsuario);
+        this.cargarTiposUsuario();
+        this.showAddTipoUsuarioForm = false;
+      },
+      error: (error) => console.error('Error al guardar nuevo tipo de usuario', error)
+    });
   }
 
   onEditTipoUsuario(tipo: any) {
+    const subtipos = Array.isArray(tipo?.subtipos) ? tipo.subtipos : [];
+
     this.nuevoTipoUsuario = {
-      nombreTipoUsuario: tipo.tipoUsuario,
-      subtipos: signal(tipo.subtipos),
-      estado: tipo.estado
+      nombreTipoUsuario: tipo?.nombreTipoUsuario ?? tipo?.tipoUsuario ?? '',
+      subtipos: signal(subtipos),
+      estado: tipo?.estado ?? 'Activo'
     };
 
-    this.showEditTipoUsuarioForm = true; 
+    this.showEditTipoUsuarioForm = true;
   }
 
   guardarTipoUsuario() {
@@ -224,9 +215,13 @@ export class AdminTiposUsuarioPage {
       estado: this.nuevoTipoUsuario.estado,
     };
 
-    console.log('Guardar tipo de usuario:', dtoEditarTipoUsuario);
-
-    this.showEditTipoUsuarioForm = false;
+    this.adminUsuariosService.actualizarTipoUsuario(dtoEditarTipoUsuario.nombreTipoUsuario, dtoEditarTipoUsuario).subscribe({
+      next: () => {
+        console.log('Guardar tipo de usuario:', dtoEditarTipoUsuario);
+        this.cargarTiposUsuario();
+        this.showEditTipoUsuarioForm = false;
+      },
+      error: (error) => console.error('Error al actualizar tipo de usuario', error)
+    });
   }
 }
-
