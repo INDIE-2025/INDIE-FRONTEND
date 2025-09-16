@@ -8,6 +8,8 @@ export interface Usuario {
   emailUsuario: string;
   password?: string;
   nombreUsuario?: string;
+  username?: string;
+  apellidoUsuario?: string;
 }
 
 export interface LoginResponse {

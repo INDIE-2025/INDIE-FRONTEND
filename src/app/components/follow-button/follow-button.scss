@@ -1,0 +1,55 @@
+.btn { 
+    padding:.4rem .75rem; 
+    border-radius:.5rem; 
+    cursor:pointer; 
+}
+  
+
+.btn-primary{ 
+    background:#c567ff; 
+    color:#fff; 
+    border:none; 
+}
+
+.btn-outline{ 
+    background:transparent; 
+    border:1px solid #999; 
+    color:#fbeffc; 
+}
+
+.btn-unblock{ 
+    background: #4caf50; 
+    color: #fff; 
+    border: none;
+    margin-left: 8px;
+    
+    &:hover {
+        background: #45a049;
+    }
+    
+    &:disabled {
+        background: #cccccc;
+        cursor: not-allowed;
+    }
+}
+  .badge{ 
+    background:#dc3545; 
+    color:#fff; 
+    padding:.15rem .5rem; 
+    border-radius:.4rem; 
+    margin-left:.5rem; 
+}
+  .spinner{ 
+    display:inline-block; 
+    width:14px; height:14px; 
+    border:2px solid #ccc; 
+    border-top-color:#2e6bff; 
+    border-radius:50%; 
+    animation:spin .8s linear infinite; 
+    margin-left:.5rem;
+}
+  .error{ 
+    color:#ffb3b3; 
+    margin-left:.5rem; 
+}
+  @keyframes spin { to { transform: rotate(360deg); } }
