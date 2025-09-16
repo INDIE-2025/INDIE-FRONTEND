@@ -1,0 +1,29 @@
+<div class="overlay" (click)="close.emit()"></div>
+<div class="panel">
+<header>
+<h3>{{ tipo==='seguidores' ? 'Seguidores' : 'Seguidos' }} ({{ total }})</h3>
+<button class="close" (click)="close.emit()">✕</button>
+</header>
+
+
+<div *ngIf="loading" class="loading">Cargando...</div>
+<ul *ngIf="!loading" class="list">
+<li *ngFor="let u of usuarios" class="item">
+<div class="avatar">{{ (u.nombreUsuario?.[0] || u.username?.[0] || 'U') }}</div>
+<div class="info">
+<div class="name">{{ u.nombreUsuario }} {{ u.apellidoUsuario }}</div>
+<div class="username">@{{ u.username || u.emailUsuario }}</div>
+</div>
+<div class="actions">
+<!-- Botones solo visibles si es el perfil propio -->
+<div *ngIf="esPerfilPropio">
+  <button class="btn" (click)="dejarDeSeguir(u)">Dejar de seguir</button>
+  <button class="btn btn-danger" (click)="bloquear(u)">Bloquear</button>
+</div>
+</div>
+</li>
+</ul>
+
+
+<small *ngIf="errorMsg" class="error">{{ errorMsg }}</small>
+</div>

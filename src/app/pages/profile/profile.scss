@@ -15,14 +15,47 @@
     color: #fbeffc;
     font-family: 'Poppins', Arial, sans-serif;
 
+    .social-container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin: 16px 0;
+    }
+
     .social {
       display: flex;
       gap: 10px;
+
+      .counter {
+        background: transparent;
+        border: 1px solid #c567ff;
+        color: #fbeffc;
+        padding: .25rem .6rem;
+        border-radius: .5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          background: rgba(197, 103, 255, 0.2);
+          border-color: #d05bfb;
+        }
+      }
+    }
+    
+    .follow-section {
+      margin-left: auto; // Empuja el botón seguir hacia la derecha
+    }
+    
+    .social-icons {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
 
       a {
         color: #fbeffc;
         text-decoration: none;
         font-size: 24px;
+        transition: color 0.3s ease;
 
         &:hover {
           color: #c567ff;

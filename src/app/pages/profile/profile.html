@@ -5,24 +5,48 @@
     <div class="profile-info">
       <div>
         <div class="profile-avatar-name">
-          <img src="assets/logo/images/logoBonito.jpg" alt="Perfil" class="profile-avatar" />
-          <h2>Café Bonito</h2>
+          <img src="assets/logo/images/blank-profile-picture-973460_1280.png" alt="Perfil" class="profile-avatar" />
+          <h2>{{ perfil?.username || perfil?.emailUsuario || 'Usuario' }}</h2>
         </div>
         <p class="type">Establecimiento</p>
-        <div class="social">
-          <span>Seguidores <strong>3000</strong></span>
-          <span>Seguidos <strong>2000</strong></span>
+
+        <div class="social-container">
+          <div class="social">
+            <button class="counter" (click)="abrirLista('seguidores')">
+              Seguidores <strong>{{ totalSeguidores }}</strong>
+            </button>
+            <button class="counter" (click)="abrirLista('seguidos')">
+              Seguidos <strong>{{ totalSeguidos }}</strong>
+            </button>
+          </div>
+          
+          @if (!esPerfilPropio) {
+            @if (perfil?.username; as uname) {
+              <div class="follow-section">
+                <app-follow-button
+                  [perfilUsername]="uname"
+                  (changed)="onRelacionChange($event)">
+                </app-follow-button>
+              </div>
+            }
+          }
         </div>
-        <div class="social-icons">
-          <a href="#"><i class="bi bi-instagram"></i></a>
-          <a href="#"><i class="bi bi-youtube"></i></a>
-        </div>
+        
+        @if (!esPerfilPropio) {
+          @if (perfil?.username; as uname) {
+            <div class="social-icons">
+              <a href="#"><i class="bi bi-instagram"></i></a>
+              <a href="#"><i class="bi bi-youtube"></i></a>
+            </div>
+          }
+        }
       </div>
     </div>
+
     <div class="map">
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18..."
-        width="200" height="150" style="border:0;" allowfullscreen="" >
+        width="200" height="150" style="border:0;" allowfullscreen="">
       </iframe>
     </div>
   </section>
@@ -31,20 +55,34 @@
     <h3 class="titulo-carousel">Próximos Eventos</h3>
     <app-carousel></app-carousel>
   </div>
+
   <div class="profile-carousel" style="height: 300px;">
     <h3 class="titulo-carousel">Contenido Digital</h3>
     <app-galleria></app-galleria>
   </div>
-    <div class="profile-calendar" style="height: 1000px;">
-      <h3 class="titulo-carousel">Calendario</h3>
-      <app-calendar></app-calendar>
-    </div>
-    <div class="profile-comments">
-      <h3 class="titulo-carousel">Comentarios</h3>
-      @if (perfil?.id; as targetId) {
-        <app-comments [idUsuarioComentado]="targetId"></app-comments>
-      }
+
+  <div class="profile-calendar" style="height: 1000px;">
+    <h3 class="titulo-carousel">Calendario</h3>
+    <app-calendar></app-calendar>
+  </div>
+
+  <div class="profile-comments">
+    <h3 class="titulo-carousel">Comentarios</h3>
+    @if (perfil?.id; as targetId) {
+      <app-comments [idUsuarioComentado]="targetId"></app-comments>
+    }
+  </div>
 </div>
 
-</div>
 
+@if (listaAbierta; as tipoLista) {
+  @if (perfil?.username; as uname2) {
+    <app-seguimiento-list
+      [username]="uname2"
+      [tipo]="tipoLista!"
+      [esPerfilPropio]="esPerfilPropio"
+      (changed)="onRelacionChange($event)"
+      (close)="cerrarLista()">
+    </app-seguimiento-list>
+  }
+}
