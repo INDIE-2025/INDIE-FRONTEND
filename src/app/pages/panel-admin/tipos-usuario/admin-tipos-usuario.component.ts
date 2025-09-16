@@ -1,5 +1,7 @@
+
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { DataTableComponent, TableColumn, TableAction } from '../../../components/data-table/data-table.component';
 import { Filter, FiltersComponent } from '../../../components/filters/filters.component';
 import { PaginationComponent } from "../../../components/pagination/pagination.component";
@@ -11,7 +13,7 @@ import { AdminUsuariosService } from '../../../services/panel-admin/admin-usuari
 @Component({
   selector: 'admin-tipos-usuario-page',
   standalone: true,
-  imports: [CommonModule, DataTableComponent, PaginationComponent, SearchBarComponent, FiltersComponent, FormSubtypesComponent, FormInputComponent, FormButtonComponent, FormsModule, FormSelectComponent],
+  imports: [DataTableComponent, PaginationComponent, SearchBarComponent, FiltersComponent, FormSubtypesComponent, FormInputComponent, FormButtonComponent, FormsModule, FormSelectComponent],
   templateUrl: "./admin-tipos-usuario.component.html",
   styleUrl: "./admin-tipos-usuario.component.css"
 })

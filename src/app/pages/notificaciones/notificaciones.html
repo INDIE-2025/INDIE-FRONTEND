@@ -1,13 +1,15 @@
 <div class="notificaciones-container">
   <div class="filters-container">
-    <h2>Notificaciones <span class="badge" *ngIf="getNotificationCount() > 0">{{getNotificationCount()}}</span></h2>
+    <h2>Notificaciones @if (getNotificationCount() > 0) {
+      <span class="badge">{{getNotificationCount()}}</span>
+    }</h2>
     <div class="filters">
-      <button 
+      <button
         [class.active]="activeFilter === 'all'"
         (click)="applyFilter('all')">
         Todas
       </button>
-      <button 
+      <button
         [class.active]="activeFilter === 'unread'"
         (click)="applyFilter('unread')">
         No leídas
@@ -16,47 +18,57 @@
     </div>
   </div>
 
-  <div class="loading-container" *ngIf="loading">
-    <div class="spinner"></div>
-    <p>Cargando notificaciones...</p>
-  </div>
-
-  <div class="notifications-list" *ngIf="!loading">
-    <div *ngIf="filteredNotifications.length === 0" class="empty-state">
-      <i class="bi bi-bell-slash"></i>
-      <p>No hay notificaciones {{ activeFilter === 'unread' ? 'sin leer' : '' }}</p>
+  @if (loading) {
+    <div class="loading-container">
+      <div class="spinner"></div>
+      <p>Cargando notificaciones...</p>
     </div>
+  }
 
-    <div 
-      *ngFor="let notification of filteredNotifications" 
-      class="notification-item"
-      [class.unread]="!notification.read"
-      (click)="markAsRead(notification)">
-      
-      <div class="notification-avatar" *ngIf="notification.user">
-        <img [src]="notification.user.avatar || 'assets/avatar-placeholder.svg'" alt="User avatar">
-      </div>
-      <div class="notification-icon" *ngIf="!notification.user">
-        <i class="bi" [ngClass]="getIconForType(notification.type)"></i>
-      </div>
-      
-      <div class="notification-content">
-        <div class="notification-message">
-          <span *ngIf="notification.user" class="user-name">{{notification.user.name}}</span>
-          {{notification.message}}
+  @if (!loading) {
+    <div class="notifications-list">
+      @if (filteredNotifications.length === 0) {
+        <div class="empty-state">
+          <i class="bi bi-bell-slash"></i>
+          <p>No hay notificaciones {{ activeFilter === 'unread' ? 'sin leer' : '' }}</p>
         </div>
-        <div class="notification-time">{{notification.time}}</div>
-      </div>
-      
-      <div class="notification-status" *ngIf="!notification.read">
-        <span class="status-dot"></span>
-      </div>
-      
-      <div class="notification-action">
-        <a [routerLink]="notification.actionUrl">
-          <i class="bi bi-chevron-right"></i>
-        </a>
-      </div>
+      }
+      @for (notification of filteredNotifications; track notification) {
+        <div
+          class="notification-item"
+          [class.unread]="!notification.read"
+          (click)="markAsRead(notification)">
+          @if (notification.user) {
+            <div class="notification-avatar">
+              <img [src]="notification.user.avatar || 'assets/avatar-placeholder.svg'" alt="User avatar">
+            </div>
+          }
+          @if (!notification.user) {
+            <div class="notification-icon">
+              <i class="bi" [ngClass]="getIconForType(notification.type)"></i>
+            </div>
+          }
+          <div class="notification-content">
+            <div class="notification-message">
+              @if (notification.user) {
+                <span class="user-name">{{notification.user.name}}</span>
+              }
+              {{notification.message}}
+            </div>
+            <div class="notification-time">{{notification.time}}</div>
+          </div>
+          @if (!notification.read) {
+            <div class="notification-status">
+              <span class="status-dot"></span>
+            </div>
+          }
+          <div class="notification-action">
+            <a [routerLink]="notification.actionUrl">
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </div>
+        </div>
+      }
     </div>
-  </div>
+  }
 </div>

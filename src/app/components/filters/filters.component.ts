@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 
 export interface FilterOption {
@@ -16,7 +16,7 @@ export interface Filter {
 @Component({
   selector: 'app-filters',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: "./filters.component.html",
   styleUrl: "./filters.component.css"
 })

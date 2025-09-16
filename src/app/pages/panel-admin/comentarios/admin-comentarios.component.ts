@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { AdminLayoutComponent } from '../../../layout/admin-layout/admin-layout.component';
 import { DataTableComponent, TableColumn, TableAction } from '../../../components/data-table/data-table.component';
 
 @Component({
   selector: 'admin-comentarios-page',
   standalone: true,
-  imports: [CommonModule, AdminLayoutComponent, DataTableComponent],
+  imports: [AdminLayoutComponent, DataTableComponent],
   template: `
     <admin-layout>
       <app-data-table

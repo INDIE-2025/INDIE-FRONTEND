@@ -16,8 +16,8 @@ export const routes: Routes = [
     path: '',
     canActivate: [AuthGuard],
     children: [
-      { path: 'profile', component: ProfileComponent }, // Perfil del usuario actual
-      { path: 'profile/:id', component: ProfileComponent }, // Perfil de un usuario específico
+      { path: 'profile', component: ProfileComponent },          
+      { path: 'profile/:username', component: ProfileComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { 
         path: 'home', 
@@ -70,7 +70,7 @@ export const routes: Routes = [
     loadComponent: () => import('./module/auth/login/password-recovery/password-recovery.component').then(m => m.PasswordRecoveryComponent)
   },
   {
-    path: 'new-password/:token',
+    path: 'new-password',
     loadComponent: () => import('./module/auth/login/new-password/new-password.component').then(m => m.NewPasswordComponent)
   },
       

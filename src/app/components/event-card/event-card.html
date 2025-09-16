@@ -6,7 +6,9 @@
   </div>
   <div class="event-img">
     <img [src]="image" [alt]="title" loading="lazy" class="fade-in">
-    <div class="loading-placeholder" *ngIf="!imageLoaded" aria-hidden="true"></div>
+    @if (!imageLoaded) {
+      <div class="loading-placeholder" aria-hidden="true"></div>
+    }
   </div>
   <div class="event-details">
     <h3>{{title}}</h3>

@@ -13,27 +13,27 @@
           <span>Seguidores <strong>3000</strong></span>
           <span>Seguidos <strong>2000</strong></span>
         </div>
-        <div class="links">
-          <a href="#"><img src="assets/icons/youtube.svg" alt="YouTube"></a>
-          <a href="#"><img src="assets/icons/instagram.svg" alt="Instagram"></a>
+        <div class="social-icons">
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-youtube"></i></a>
         </div>
       </div>
     </div>
     <div class="map">
-      <iframe 
+      <iframe
         src="https://www.google.com/maps/embed?pb=!1m18..."
         width="200" height="150" style="border:0;" allowfullscreen="" >
       </iframe>
     </div>
   </section>
-  
+
   <div class="profile-carousel">
     <h3 class="titulo-carousel">Próximos Eventos</h3>
     <app-carousel></app-carousel>
   </div>
   <div class="profile-carousel" style="height: 300px;">
     <h3 class="titulo-carousel">Contenido Digital</h3>
-    <app-galleria></app-galleria> 
+    <app-galleria></app-galleria>
   </div>
     <div class="profile-calendar" style="height: 1000px;">
       <h3 class="titulo-carousel">Calendario</h3>
@@ -41,14 +41,9 @@
     </div>
     <div class="profile-comments">
       <h3 class="titulo-carousel">Comentarios</h3>
-      <!-- Renderizo el componente SOLO cuando ya tengo el id del perfil -->
-      <ng-container *ngIf="perfil?.id as targetId">
-        <app-comments
-          [idUsuarioComentado]="targetId"
-          [idUsuarioComentador]="usuarioActual?.id ?? testerId">
-        </app-comments>
-      </ng-container>
-      <!-- Si no hay perfil cargado aún, no renderizo app-comments (evita ngOnInit sin id) -->
+      @if (perfil?.id; as targetId) {
+        <app-comments [idUsuarioComentado]="targetId"></app-comments>
+      }
 </div>
 
 </div>

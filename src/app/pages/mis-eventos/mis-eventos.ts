@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { EventCard } from '../../components/event-card/event-card';
 import { MisEventosService, Evento } from '../../services/mis-eventos.service';
@@ -9,7 +9,7 @@ import { PublicarEvento } from '../../components/publicar-evento/publicar-evento
 @Component({
   selector: 'app-mis-eventos',
   standalone: true,
-  imports: [CommonModule, RouterModule, EventCard],
+  imports: [RouterModule, EventCard],
   templateUrl: './mis-eventos.html',
   styleUrl: './mis-eventos.scss'
 })

@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
+
 import { NotifyService } from '../../../../core/services/notify.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { NotifyService } from '../../../../core/services/notify.service';
   templateUrl: './password-recovery.component.html',
   styleUrl: './password-recovery.component.scss',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, CommonModule]
+  imports: [ReactiveFormsModule, RouterLink, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule]
 })
 export class PasswordRecoveryComponent implements OnDestroy {
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 
 interface Artist {
@@ -14,7 +14,7 @@ interface Artist {
 @Component({
   selector: 'app-usuarios-seguidos',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   templateUrl: './usuarios-seguidos.html',
   styleUrl: './usuarios-seguidos.scss'
 })

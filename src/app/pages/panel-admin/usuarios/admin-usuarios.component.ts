@@ -1,5 +1,7 @@
+
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { DataTableComponent, TableColumn, TableAction } from '../../../components/data-table/data-table.component';
 import { SearchBarComponent } from '../../../components/search-bar/search-bar.component';
 import { FiltersComponent, Filter } from '../../../components/filters/filters.component';
@@ -16,7 +18,6 @@ interface TipoUsuarioCatalogo extends SelectOption { subtipos: SelectOption[]; }
   selector: 'admin-usuarios-page',
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     SearchBarComponent,
     FiltersComponent,
@@ -24,8 +25,8 @@ interface TipoUsuarioCatalogo extends SelectOption { subtipos: SelectOption[]; }
     PaginationComponent,
     FormInputComponent,
     FormSelectComponent,
-    FormButtonComponent,
-  ],
+    FormButtonComponent
+],
   templateUrl: "./admin-usuarios.component.html",
   styleUrls: ["./admin-usuarios.component.css"]
 })

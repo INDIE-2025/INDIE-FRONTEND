@@ -1,3 +1,4 @@
+@use "sass:color";
 $dark-background: #0e0517;
 $purple-light: #9747ff;
 $light-text: #ffffff;
@@ -33,7 +34,7 @@ $light-text: #ffffff;
     
     button {
       padding: 0.75rem 1.5rem;
-      background-color: lighten($dark-background, 5%);
+      background-color: color.adjust($dark-background, $lightness: 5%);
       color: $light-text;
       border: 1px solid #2c1e3d;
       border-radius: 5px;
@@ -43,7 +44,7 @@ $light-text: #ffffff;
       cursor: pointer;
       
       &:hover {
-        background-color: lighten($dark-background, 8%);
+        background-color: color.adjust($dark-background, $lightness: 8%);
       }
       
       &.active {
@@ -51,7 +52,7 @@ $light-text: #ffffff;
         border-color: $purple-light;
         
         &:hover {
-          background-color: darken($purple-light, 5%);
+          background-color: color.adjust($purple-light, $lightness: -5%);
         }
       }
     }
@@ -73,7 +74,7 @@ $light-text: #ffffff;
       border: none;
       
       &:hover {
-        background-color: darken($purple-light, 10%);
+        background-color: color.adjust($purple-light, $lightness: -10%);
         transform: translateY(-2px);
       }
     }
@@ -115,7 +116,7 @@ $light-text: #ffffff;
       grid-column: 1 / -1;
       text-align: center;
       padding: 3rem 0;
-      background-color: lighten($dark-background, 3%);
+      background-color: color.adjust($dark-background, $lightness: 3%);
       border-radius: 10px;
       
       p {
@@ -147,3 +148,4 @@ $light-text: #ffffff;
     }
   }
 }
+

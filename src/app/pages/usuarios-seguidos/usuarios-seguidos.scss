@@ -1,3 +1,4 @@
+@use "sass:color";
 // Variables
 $purple-primary: #9747ff;
 $purple-dark: #0e0517;
@@ -183,7 +184,7 @@ $success-color: #2ed573;
         background-color: $purple-primary;
         
         &:hover {
-          background-color: darken($purple-primary, 10%);
+          background-color: color.adjust($purple-primary, $lightness: -10%);
         }
       }
       

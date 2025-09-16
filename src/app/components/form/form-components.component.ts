@@ -1,6 +1,6 @@
 
 import { Component, Input, Output, EventEmitter, forwardRef, SecurityContext, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -8,11 +8,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-form-input',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   template: `
     <div class="form-group">
-      <label *ngIf="label" [for]="inputId" class="form-label">{{label}}</label>
-      <input 
+      @if (label) {
+        <label [for]="inputId" class="form-label">{{label}}</label>
+      }
+      <input
         [id]="inputId"
         [type]="type"
         [placeholder]="placeholder"
@@ -22,11 +24,13 @@ import { DomSanitizer } from '@angular/platform-browser';
         (blur)="onBlur()"
         class="form-input"
         [class.error]="hasError">
-      <div *ngIf="hasError && errorMessage" class="error-message">
-        {{errorMessage}}
+        @if (hasError && errorMessage) {
+          <div class="error-message">
+            {{errorMessage}}
+          </div>
+        }
       </div>
-    </div>
-  `,
+    `,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -79,11 +83,13 @@ export class FormInputComponent implements ControlValueAccessor {
 @Component({
   selector: 'app-form-select',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   template: `
     <div class="form-group">
-      <label *ngIf="label" [for]="selectId" class="form-label">{{label}}</label>
-      <select 
+      @if (label) {
+        <label [for]="selectId" class="form-label">{{label}}</label>
+      }
+      <select
         [id]="selectId"
         [disabled]="disabled"
         [ngModel]="value"
@@ -91,16 +97,22 @@ export class FormInputComponent implements ControlValueAccessor {
         class="form-select"
         [class.error]="hasError"
         (ngModelChange)="onChange($event)">
-        <option value="" *ngIf="placeholder">{{placeholder}}</option>
-        <option *ngFor="let option of options" [value]="option.value">
-          {{option.label}}
-        </option>
+        @if (placeholder) {
+          <option value="">{{placeholder}}</option>
+        }
+        @for (option of options; track option) {
+          <option [value]="option.value">
+            {{option.label}}
+          </option>
+        }
       </select>
-      <div *ngIf="hasError && errorMessage" class="error-message">
-        {{errorMessage}}
-      </div>
+      @if (hasError && errorMessage) {
+        <div class="error-message">
+          {{errorMessage}}
+        </div>
+      }
     </div>
-  `,
+    `,
   styleUrls: ['./form-components.component.css']
 })
 export class FormSelectComponent {
@@ -125,7 +137,7 @@ export class FormSelectComponent {
 @Component({
   selector: 'app-form-checkbox',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   template: `
     <div class="checkbox-group">
       <label class="checkbox-container">
@@ -159,18 +171,20 @@ export class FormCheckboxComponent {
 @Component({
   selector: 'app-form-button',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
-    <button 
+    <button
       [type]="type"
       [disabled]="disabled"
       (click)="onClick()"
       [class]="getButtonClass()"
       class="form-button">
-      <i *ngIf="icon" [class]="icon"></i>
+      @if (icon) {
+        <i [class]="icon"></i>
+      }
       <span>{{label}}</span>
     </button>
-  `,
+    `,
   styleUrls: ['./form-components.component.css']
 })
 export class FormButtonComponent {
@@ -198,7 +212,7 @@ export class FormButtonComponent {
 @Component({
   selector: 'app-form-text',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   styles: [`
     .wrap {
       width: 100%;
@@ -244,7 +258,7 @@ export class FormTextComponent {
 @Component({
   selector: 'app-form-svg',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   styles: [`
     .wrap {
       width: 100%;
@@ -302,7 +316,7 @@ export class FormSvgComponent {
 @Component({
   selector: 'app-form-subtypes',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => FormSubtypesComponent),
