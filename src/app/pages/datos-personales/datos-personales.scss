@@ -127,6 +127,36 @@ $danger-color: #ff4757;
       color: $text-light;
     }
 
+    .input-with-icon {
+      position: relative;
+      
+      .social-icon {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.25rem;
+        color: $text-muted;
+        z-index: 1;
+        
+        &.youtube-icon {
+          color: #ff0000;
+        }
+        
+        &.spotify-icon {
+          color: #1DB954;
+        }
+        
+        &.instagram-icon {
+          color: #E1306C;
+        }
+      }
+      
+      input {
+        padding-left: 2.5rem;
+      }
+    }
+
     .form-control {
       border-radius: 8px;
       border: 1px solid #444;
