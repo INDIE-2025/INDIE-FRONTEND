@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
 
@@ -20,8 +20,10 @@ export class EventCard implements OnInit {
   @Input() collaborator: string = '';
   @Input() interested: number = 0;
   @Input() description: string = '';
+  @Output() interestChanged = new EventEmitter<{id: number | string, isInterested: boolean}>();
   
   imageLoaded = false;
+  isInterested = false;
   
   ngOnInit() {
     if (this.image) {
@@ -33,5 +35,22 @@ export class EventCard implements OnInit {
     } else {
       this.imageLoaded = true;
     }
+  }
+  
+  toggleInterest() {
+    this.isInterested = !this.isInterested;
+    
+    // Si está interesado, incrementar el contador, de lo contrario decrementar
+    if (this.isInterested) {
+      this.interested += 1;
+    } else {
+      this.interested = Math.max(0, this.interested - 1);
+    }
+    
+    // Emitir el evento para que el componente padre pueda manejarlo si es necesario
+    this.interestChanged.emit({
+      id: this.id,
+      isInterested: this.isInterested
+    });
   }
 }

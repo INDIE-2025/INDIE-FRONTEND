@@ -140,9 +140,48 @@ $light-text: #ffffff;
       font-weight: 600;
       border-radius: 5px;
       width: 100%;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      
+      i {
+        font-size: 1rem;
+        transition: transform 0.2s ease;
+      }
       
       &:hover {
         background-color: color.adjust($purple-light, $lightness: -10%);
+      }
+      
+      &:active {
+        transform: scale(0.98);
+      }
+      
+      &.interested {
+        background-color: #ff4d8d; // Un color rosado para indicar interés
+        
+        i {
+          transform: scale(1.2);
+          animation: heartBeat 0.4s ease-out;
+        }
+        
+        &:hover {
+          background-color: color.adjust(#ff4d8d, $lightness: -10%);
+        }
+      }
+    }
+    
+    @keyframes heartBeat {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.4);
+      }
+      100% {
+        transform: scale(1.2);
       }
     }
   }

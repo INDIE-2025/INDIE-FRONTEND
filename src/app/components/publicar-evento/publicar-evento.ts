@@ -75,7 +75,8 @@ export class PublicarEvento implements OnInit {
     
     if (!this.currentUserId) {
       // Si no hay usuario logueado, mostramos un mensaje de error
-      this.popupService.show('No se ha detectado un usuario logueado. Por favor inicia sesión para publicar eventos.');
+      // comentado para demo
+      //this.popupService.show('No se ha detectado un usuario logueado. Por favor inicia sesión para publicar eventos.');
       // No asignamos un ID por defecto; bloqueamos acciones que requieren autenticación.
     }
     
@@ -88,7 +89,8 @@ export class PublicarEvento implements OnInit {
     
     this.eventoService.getBorradoresPorUsuario(this.currentUserId).subscribe({
       next: (data) => this.borradores = data,
-      error: () => this.popupService.show('No se pudieron cargar los borradores')
+      // comentado para demo
+      //error: () => this.popupService.show('No se pudieron cargar los borradores')
     });
   }
 

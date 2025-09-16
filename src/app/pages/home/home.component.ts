@@ -204,4 +204,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
       container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   }
+  
+  // Maneja los cambios en el interés de los eventos
+  handleInterestChange(eventData: {id: number | string, isInterested: boolean}): void {
+    console.log(`Usuario ${eventData.isInterested ? 'interesado' : 'ya no interesado'} en evento ID: ${eventData.id}`);
+    
+    // Aquí se puede implementar la lógica para guardar el interés en el backend
+    // Por ejemplo, una llamada a la API para registrar el interés del usuario
+    
+    // También se puede mostrar una notificación o mensaje al usuario
+    // this.showNotification(`Te has ${eventData.isInterested ? 'interesado en' : 'desinteresado de'} este evento`);
+  }
 }

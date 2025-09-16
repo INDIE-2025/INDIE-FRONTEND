@@ -71,7 +71,8 @@
           [creator]="event.creator"
           [collaborator]="event.collaborator"
           [interested]="event.interested"
-          [description]="event.description">
+          [description]="event.description"
+          (interestChanged)="handleInterestChange($event)">
         </app-event-card>
       }
     </div>

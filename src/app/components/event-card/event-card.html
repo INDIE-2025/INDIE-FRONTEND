@@ -26,6 +26,13 @@
       <p>Interesados - {{interested}}</p>
     </div>
     <p class="event-description">{{description}}</p>
-    <button class="btn interest-btn">ME INTERESA</button>
+    <button 
+      class="btn interest-btn"
+      [class.interested]="isInterested"
+      (click)="toggleInterest()"
+    >
+      <i class="bi" [class.bi-heart-fill]="isInterested" [class.bi-heart]="!isInterested"></i>
+      {{isInterested ? 'INTERESADO' : 'ME INTERESA'}}
+    </button>
   </div>
 </div>
