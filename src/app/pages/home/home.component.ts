@@ -183,11 +183,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   // Navigation methods
   exploreEvents(): void {
-    // Navigate to events page
+    const eventsSection = document.getElementById('events-section');
+    if (eventsSection) {
+      eventsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   viewArtists(): void {
-    // Navigate to artists page
+    const artistsSection = document.getElementById('artists-section');
+    if (artistsSection) {
+      artistsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   // Carousel navigation

@@ -38,6 +38,7 @@ section {
   will-change: opacity, transform;
   opacity: 1;
   transform: translateZ(0); // Force hardware acceleration
+  transition: background-color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
