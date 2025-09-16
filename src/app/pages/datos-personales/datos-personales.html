@@ -1,172 +1,309 @@
 <div class="datos-personales-container">
-  <h1 class="section-title">Datos Personales</h1>
-
-  <div class="profile-image-section">
+  <header class="profile-header">
     <div class="profile-image" [style.background-image]="profileImageUrl ? 'url(' + profileImageUrl + ')' : ''">
       @if (!profileImageUrl) {
-        <span>{{getUserInitials()}}</span>
+        <span>{{ getUserInitials() }}</span>
       }
     </div>
-    <div class="profile-image-controls">
-      <button class="btn btn-primary" (click)="triggerFileInput()">Cambiar foto</button>
+    <div class="profile-actions">
+      <button class="btn btn-primary" type="button" (click)="triggerFileInput()">Cambiar foto</button>
       @if (profileImageUrl) {
-        <button class="btn btn-outline" (click)="removeProfilePic()">Eliminar</button>
+        <button class="btn btn-outline" type="button" (click)="removeProfilePic()">Eliminar</button>
       }
       <input type="file" #fileInput (change)="onImageSelected($event)" accept="image/*" hidden>
     </div>
-  </div>
+  </header>
 
   <form [formGroup]="profileForm" (ngSubmit)="saveChanges()" class="profile-form">
-    <div class="form-group">
-      <label for="nombreUsuario">Nombre de usuario</label>
-      <input
-        type="text"
-        id="nombreUsuario"
-        formControlName="nombreUsuario"
-        class="form-control"
-        [class.is-invalid]="submitted && f['nombreUsuario'].errors">
-        @if (submitted && f['nombreUsuario'].errors) {
-          <div class="invalid-feedback">
-            @if (f['nombreUsuario'].errors['required']) {
-              <div>El nombre de usuario es obligatorio</div>
-            }
-          </div>
-        }
-      </div>
-
-      <div class="form-group">
-        <label for="emailUsuario">Correo electrónico</label>
-        <input
-          type="email"
-          id="emailUsuario"
-          formControlName="emailUsuario"
-          class="form-control"
-          [class.is-invalid]="submitted && f['emailUsuario'].errors">
-          @if (submitted && f['emailUsuario'].errors) {
+    <section class="form-section">
+      <h2>Informacion basica</h2>
+      <div class="section-grid">
+        <div class="form-field">
+          <label for="nombreUsuario">Nombre de usuario</label>
+          <input
+            id="nombreUsuario"
+            type="text"
+            formControlName="nombreUsuario"
+            class="form-control"
+            [class.is-invalid]="f['nombreUsuario'].invalid && (submitted || f['nombreUsuario'].touched)"
+          />
+          @if (f['nombreUsuario'].invalid && (submitted || f['nombreUsuario'].touched)) {
             <div class="invalid-feedback">
-              @if (f['emailUsuario'].errors['required']) {
-                <div>El correo electrónico es obligatorio</div>
+              @if (f['nombreUsuario'].errors?.['required']) {
+                <p>El nombre de usuario es obligatorio.</p>
               }
-              @if (f['emailUsuario'].errors['email']) {
-                <div>Ingrese un correo electrónico válido</div>
+              @if (f['nombreUsuario'].errors?.['minlength']) {
+                <p>Debe tener al menos 3 caracteres.</p>
               }
             </div>
           }
         </div>
 
-        <div class="form-group">
-          <label for="bio">Biografía</label>
-          <textarea
-            id="bio"
-            formControlName="bio"
+        <div class="form-field">
+          <label for="apellidoUsuario">Apellido</label>
+          <input
+            id="apellidoUsuario"
+            type="text"
+            formControlName="apellidoUsuario"
             class="form-control"
-          rows="4"></textarea>
+          />
         </div>
 
-        <div class="form-group">
-          <label for="ubicacion">Ubicación</label>
+        <div class="form-field">
+          <label for="emailUsuario">Correo electronico</label>
           <input
-            type="text"
-            id="ubicacion"
-            formControlName="ubicacion"
-            class="form-control">
-          </div>
-
-          <div class="form-group">
-            <label for="sitioWeb">Sitio Web</label>
-            <input
-              type="url"
-              id="sitioWeb"
-              formControlName="sitioWeb"
-              class="form-control"
-              [class.is-invalid]="submitted && f['sitioWeb'].errors">
-              @if (submitted && f['sitioWeb'].errors) {
-                <div class="invalid-feedback">
-                  @if (f['sitioWeb'].errors['pattern']) {
-                    <div>Ingrese una URL válida</div>
-                  }
-                </div>
+            id="emailUsuario"
+            type="email"
+            formControlName="emailUsuario"
+            class="form-control"
+            [class.is-invalid]="f['emailUsuario'].invalid && (submitted || f['emailUsuario'].touched)"
+          />
+          @if (f['emailUsuario'].invalid && (submitted || f['emailUsuario'].touched)) {
+            <div class="invalid-feedback">
+              @if (f['emailUsuario'].errors?.['required']) {
+                <p>El correo electronico es obligatorio.</p>
+              }
+              @if (f['emailUsuario'].errors?.['email']) {
+                <p>Ingresa un correo electronico valido.</p>
               }
             </div>
+          }
+        </div>
 
-            <div class="password-section">
-              <h3>Cambiar contraseña</h3>
-              <div class="form-group">
-                <label for="currentPassword">Contraseña actual</label>
-                <input
-                  type="password"
-                  id="currentPassword"
-                  formControlName="currentPassword"
-                  class="form-control"
-                  [class.is-invalid]="submitted && passwordChangeAttempted && f['currentPassword'].errors">
-                  @if (submitted && passwordChangeAttempted && f['currentPassword'].errors) {
-                    <div class="invalid-feedback">
-                      @if (f['currentPassword'].errors['required']) {
-                        <div>La contraseña actual es obligatoria para cambiarla</div>
-                      }
-                    </div>
-                  }
-                </div>
+        <div class="form-field">
+          <label for="subTipoUsuario">Tipo</label>
+          <input
+            id="subTipoUsuario"
+            type="text"
+            formControlName="subTipoUsuario"
+            class="form-control"
+            placeholder="Productor, musico, etc."
+          />
+        </div>
 
-                <div class="form-group">
-                  <label for="newPassword">Nueva contraseña</label>
-                  <input
-                    type="password"
-                    id="newPassword"
-                    formControlName="newPassword"
-                    class="form-control"
-                    [class.is-invalid]="submitted && passwordChangeAttempted && f['newPassword'].errors">
-                    @if (submitted && passwordChangeAttempted && f['newPassword'].errors) {
-                      <div class="invalid-feedback">
-                        @if (f['newPassword'].errors['minlength']) {
-                          <div>La contraseña debe tener al menos 6 caracteres</div>
-                        }
-                      </div>
-                    }
-                  </div>
+        <div class="form-field form-field--full">
+          <label for="ubicacion">Ubicacion</label>
+          <input
+            id="ubicacion"
+            type="text"
+            formControlName="ubicacion"
+            class="form-control"
+            placeholder="Ciudad, pais"
+          />
+        </div>
+      </div>
+    </section>
 
-                  <div class="form-group">
-                    <label for="confirmPassword">Confirmar nueva contraseña</label>
-                    <input
-                      type="password"
-                      id="confirmPassword"
-                      formControlName="confirmPassword"
-                      class="form-control"
-                      [class.is-invalid]="submitted && passwordChangeAttempted && f['confirmPassword'].errors">
-                      @if (submitted && passwordChangeAttempted && f['confirmPassword'].errors) {
-                        <div class="invalid-feedback">
-                          @if (f['confirmPassword'].errors['matching']) {
-                            <div>Las contraseñas no coinciden</div>
-                          }
-                        </div>
-                      }
-                    </div>
-                  </div>
+    <section class="form-section">
+      <h2>Sobre ti</h2>
+      <div class="section-grid">
+        <div class="form-field form-field--full">
+          <label for="descripcionUsuario">Descripcion</label>
+          <textarea
+            id="descripcionUsuario"
+            rows="5"
+            formControlName="descripcionUsuario"
+            class="form-control"
+            placeholder="Cuentanos un poco sobre ti..."
+          ></textarea>
+        </div>
 
-                  <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                    <button type="button" class="btn btn-outline" (click)="resetForm()">Cancelar</button>
-                  </div>
-                </form>
+        <div class="form-field form-field--full">
+          <label for="sitioWeb">Sitio web</label>
+          <input
+            id="sitioWeb"
+            type="url"
+            formControlName="sitioWeb"
+            class="form-control"
+            [class.is-invalid]="f['sitioWeb'].invalid && (submitted || f['sitioWeb'].touched)"
+            placeholder="https://"
+          />
+          @if (f['sitioWeb'].invalid && (submitted || f['sitioWeb'].touched)) {
+            <div class="invalid-feedback">
+              @if (f['sitioWeb'].errors?.['pattern']) {
+                <p>Ingresa una URL valida.</p>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </section>
 
-                <div class="delete-account-section">
-                  <h3>Eliminar cuenta</h3>
-                  <p>Esta acción es irreversible y eliminará todos tus datos y contenido.</p>
-                  <button class="btn btn-danger" (click)="showDeleteConfirmation()">Eliminar mi cuenta</button>
-                </div>
+    <section class="form-section">
+      <h2>Redes sociales</h2>
+      <div class="section-grid section-grid--three">
+        <div class="form-field">
+          <label for="youtubeUsuario">Canal de YouTube</label>
+          <input
+            id="youtubeUsuario"
+            type="url"
+            formControlName="youtubeUsuario"
+            class="form-control"
+            placeholder="https://youtube.com/..."
+          />
+        </div>
 
-                <!-- Modal de confirmación para eliminar cuenta -->
-                @if (showDeleteModal) {
-                  <div class="modal-backdrop">
-                    <div class="modal-content">
-                      <h2>¿Estás seguro?</h2>
-                      <p>Esta acción eliminará permanentemente tu cuenta y todo tu contenido. No podrás recuperarla.</p>
-                      <div class="modal-actions">
-                        <button class="btn btn-danger" (click)="deleteAccount()">Sí, eliminar mi cuenta</button>
-                        <button class="btn btn-outline" (click)="cancelDelete()">Cancelar</button>
-                      </div>
-                    </div>
-                  </div>
-                }
-              </div>
+        <div class="form-field">
+          <label for="spotifyUsuario">Perfil de Spotify</label>
+          <input
+            id="spotifyUsuario"
+            type="url"
+            formControlName="spotifyUsuario"
+            class="form-control"
+            placeholder="https://open.spotify.com/..."
+          />
+        </div>
+
+        <div class="form-field">
+          <label for="instagramUsuario">Instagram</label>
+          <input
+            id="instagramUsuario"
+            type="url"
+            formControlName="instagramUsuario"
+            class="form-control"
+            placeholder="https://instagram.com/..."
+          />
+        </div>
+      </div>
+    </section>
+
+    
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">Guardar cambios</button>
+      <button type="button" class="btn btn-outline" (click)="resetForm()">Cancelar</button>
+    </div>
+  </form>
+
+  <form [formGroup]="passwordForm" (ngSubmit)="changePassword()" class="profile-form">
+  <section class="form-section">
+      <h2>Seguridad</h2>
+      <p class="section-helper">Completa los campos solo si deseas actualizar tu contraseña.</p>
+      <div class="section-grid section-grid--three">
+        <div class="form-field">
+          <label for="currentPassword">Contraseña actual</label>
+          <div class="password-input">
+            <span class="password-icon" aria-hidden="true"></span>
+            <input
+              id="currentPassword"
+              [type]="showCurrentPassword ? 'text' : 'password'"
+              formControlName="currentPassword"
+              class="form-control"
+              [class.is-invalid]="pf['currentPassword'].invalid && (passwordSubmitted || pf['currentPassword'].touched)"
+            />
+            <button
+              type="button"
+              class="toggle-password"
+              (click)="togglePasswordVisibility('current')"
+              [attr.aria-pressed]="showCurrentPassword"
+            >
+              <span class="sr-only">{{ showCurrentPassword ? 'Ocultar contrasena actual' : 'Mostrar contrasena actual' }}</span>
+            </button>
+          </div>
+          @if (pf['currentPassword'].invalid && (passwordSubmitted || pf['currentPassword'].touched)) {
+            <div class="invalid-feedback">
+              @if (pf['currentPassword'].errors?.['required']) {
+                <p>La contraseña actual es obligatoria para cambiarla.</p>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="newPassword">Nueva contrasena</label>
+          <div class="password-input">
+            <span class="password-icon" aria-hidden="true"></span>
+            <input
+              id="newPassword"
+              [type]="showNewPassword ? 'text' : 'password'"
+              formControlName="newPassword"
+              class="form-control"
+              [class.is-invalid]="pf['newPassword'].invalid && (passwordSubmitted || pf['newPassword'].touched)"
+            />
+            <button
+              type="button"
+              class="toggle-password"
+              (click)="togglePasswordVisibility('new')"
+              [attr.aria-pressed]="showNewPassword"
+            >
+              <span class="sr-only">{{ showNewPassword ? 'Ocultar nueva contrasena' : 'Mostrar nueva contrasena' }}</span>
+            </button>
+          </div>
+          @if (pf['newPassword'].invalid && (passwordSubmitted || pf['newPassword'].touched)) {
+            <div class="invalid-feedback">
+              @if (pf['newPassword'].errors?.['minlength']) {
+                <p>Debe tener al menos 6 caracteres.</p>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="confirmPassword">Confirmar nueva contrasena</label>
+          <div class="password-input">
+            <span class="password-icon" aria-hidden="true"></span>
+            <input
+              id="confirmPassword"
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              formControlName="confirmPassword"
+              class="form-control"
+              [class.is-invalid]="pf['confirmPassword'].invalid && (passwordSubmitted || pf['confirmPassword'].touched)"
+            />
+            <button
+              type="button"
+              class="toggle-password"
+              (click)="togglePasswordVisibility('confirm')"
+              [attr.aria-pressed]="showConfirmPassword"
+            >
+              <span class="sr-only">{{ showConfirmPassword ? 'Ocultar contrasena confirmada' : 'Mostrar contrasena confirmada' }}</span>
+            </button>
+          </div>
+          @if (pf['confirmPassword'].invalid && (passwordSubmitted || pf['confirmPassword'].touched)) {
+            <div class="invalid-feedback">
+              @if (pf['confirmPassword'].errors?.['matching']) {
+                <p>Las contrasenas no coinciden.</p>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="passwordForm.invalid">Actualizar contrasena</button>
+      <button type="button" class="btn btn-outline" (click)="resetForm('Password')">Cancelar</button>
+    </div>
+    </form>
+
+  <section class="delete-account">
+    <h2>Eliminar cuenta</h2>
+    <p>Esta accion es irreversible y eliminara todos tus datos y contenido.</p>
+    <button type="button" class="btn btn-danger" (click)="showDeleteConfirmation()">Eliminar mi cuenta</button>
+  </section>
+
+  @if (showDeleteModal) {
+    <div class="modal-backdrop">
+      <div class="modal-content">
+        <h2>Estas seguro?</h2>
+        <p>Esta accion eliminara permanentemente tu cuenta y todo tu contenido. No podras recuperarla.</p>
+        <div class="modal-actions">
+          <button class="btn btn-danger" type="button" (click)="deleteAccount()">Si, eliminar mi cuenta</button>
+          <button class="btn btn-outline" type="button" (click)="cancelDelete()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
