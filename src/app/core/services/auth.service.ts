@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { tap, delay, catchError } from 'rxjs/operators';
 import { of, Observable, BehaviorSubject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { SubTipoUsuario } from '../models/subTipoUsuario.model';
 
 interface DecodedToken {
   sub: string; // email del usuario
@@ -135,4 +136,10 @@ export class AuthService {
       newPassword 
     });
   }
+
+  getSubTipoUsuario(): Observable<SubTipoUsuario[]> {
+  return this.http.get<SubTipoUsuario[]>(`${this.apiUrl}/sub-tipo-todos`);
+}
+
+
 }

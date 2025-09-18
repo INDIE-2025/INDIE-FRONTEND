@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NotifyService } from '../../../core/services/notify.service';
+import { SubTipoUsuario } from '../../../core/models/subTipoUsuario.model';
 
 @Component({
   selector: 'app-register',
@@ -22,6 +23,8 @@ export class RegisterComponent implements OnInit {
   registerForm: any;
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
+  subTiposUsuario: SubTipoUsuario[] = [];
+  tiposUsuario: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -32,14 +35,25 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
-      nombreUsuario: ['', [Validators.required]],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+      nombreUsuario: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern('^[a-zA-ZÀ-ÿ\\s]+$')]],
       emailUsuario: ['', [Validators.required, Validators.email]],
       tipoUsuario: ['', [Validators.required]],
       subtipoUsuario: [''], 
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')]],
       confirmPassword: ['', [Validators.required]],
       acceptTerms: [false, [Validators.requiredTrue]]
+    }, { validators: this.passwordMatchValidator });
+
+    this.auth.getSubTipoUsuario().subscribe({
+      next: (data) => {
+        this.subTiposUsuario = data;
+        this.tiposUsuario = Array.from(new Set(data.map(stu => stu.nombreTipoUsuario)));
+        console.log('SubTipos de Usuario cargados:', this.subTiposUsuario);
+      },
+      error: (err) => {
+        console.error('Error al cargar SubTipos de Usuario:', err);
+      }
     });
 
     // Escuchar cambios en tipoUsuario para manejar la validación de subtipoUsuario
@@ -83,13 +97,9 @@ export class RegisterComponent implements OnInit {
         nombreUsuario: this.registerForm.value.nombreUsuario,
         emailUsuario: this.registerForm.value.emailUsuario,
         tipoUsuario: this.registerForm.value.tipoUsuario,
-        subtipoUsuario: this.registerForm.value.subtipoUsuario,
+        subTipoUsuarioId: this.subTiposUsuario.find(stu => stu.nombreSubTipoUsuario === this.registerForm.value.subtipoUsuario)?.id || null,
         password: this.registerForm.value.password
       };
-
-      if(formData.tipoUsuario == 'fan' || formData.tipoUsuario == 'establecimiento'){
-        formData.subtipoUsuario = formData.tipoUsuario; // Asignar valor por defecto si no es artista
-      }
 
       this.auth.register(formData).subscribe({
         next: () => {
