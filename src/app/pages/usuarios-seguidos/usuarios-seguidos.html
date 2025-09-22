@@ -4,58 +4,89 @@
   <div class="search-bar">
     <input
       type="text"
-      placeholder="Buscar artistas..."
+      placeholder="Buscar usuarios seguidos..."
       (input)="search($event)"
       [value]="searchTerm"
       class="search-input">
-      <i class="bi bi-search search-icon"></i>
+    <i class="bi bi-search search-icon"></i>
+  </div>
+
+  <!-- Loading state -->
+  @if (loading) {
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <p>Cargando usuarios seguidos...</p>
     </div>
+  }
 
-    <!-- Loading state -->
-    @if (loading) {
-      <div class="loading-spinner">
-        <div class="spinner"></div>
-        <p>Cargando artistas...</p>
-      </div>
-    }
+  <!-- No results -->
+  @if (!loading && filteredUsuarios.length === 0) {
+    <div class="no-results">
+      <i class="bi bi-person-plus"></i>
+      @if (searchTerm) {
+        <p>No se encontraron usuarios que coincidan con "<strong>{{searchTerm}}</strong>"</p>
+      }
+      @if (!searchTerm && usuariosSeguidos.length === 0) {
+        <p>No sigues a ningún usuario aún</p>
+        <small>Explora perfiles y comienza a seguir usuarios</small>
+      }
+    </div>
+  }
 
-    <!-- No results -->
-    @if (!loading && filteredArtists.length === 0) {
-      <div class="no-results">
-        <i class="bi bi-person-slash"></i>
-        @if (searchTerm) {
-          <p>No se encontraron artistas que coincidan con "<strong>{{searchTerm}}</strong>"</p>
-        }
-        @if (!searchTerm && followedArtists.length === 0) {
-          <p>No sigues a ningún artista aún</p>
-        }
-      </div>
-    }
-
-    <!-- Artist Grid -->
-    @if (!loading && filteredArtists.length > 0) {
-      <div class="artist-grid">
-        @for (artist of filteredArtists; track artist) {
-          <div
-            class="artist-card"
-            [class.unfollowing]="!artist.isFollowing">
-            <div class="artist-image" [routerLink]="['/profile', artist.id]">
-              <img [src]="artist.image" [alt]="artist.name">
+  <!-- Followed Users List -->
+  @if (!loading && filteredUsuarios.length > 0) {
+    <div class="followed-users-list">
+      @for (usuario of filteredUsuarios; track usuario.id || usuario.username) {
+        <div class="followed-user-card">
+          <div class="user-info">
+            <div class="avatar">
+              {{ (usuario.nombreUsuario?.[0] || usuario.username?.[0] || 'U') }}
             </div>
-            <div class="artist-info">
-              <h3 [routerLink]="['/profile', artist.id]">{{artist.name}}</h3>
-              <p class="genre">{{artist.genre}}</p>
-              <p class="followers">{{artist.followers}} seguidores</p>
-              <button
-                class="btn follow-button"
-                [class.following]="artist.isFollowing"
-                (click)="toggleFollow(artist)">
-                <i class="bi" [class.bi-person-check-fill]="artist.isFollowing" [class.bi-person-dash]="!artist.isFollowing"></i>
-                {{artist.isFollowing ? 'Siguiendo' : 'Dejar de seguir'}}
+            <div class="info">
+              <div class="name">{{ usuario.nombreUsuario }} {{ usuario.apellidoUsuario }}</div>
+              <div class="username">@{{ usuario.username || usuario.emailUsuario }}</div>
+              <div class="status">
+                <i class="bi bi-person-check"></i>
+                <span>Siguiendo</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <div class="action-buttons">
+              <button 
+                class="btn btn-outline" 
+                (click)="dejarDeSeguir(usuario)"
+                [disabled]="usuario.cargando">
+                @if (usuario.cargando) {
+                  <span class="spinner-small"></span>
+                  Dejando de seguir...
+                }
+                @if (!usuario.cargando) {
+                  <i class="bi bi-person-dash"></i>
+                  Dejar de seguir
+                }
+              </button>
+              <button 
+                class="btn btn-danger" 
+                (click)="bloquear(usuario)"
+                [disabled]="usuario.cargando">
+                @if (usuario.cargando) {
+                  <span class="spinner-small"></span>
+                }
+                @if (!usuario.cargando) {
+                  <i class="bi bi-person-x"></i>
+                  Bloquear
+                }
               </button>
             </div>
           </div>
-        }
-      </div>
-    }
-  </div>
+        </div>
+      }
+    </div>
+  }
+
+  @if (errorMsg) {
+    <div class="error-message">{{ errorMsg }}</div>
+  }
+</div>

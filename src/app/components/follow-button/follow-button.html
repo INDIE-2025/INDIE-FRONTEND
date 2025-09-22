@@ -1,6 +1,16 @@
-<button *ngIf="estado==='no-siguiendo'" (click)="onSeguir()" class="btn btn-primary" [disabled]="cargando">Seguir</button>
-  <button *ngIf="estado==='siguiendo'" (click)="onDejarDeSeguir()" class="btn btn-outline" [disabled]="cargando">Dejar de seguir</button>
-  <span *ngIf="estado==='bloqueado'" class="badge">Bloqueado</span>
-  <button *ngIf="estado==='bloqueado'" (click)="onDesbloquear()" class="btn btn-unblock" [disabled]="cargando">Desbloquear</button>
-  <span *ngIf="cargando" class="spinner"></span>
-  <small *ngIf="errorMsg" class="error">{{ errorMsg }}</small>
+@if (estado === 'no-siguiendo') {
+  <button (click)="onSeguir()" class="btn btn-primary" [disabled]="cargando">Seguir</button>
+}
+@if (estado === 'siguiendo') {
+  <button (click)="onDejarDeSeguir()" class="btn btn-outline" [disabled]="cargando">Dejar de seguir</button>
+}
+@if (estado === 'bloqueado') {
+  <span class="badge">Bloqueado</span>
+  <button (click)="onDesbloquear()" class="btn btn-unblock" [disabled]="cargando">Desbloquear</button>
+}
+@if (cargando) {
+  <span class="spinner"></span>
+}
+@if (errorMsg) {
+  <small class="error">{{ errorMsg }}</small>
+}

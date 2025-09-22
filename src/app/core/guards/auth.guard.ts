@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service';
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
   // For development purposes - change to false in production
-  private bypassAuthForDevelopment = true;
+  private bypassAuthForDevelopment = false; // ← CAMBIAR A FALSE
   
   constructor(private auth: AuthService, private router: Router) {}
 

@@ -1,0 +1,113 @@
+<div class="seguidores-container">
+  <h1 class="section-title">Mis Seguidores</h1>
+
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Buscar seguidores..."
+      (input)="search($event)"
+      [value]="searchTerm"
+      class="search-input">
+    <i class="bi bi-search search-icon"></i>
+  </div>
+
+  <!-- Loading state -->
+  @if (loading) {
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <p>Cargando seguidores...</p>
+    </div>
+  }
+
+  <!-- No results -->
+  @if (!loading && filteredSeguidores.length === 0) {
+    <div class="no-results">
+      <i class="bi bi-people"></i>
+      @if (searchTerm) {
+        <p>No se encontraron seguidores que coincidan con "<strong>{{searchTerm}}</strong>"</p>
+      }
+      @if (!searchTerm && seguidores.length === 0) {
+        <p>Aún no tienes seguidores</p>
+      }
+    </div>
+  }
+
+  <!-- Followers List -->
+  @if (!loading && filteredSeguidores.length > 0) {
+    <div class="followers-list">
+      @for (seguidor of filteredSeguidores; track seguidor.id || seguidor.username) {
+        <div class="follower-card">
+          <div class="follower-info">
+            <div class="avatar">
+              {{ (seguidor.nombreUsuario?.[0] || seguidor.username?.[0] || 'U') }}
+            </div>
+            <div class="info">
+              <div class="name">{{ seguidor.nombreUsuario }} {{ seguidor.apellidoUsuario }}</div>
+              <div class="username">@{{ seguidor.username || seguidor.emailUsuario }}</div>
+            </div>
+          </div>
+
+          <div class="actions">
+            @if (seguidor.verificando) {
+              <div class="spinner-small"></div>
+            }
+            
+            @if (!seguidor.verificando) {
+              <!-- Si me sigue pero yo no lo sigo: mostrar botón Seguir -->
+              @if (!seguidor.sigueDeVuelta) {
+                <button 
+                  class="btn btn-primary" 
+                  (click)="seguir(seguidor)"
+                  [disabled]="seguidor.cargando">
+                  @if (seguidor.cargando) {
+                    <span class="spinner-small"></span>
+                  }
+                  @if (!seguidor.cargando) {
+                    Seguir
+                  }
+                </button>
+              }
+              
+              <!-- Si es seguimiento mutuo: mostrar botones Dejar de seguir y Bloquear -->
+              @if (seguidor.sigueDeVuelta) {
+                <div class="action-buttons">
+                  <button 
+                    class="btn btn-outline" 
+                    (click)="dejarDeSeguir(seguidor)"
+                    [disabled]="seguidor.cargando">
+                    @if (seguidor.cargando) {
+                      <span class="spinner-small"></span>
+                    }
+                    @if (!seguidor.cargando) {
+                      Dejar de seguir
+                    }
+                  </button>
+                  <button 
+                    class="btn btn-danger" 
+                    (click)="bloquear(seguidor)"
+                    [disabled]="seguidor.cargando">
+                    Bloquear
+                  </button>
+                </div>
+              }
+              
+              <!-- Botón bloquear siempre disponible para cualquier seguidor -->
+              @if (!seguidor.sigueDeVuelta) {
+                <button 
+                  class="btn btn-danger btn-small" 
+                  (click)="bloquear(seguidor)"
+                  [disabled]="seguidor.cargando">
+                  Bloquear
+                </button>
+              }
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  @if (errorMsg) {
+    <div class="error-message">{{ errorMsg }}</div>
+  }
+</div>

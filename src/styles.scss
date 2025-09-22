@@ -125,3 +125,40 @@ body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; }
   }
 }
 
+// CSS Custom Properties for consistent theming
+:root {
+  // Primary colors
+  --color-primary: #9c27b0;
+  --color-primary-rgb: 156, 39, 176;
+  --color-primary-light: #d05bfb;
+  --color-primary-dark: #7b1fa2;
+  --color-secondary: #673ab7;
+  --color-secondary-light: #7e57c2;
+  --color-secondary-dark: #4527a0;
+
+  // Text colors
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-muted: rgba(255, 255, 255, 0.5);
+
+  // Background colors
+  --color-background: #0e0517;
+  --color-background-card: rgba(255, 255, 255, 0.05);
+  --color-background-hover: rgba(255, 255, 255, 0.1);
+
+  // Status colors
+  --color-success: #4caf50;
+  --color-success-dark: #388e3c;
+  --color-warning: #ff9800;
+  --color-warning-dark: #f57c00;
+  --color-error: #f44336;
+  --color-error-rgb: 244, 67, 54;
+  --color-error-dark: #d32f2f;
+  --color-error-light: rgba(244, 67, 54, 0.1);
+  --color-info: #2196f3;
+  --color-info-dark: #1976d2;
+
+  // Border colors
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-border-light: rgba(255, 255, 255, 0.08);
+}
