@@ -5,25 +5,32 @@
 <button class="close" (click)="close.emit()">✕</button>
 </header>
 
+@if (loading) {
+  <div class="loading">Cargando...</div>
+}
+@if (!loading) {
+  <ul class="list">
+    @for (u of usuarios; track u.id || u.username || u.emailUsuario) {
+      <li class="item">
+        <div class="avatar">{{ (u.nombreUsuario?.[0] || u.username?.[0] || 'U') }}</div>
+        <div class="info">
+          <div class="name">{{ u.nombreUsuario }} {{ u.apellidoUsuario }}</div>
+          <div class="username">@{{ u.username || u.emailUsuario }}</div>
+        </div>
+        <div class="actions">
+          @if (esPerfilPropio) {
+            <div>
+              <button class="btn" (click)="dejarDeSeguir(u)">Dejar de seguir</button>
+              <button class="btn btn-danger" (click)="bloquear(u)">Bloquear</button>
+            </div>
+          }
+        </div>
+      </li>
+    }
+  </ul>
+}
 
-<div *ngIf="loading" class="loading">Cargando...</div>
-<ul *ngIf="!loading" class="list">
-<li *ngFor="let u of usuarios" class="item">
-<div class="avatar">{{ (u.nombreUsuario?.[0] || u.username?.[0] || 'U') }}</div>
-<div class="info">
-<div class="name">{{ u.nombreUsuario }} {{ u.apellidoUsuario }}</div>
-<div class="username">@{{ u.username || u.emailUsuario }}</div>
-</div>
-<div class="actions">
-<!-- Botones solo visibles si es el perfil propio -->
-<div *ngIf="esPerfilPropio">
-  <button class="btn" (click)="dejarDeSeguir(u)">Dejar de seguir</button>
-  <button class="btn btn-danger" (click)="bloquear(u)">Bloquear</button>
-</div>
-</div>
-</li>
-</ul>
-
-
-<small *ngIf="errorMsg" class="error">{{ errorMsg }}</small>
+@if (errorMsg) {
+  <small class="error">{{ errorMsg }}</small>
+}
 </div>

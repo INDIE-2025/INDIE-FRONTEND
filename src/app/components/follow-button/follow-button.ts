@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SeguimientoService } from '../../services/seguimiento.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -41,21 +42,55 @@ export class FollowButtonComponent implements OnInit {
   onSeguir() {
     this.cargando = true; this.errorMsg = '';
     this.segSrv.seguir(this.perfilUsername).subscribe({
-      next: () => { this.cargando = false; this.refrescar(); this.changed.emit('follow');},
-      error: (e) => { this.cargando = false; this.errorMsg = e?.error?.error || 'No se pudo seguir'; }
+      next: () => { 
+        this.cargando = false; 
+        this.refrescar(); 
+        this.changed.emit('follow');
+      },
+      error: (e) => { 
+        this.cargando = false; 
+        this.errorMsg = e?.error?.error || 'No se pudo seguir'; 
+      }
     });
   }
 
 
-  onDejarDeSeguir() {
-    this.cargando = true; this.errorMsg = '';
+  async onDejarDeSeguir() {
+    // Confirmación con SweetAlert
+    const { isConfirmed } = await Swal.fire({
+      title: '¿Dejar de seguir?',
+      text: `¿Estás seguro de que quieres dejar de seguir a ${this.perfilUsername}?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, dejar de seguir',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#dc3545'
+    });
+
+    if (!isConfirmed) return;
+
+    this.cargando = true; 
+    this.errorMsg = '';
     this.segSrv.dejarDeSeguir(this.perfilUsername).subscribe({
       next: () => { this.cargando = false; this.refrescar(); this.changed.emit('unfollow');},
       error: (e) => { this.cargando = false; this.errorMsg = e?.error?.error || 'No se pudo dejar de seguir'; }
     });
   }
 
-  onDesbloquear() {
+  async onDesbloquear() {
+    // Confirmación con SweetAlert
+    const { isConfirmed } = await Swal.fire({
+      title: '¿Desbloquear usuario?',
+      text: `¿Estás seguro de que quieres desbloquear a ${this.perfilUsername}?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, desbloquear',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#28a745'
+    });
+
+    if (!isConfirmed) return;
+
     this.cargando = true; this.errorMsg = '';
     this.segSrv.desbloquear(this.perfilUsername).subscribe({
       next: () => { this.cargando = false; this.refrescar(); this.changed.emit('unblock');},

@@ -1,5 +1,44 @@
 <app-popup-message [message]="popupMessage" [visible]="popupVisible"></app-popup-message>
-<div class="profile-page">
+
+
+@if (cargandoPerfil) {
+  <div class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Cargando perfil...</p>
+  </div>
+}
+
+@else if (perfilBloqueado) {
+  <div class="blocked-profile-container">
+    <div class="blocked-icon">
+      <i class="bi bi-shield-exclamation"></i>
+    </div>
+    <h2>Perfil no disponible</h2>
+    <p class="blocked-message">{{ errorPerfil }}</p>
+    <button class="btn-back" (click)="volverAtras()">
+      <i class="bi bi-arrow-left"></i>
+      Volver atrás
+    </button>
+  </div>
+}
+
+@else if (errorPerfil && !perfil) {
+  <div class="error-container">
+    <div class="error-icon">
+      <i class="bi bi-exclamation-triangle"></i>
+    </div>
+    <h2>Error al cargar perfil</h2>
+    <p class="error-message">{{ errorPerfil }}</p>
+    <button class="btn-retry" (click)="reintentar()">
+      <i class="bi bi-arrow-clockwise"></i>
+      Reintentar
+    </button>
+  </div>
+}
+
+
+@else {
+  <div class="profile-page">
   <!-- Header perfil -->
   <section class="profile-header">
     <div class="profile-info">
@@ -27,6 +66,23 @@
                   [perfilUsername]="uname"
                   (changed)="onRelacionChange($event)">
                 </app-follow-button>
+                
+                <!-- Menú de opciones -->
+                <div class="options-menu">
+                  <button class="options-btn" (click)="toggleOptionsMenu(); $event.stopPropagation()">
+                    <i class="bi bi-three-dots"></i>
+                  </button>
+                  @if (showOptionsMenu) {
+                    <div class="dropdown-menu">
+                      @if (seguimientoData?.bloqueado !== true) {
+                        <button class="dropdown-item danger" (click)="onBloquear(uname)">
+                          <i class="bi bi-shield-x"></i>
+                          Bloquear usuario
+                        </button>
+                      }
+                    </div>
+                  }
+                </div>
               </div>
             }
           }
@@ -66,14 +122,14 @@
     <app-calendar></app-calendar>
   </div>
 
-  <div class="profile-comments">
-    <h3 class="titulo-carousel">Comentarios</h3>
-    @if (perfil?.id; as targetId) {
-      <app-comments [idUsuarioComentado]="targetId"></app-comments>
-    }
+    <div class="profile-comments">
+      <h3 class="titulo-carousel">Comentarios</h3>
+      @if (perfil?.id; as targetId) {
+        <app-comments [idUsuarioComentado]="targetId"></app-comments>
+      }
+    </div>
   </div>
-</div>
-
+}
 
 @if (listaAbierta; as tipoLista) {
   @if (perfil?.username; as uname2) {

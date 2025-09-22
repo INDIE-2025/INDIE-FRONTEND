@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, timeout, catchError, of } from 'rxjs';
 
 
 export interface UsuarioBasico {
@@ -49,4 +49,29 @@ return this.http.get<{ seguidos: UsuarioBasico[]; totalSeguidos: number }>(`${th
 estadisticas(username: string): Observable<{ totalSeguidores: number; totalSeguidos: number }> {
 return this.http.get<{ totalSeguidores: number; totalSeguidos: number }>(`${this.baseUrl}/estadisticas/${username}`);
 }
+
+// Obtener lista de usuarios bloqueados
+usuariosBloqueados(): Observable<{ usuariosBloqueados: UsuarioBasico[]; totalBloqueados: number }> {
+const url = `${this.baseUrl}/bloqueados`;
+return this.http.get<{ usuariosBloqueados: UsuarioBasico[]; totalBloqueados: number }>(url).pipe(
+  timeout(10000), // 10 segundos de timeout
+  catchError(error => {
+    // Si el endpoint no existe o hay error, retornar lista vacía
+    if (error.status === 404) {
+      return of({ usuariosBloqueados: [], totalBloqueados: 0 });
+    } else if (error.status === 0) {
+      // Error de red o CORS - servidor no disponible
+    } else if (error.name === 'TimeoutError') {
+      // Timeout - el servidor tardó más de 10 segundos en responder
+    }
+    
+    throw error;
+  })
+);
+}
+
+// MÉTODO SIMPLIFICADO: Ya no necesario porque el backend maneja la verificación automáticamente
+// El método verificar() ya devuelve la información de bloqueo necesaria
+// Los endpoints de perfil y estadísticas devuelven 403 automáticamente si hay bloqueo
+
 }

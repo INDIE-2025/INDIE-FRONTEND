@@ -1,0 +1,89 @@
+<div class="usuarios-bloqueados-container">
+  <h1 class="section-title">Usuarios Bloqueados</h1>
+
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Buscar usuarios bloqueados..."
+      (input)="search($event)"
+      [value]="searchTerm"
+      class="search-input">
+    <i class="bi bi-search search-icon"></i>
+  </div>
+
+  <!-- Loading state -->
+  @if (loading) {
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <p>Cargando usuarios bloqueados...</p>
+      <small>Si esto tarda mucho, puede que el servidor no esté disponible</small>
+    </div>
+  }
+
+  <!-- No results -->
+  @if (!loading && filteredUsuarios.length === 0) {
+    <div class="no-results">
+      <i class="bi bi-person-x"></i>
+      @if (searchTerm) {
+        <p>No se encontraron usuarios bloqueados que coincidan con "<strong>{{searchTerm}}</strong>"</p>
+      }
+      @if (!searchTerm && usuariosBloqueados.length === 0) {
+        <p>No tienes usuarios bloqueados</p>
+        <small>Los usuarios que bloquees aparecerán aquí</small>
+      }
+    </div>
+  }
+
+  <!-- Blocked Users List -->
+  @if (!loading && filteredUsuarios.length > 0) {
+    <div class="blocked-users-list">
+      @for (usuario of filteredUsuarios; track usuario.id || usuario.username) {
+        <div class="blocked-user-card">
+          <div class="user-info">
+            <div class="avatar">
+              {{ (usuario.nombreUsuario?.[0] || usuario.username?.[0] || 'U') }}
+            </div>
+            <div class="info">
+              <div class="name">{{ usuario.nombreUsuario }} {{ usuario.apellidoUsuario }}</div>
+              <div class="username">@{{ usuario.username || usuario.emailUsuario }}</div>
+              <div class="status">
+                <i class="bi bi-person-x"></i>
+                <span>Bloqueado</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button 
+              class="btn btn-unblock" 
+              (click)="desbloquear(usuario)"
+              [disabled]="usuario.cargando">
+              @if (usuario.cargando) {
+                <span class="spinner-small"></span>
+                Desbloqueando...
+              }
+              @if (!usuario.cargando) {
+                <i class="bi bi-unlock"></i>
+                Desbloquear
+              }
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  @if (errorMsg) {
+    <div class="error-message">
+      <i class="bi bi-exclamation-triangle"></i>
+      <div class="error-content">
+        <h3>Error al cargar usuarios bloqueados</h3>
+        <p>{{ errorMsg }}</p>
+        <button class="btn btn-primary" (click)="cargarUsuariosBloqueados()">
+          <i class="bi bi-arrow-clockwise"></i>
+          Reintentar
+        </button>
+      </div>
+    </div>
+  }
+</div>

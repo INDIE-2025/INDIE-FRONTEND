@@ -16,7 +16,7 @@ export class UserService {
   }
 
   /** Trae el usuario según el token (principal del JWT) */
-  fetchMe(): Observable<Usuario> {
+    fetchMe(): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiUrl}/me`);
   }
 

@@ -30,6 +30,16 @@ export const routes: Routes = [
             { path: '', redirectTo: 'datos-personales', pathMatch: 'full' },
             { path: 'datos-personales', component: DatosPersonales, title: 'Datos Personales' },
             { path: 'usuarios-seguidos', component: UsuariosSeguidos, title: 'Usuarios Seguidos' },
+            { 
+              path: 'seguidores', 
+              loadComponent: () => import('./pages/seguidores/seguidores').then(m => m.SeguidoresComponent), 
+              title: 'Seguidores' 
+            },
+            { 
+              path: 'usuarios-bloqueados', 
+              loadComponent: () => import('./pages/usuarios-bloqueados/usuarios-bloqueados').then(m => m.UsuariosBloqueadosComponent), 
+              title: 'Usuarios Bloqueados' 
+            },
             { path: 'notificaciones', component: Notificaciones, title: 'Notificaciones' },
             { path: 'reportes', component: Reportes, title: 'Reportes' }
         ] },
