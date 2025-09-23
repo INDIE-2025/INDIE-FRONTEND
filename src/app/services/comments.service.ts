@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environments';
 
 export interface ComentarioDTO {
   idComentario?: string;              
@@ -12,7 +13,7 @@ export interface ComentarioDTO {
 
 @Injectable({ providedIn: 'root' })
 export class CommentsService {
-  private apiUrl = 'http://localhost:8080/api/comentario';
+  private apiUrl = `${environment.apiUrl}/api/comentario`;
   constructor(private http: HttpClient) {}
 
   traerComentariosDeUnUsuario(idUsuarioComentado: string): Observable<ComentarioDTO[]> {

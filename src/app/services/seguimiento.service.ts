@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, timeout, catchError, of } from 'rxjs';
+import { environment } from '../../environments/environments';
 
 
 export interface UsuarioBasico {
@@ -17,7 +18,7 @@ export interface VerificacionSeguimiento { sigue: boolean; bloqueado: boolean; }
 
 @Injectable({ providedIn: 'root' })
 export class SeguimientoService {
-private baseUrl = 'http://localhost:8080/api/seguimiento';
+private baseUrl = `${environment.apiUrl}/api/seguimiento`;
 
 
 constructor(private http: HttpClient) {}

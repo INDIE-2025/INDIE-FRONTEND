@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environments';
 
 @Injectable({ providedIn: 'root' })
 export class EventoService {
-  private readonly baseApiUrl = 'http://localhost:8080/api/eventos'; // Cambia el puerto si tu backend usa otro
+  private readonly baseApiUrl = `${environment.apiUrl}/api/eventos`; // Cambia el puerto si tu backend usa otro
 
   constructor(private http: HttpClient) {}
 
