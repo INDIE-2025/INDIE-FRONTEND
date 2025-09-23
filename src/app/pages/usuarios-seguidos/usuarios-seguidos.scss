@@ -1,4 +1,4 @@
-@import '../../_variables.scss';
+@use '../../_variables' as *;
 
 .usuarios-seguidos-container {
   padding: 2rem;

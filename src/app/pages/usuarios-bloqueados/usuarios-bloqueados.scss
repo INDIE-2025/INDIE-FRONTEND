@@ -1,4 +1,4 @@
-@import '../../_variables.scss';
+@use '../../_variables' as *;
 
 .usuarios-bloqueados-container {
   padding: 2rem;
