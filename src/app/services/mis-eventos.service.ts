@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { environment } from '../../environments/environments';
 
 export interface Evento {
   id: number | string;
@@ -20,7 +21,7 @@ export interface Evento {
   providedIn: 'root'
 })
 export class MisEventosService {
-  private readonly baseApiUrl = 'http://localhost:8080/api/eventos';
+  private readonly baseApiUrl = `${environment.apiUrl}/api/eventos`;
 
   constructor(private http: HttpClient) {}
 

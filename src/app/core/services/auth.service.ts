@@ -4,6 +4,7 @@ import { tap, delay, catchError } from 'rxjs/operators';
 import { of, Observable, BehaviorSubject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { SubTipoUsuario } from '../models/subTipoUsuario.model';
+import { environment } from '../../../environments/environments';
 
 interface DecodedToken {
   sub: string; // email del usuario
@@ -22,7 +23,7 @@ interface UserDetails {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/auth';
+  private apiUrl = `${environment.apiUrl}/api/auth`;
   private jwtHelper = new JwtHelperService();
   private currentUserSubject = new BehaviorSubject<UserDetails | null>(this.getUserFromToken());
   
