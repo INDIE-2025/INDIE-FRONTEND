@@ -4,7 +4,7 @@ import { tap, delay, catchError } from 'rxjs/operators';
 import { of, Observable, BehaviorSubject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { SubTipoUsuario } from '../models/subTipoUsuario.model';
-import { environment } from '../../../environments/environments';
+import { environment } from '../../../environments/environment';
 
 interface DecodedToken {
   sub: string; // email del usuario
