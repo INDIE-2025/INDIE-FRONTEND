@@ -1,0 +1,58 @@
+<div class="chat-container">
+  <!-- Sidebar: lista de chats -->
+  <div class="sidebar">
+    <button type="button" (click)="reload()">Recargar</button>
+
+    @if (facade.chats$ | async; as chats) {
+      @if (chats.length === 0) {
+        <div>No tienes chats</div>
+      } @else {
+        <ul>
+          @for (c of chats; track c.chatId) {
+            <li (click)="open(c.chatId)" [class.active]="(facade.activeChatId$.value) === c.chatId">
+              <div>
+                <b>{{ c.otherUsername || c.otherUserId || 'Chat' }}</b>
+                @if ((c.unreadCount || 0) > 0) {
+                  (<span>{{ c.unreadCount }}</span>)
+                }
+              </div>
+              <small>{{ c.lastMessage || '' }}</small>
+            </li>
+          }
+        </ul>
+      }
+    } @else {
+      <div>Cargando chats…</div>
+    }
+  </div>
+
+  <!-- Panel de mensajes del chat activo -->
+  <div class="messages" (scroll)="onScroll($event)">
+    @if (facade.activeChatId$.value; as activeId) {
+      @if (facade.messages$ | async; as msgs) {
+        @for (m of msgs; track m.id) {
+          <div class="msg" [class.me]="isMine(m)" [class.other]="!isMine(m)">
+            <span class="meta">{{ m.createdAt | date:'HH:mm' }}</span>
+            <span class="text">{{ m.mensaje }}</span>
+          </div>
+        }
+      }
+
+      @if (facade.typing$ | async) {
+        <div class="typing">El otro usuario está escribiendo…</div>
+      }
+
+      <form (submit)="$event.preventDefault(); send()">
+        <input
+          [(ngModel)]="text"
+          name="message"
+          (input)="onTyping()"
+          placeholder="Escribe un mensaje"
+        />
+        <button type="button" (click)="send()">Enviar</button>
+      </form>
+    } @else {
+      <div>Selecciona un chat para comenzar</div>
+    }
+  </div>
+</div>

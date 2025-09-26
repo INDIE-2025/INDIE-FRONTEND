@@ -9,7 +9,6 @@
     "test": "ng test",
     "build:prod": "ng build --configuration=production",
     "serve:prod": "ng serve --configuration=production"
-
   },
   "prettier": {
     "overrides": [
@@ -39,10 +38,12 @@
     "@fullcalendar/interaction": "^6.1.19",
     "@fullcalendar/timegrid": "^6.1.19",
     "@primeuix/themes": "^1.2.3",
+    "@stomp/stompjs": "^7.0.0",
     "fullcalendar": "^6.1.19",
     "primeicons": "^7.0.0",
     "primeng": "^20.0.1",
     "rxjs": "~7.8.0",
+    "sockjs-client": "^1.6.1",
     "sweetalert2": "^11.23.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
@@ -52,6 +53,7 @@
     "@angular/cli": "^20.1.3",
     "@angular/compiler-cli": "^20.1.7",
     "@types/jasmine": "~5.1.0",
+    "@types/sockjs-client": "^1.5.4",
     "jasmine-core": "~5.8.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

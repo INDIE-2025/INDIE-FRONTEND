@@ -280,3 +280,12 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+.btn-chat{
+  margin-left:8px;
+  background:#4b4bff;
+  color:white;
+  border:none;
+  border-radius:6px;
+  padding:6px 10px;
+  cursor:pointer;
+}

@@ -126,6 +126,22 @@
   @include auth.form-field;
 }
 
+// Estilo de mensajes de error debajo de los campos
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  .mat-mdc-form-field-error,
+  .error-message {
+    color: auth.$error-color !important;
+    font-size: 0.82rem;
+    line-height: 1.2;
+    letter-spacing: 0.2px;
+  }
+}
+
+// Evitar duplicados: oculta errores renderizados fuera del mat-form-field
+.form-group > .error-message {
+  display: none;
+}
+
 // Estilos específicos para select
 ::ng-deep .mat-mdc-select-panel {
   background-color: #2d2d2d !important;
