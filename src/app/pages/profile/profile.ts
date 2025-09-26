@@ -14,6 +14,7 @@ import { SeguimientoService } from '../../services/seguimiento.service';
 import { FollowButtonComponent } from "../../components/follow-button/follow-button";
 import { SeguimientoListComponent } from '../../components/seguimiento-list/seguimiento-list';
 import Swal from 'sweetalert2';
+import { ChatApiService } from '../../core/services/chat-api.service';
 
 
 @Component({
@@ -58,7 +59,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private segSrv: SeguimientoService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private chatApi: ChatApiService
   ) {}
 
   // Listener para cerrar menú al hacer clic fuera
@@ -261,6 +263,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(['/home']);
     }
+  }
+
+  iniciarChat(): void {
+    const otherId = this.perfil?.id;
+    if (!otherId) return;
+    this.chatApi.getOrCreateDirectChat(otherId).subscribe({
+      next: (chat) => {
+        this.router.navigate(['/chat'], { queryParams: { open: chat.id } });
+      },
+      error: (e) => {
+        console.error('No se pudo iniciar chat', e);
+      }
+    });
   }
 
   reintentar(): void {
