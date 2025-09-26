@@ -29,6 +29,10 @@
   <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <script>
+    // Shim para librerías que esperan 'global' (sockjs-client -> browser-crypto)
+    window.global = window.global || window;
+  </script>
 </head>
 <body>
   <app-root></app-root>

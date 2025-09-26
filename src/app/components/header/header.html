@@ -15,7 +15,7 @@
         <app-filter></app-filter>
         <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"/>
         <button class="btn" type="submit"><i class="bi bi-search"></i></button>
-        <button class="btn btn-primary position-relative">
+        <button class="btn btn-primary position-relative" type="button">
           <i class="bi bi-bell">
           <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill">
             99+
@@ -24,13 +24,16 @@
           </i>
         </button>
         <app-dropdown></app-dropdown>
-        <button class="btn btn-primary position-relative">
-          <i class="bi bi-chat">
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill">
-            99+
-            <span class="visually-hidden">unread messages</span>
-          </span>
-          </i>
+        <button class="btn btn-primary position-relative" type="button" [routerLink]="['/chat']" routerLinkActive="active">
+          <i class="bi bi-chat"></i>
+          @if (chatFacade.unreadTotal$ | async; as unread) {
+            @if (unread > 0) {
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                {{ unread }}
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            }
+          }
         </button>
       </form>
     </div>

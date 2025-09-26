@@ -23,6 +23,11 @@ export const routes: Routes = [
         path: 'home', 
         loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent)
       },
+      {
+        path: 'chat',
+        loadComponent: () => import('./pages/chat/chat.component').then(m => m.ChatComponent),
+        title: 'Chat'
+      },
       { path: 'configuracion-profile', 
         component: ConfiguracionProfile,
         title: 'Configuración de Perfil',

@@ -31,44 +31,32 @@
               <mat-label>Usuario</mat-label>
               <mat-icon matPrefix class="icon">person</mat-icon>
               <input matInput type="text" formControlName="username" placeholder="Tu nombre de usuario" class="custom-placeholder">
+              @if((registerForm.get('username')?.touched || registerForm.get('username')?.dirty) && registerForm.get('username')?.hasError('required')) {
+                <mat-error class="error-message">El nombre de usuario es obligatorio.</mat-error>
+              }
+              @if((registerForm.get('username')?.touched || registerForm.get('username')?.dirty) && registerForm.get('username')?.hasError('minlength')) {
+                <mat-error class="error-message">El nombre de usuario debe tener al menos 3 caracteres.</mat-error>
+              }
+              @if((registerForm.get('username')?.touched || registerForm.get('username')?.dirty) && registerForm.get('username')?.hasError('maxlength')) {
+                <mat-error class="error-message">El nombre de usuario no puede exceder los 20 caracteres.</mat-error>
+              }
             </mat-form-field>
-            @if(registerForm.get('username')?.errors?.['required']) {
-              <mat-error class="error-message">
-                El nombre de usuario es obligatorio.
-              </mat-error>
-            }
-            @if(registerForm.get('username')?.errors?.['minlength']) {
-              <mat-error class="error-message">
-                El nombre de usuario debe tener al menos 3 caracteres.
-              </mat-error>
-            }
-            @if(registerForm.get('username')?.errors?.['maxlength']) {
-              <mat-error class="error-message">
-                El nombre de usuario no puede exceder los 20 caracteres.
-              </mat-error>
-            }
           </div>
           <div class="form-group">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Nombre</mat-label>
               <mat-icon matPrefix class="icon">badge</mat-icon>
               <input matInput type="text" formControlName="nombreUsuario" placeholder="Tu nombre" class="custom-placeholder">
+              @if((registerForm.get('nombreUsuario')?.touched || registerForm.get('nombreUsuario')?.dirty) && registerForm.get('nombreUsuario')?.hasError('required')) {
+                <mat-error class="error-message">El nombre es obligatorio.</mat-error>
+              }
+              @if((registerForm.get('nombreUsuario')?.touched || registerForm.get('nombreUsuario')?.dirty) && registerForm.get('nombreUsuario')?.hasError('minlength')) {
+                <mat-error class="error-message">El nombre debe tener al menos 3 caracteres.</mat-error>
+              }
+              @if((registerForm.get('nombreUsuario')?.touched || registerForm.get('nombreUsuario')?.dirty) && registerForm.get('nombreUsuario')?.hasError('maxlength')) {
+                <mat-error class="error-message">El nombre no puede exceder los 50 caracteres.</mat-error>
+              }
             </mat-form-field>
-            @if(registerForm.get('nombreUsuario')?.errors?.['required']) {
-              <mat-error class="error-message">
-                El nombre es obligatorio.
-              </mat-error>
-            }
-            @if(registerForm.get('nombreUsuario')?.errors?.['minlength']) {
-              <mat-error class="error-message">
-                El nombre debe tener al menos 3 caracteres.
-              </mat-error>
-            }
-            @if(registerForm.get('nombreUsuario')?.errors?.['maxlength']) {
-              <mat-error class="error-message">
-                El nombre no puede exceder los 50 caracteres.
-              </mat-error>
-            }
           </div>
           
           <!-- Segunda fila: Email - Tipo Usuario -->
@@ -77,6 +65,12 @@
               <mat-label>Email</mat-label>
               <mat-icon matPrefix class="icon">email</mat-icon>
               <input matInput type="email" formControlName="emailUsuario" placeholder="tu@email.com" class="custom-placeholder">
+              @if((registerForm.get('emailUsuario')?.touched || registerForm.get('emailUsuario')?.dirty) && registerForm.get('emailUsuario')?.hasError('required')) {
+                <mat-error class="error-message">El email es obligatorio.</mat-error>
+              }
+              @if((registerForm.get('emailUsuario')?.touched || registerForm.get('emailUsuario')?.dirty) && registerForm.get('emailUsuario')?.hasError('email')) {
+                <mat-error class="error-message">Formato de email inválido. Ejemplo: usuario@ejemplo.com</mat-error>
+              }
             </mat-form-field>
             @if(registerForm.get('emailUsuario')?.errors?.['required']) {
               <mat-error class="error-message">
@@ -98,6 +92,9 @@
                   <mat-option [value]="tipo">{{ tipo }}</mat-option>
                 }
               </mat-select>
+              @if((registerForm.get('tipoUsuario')?.touched || registerForm.get('tipoUsuario')?.dirty) && registerForm.get('tipoUsuario')?.hasError('required')) {
+                <mat-error class="error-message">Debe seleccionar un tipo de usuario.</mat-error>
+              }
             </mat-form-field>
           </div>
         </div>
@@ -114,6 +111,9 @@
                 }
               }
             </mat-select>
+            @if(registerForm.get('tipoUsuario')?.value === 'artista' && (registerForm.get('subtipoUsuario')?.touched || registerForm.get('subtipoUsuario')?.dirty) && registerForm.get('subtipoUsuario')?.hasError('required')) {
+              <mat-error class="error-message">Debe seleccionar un subtipo de usuario.</mat-error>
+            }
           </mat-form-field>
         </div>
 
@@ -127,6 +127,15 @@
               <button mat-icon-button matSuffix type="button" (click)="togglePassword()" aria-label="Toggle password visibility">
                 <mat-icon>{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
+              @if((registerForm.get('password')?.touched || registerForm.get('password')?.dirty) && registerForm.get('password')?.hasError('required')) {
+                <mat-error class="error-message">La contraseña es obligatoria.</mat-error>
+              }
+              @if((registerForm.get('password')?.touched || registerForm.get('password')?.dirty) && registerForm.get('password')?.hasError('minlength')) {
+                <mat-error class="error-message">La contraseña debe tener al menos 8 caracteres.</mat-error>
+              }
+              @if((registerForm.get('password')?.touched || registerForm.get('password')?.dirty) && registerForm.get('password')?.hasError('pattern')) {
+                <mat-error class="error-message">La contraseña debe incluir al menos una letra mayúscula, una minúscula, un número y un carácter especial.</mat-error>
+              }
             </mat-form-field>
             @if(registerForm.get('password')?.errors?.['required']) {
               <mat-error class="error-message">
@@ -152,6 +161,12 @@
               <button mat-icon-button matSuffix type="button" (click)="toggleConfirmPassword()" aria-label="Toggle confirm password visibility">
                 <mat-icon>{{showConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
+              @if((registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty) && registerForm.get('confirmPassword')?.hasError('required')) {
+                <mat-error class="error-message">Debes repetir la contraseña.</mat-error>
+              }
+              @if((registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty) && (registerForm.get('confirmPassword')?.hasError('passwordMismatch') || registerForm.errors?.['passwordMismatch'])) {
+                <mat-error class="error-message">Las contraseñas no coinciden.</mat-error>
+              }
             </mat-form-field>
             @if(registerForm.get('confirmPassword')?.errors?.['required']) {
               <mat-error class="error-message">
